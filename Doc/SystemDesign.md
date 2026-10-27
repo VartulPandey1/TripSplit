@@ -1,6 +1,7 @@
 # System Design Document
 
 **Project:** TripSplit — Collaborative Group Travel Organizer & Budgeting PWA  
+**Version:** 1.0.0  
 **Architecture Style:** Modular Monolith (Next.js 16 App Router)  
 **Target Cost:** $0/month (Free-Tier Production Stack)
 

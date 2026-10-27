@@ -1,6 +1,7 @@
 # API Design Document (Next.js Serverless Routes)
 
 **Project:** TripSplit  
+**Version:** 1.0.0  
 **Architecture:** Next.js 16 App Router (Node.js & Turbopack Serverless Functions)  
 **Authentication:** NextAuth.js v5 (Auth.js) Bearer JWT Session Tokens  
 **Security:** Edge Proxy Rate Limiting via `proxy.ts`

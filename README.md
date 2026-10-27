@@ -289,9 +289,10 @@ Contributions, ideas, and feature requests are welcome!
 3. Review [SECURITY.md](SECURITY.md) to report vulnerabilities responsibly.
 
 ### 🗺️ Upcoming Roadmap
+- [x] Export trip expenses, ledger breakdown, and settle-up reports to CSV.
+- [ ] Export formatted trip expense reports to PDF.
 - [ ] Real-time multi-currency live exchange rate updates via OpenExchangeRates API.
 - [ ] Receipt OCR scanning with Gemini Vision API to parse restaurant itemized bills.
-- [ ] Export trip expenses and settle-up reports to PDF / CSV.
 - [ ] Push notifications for new budget guesses and settle-up reminders.
 
 ---
