@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [1.1.2] - 2026-10-27
+
+### 🎨 Clean Tab-Driven Financial Cards & Dynamic Subview Switching
+- **Single Contextual KPI Card**: Replaced the static dual-card grid under Expenses with a single, high-clarity contextual card that updates dynamically based on the active tab:
+  - **Group Ledger Tab**: Displays **Total Group Expenses** with collective spend across all members, total shared entries count, and your upfront contribution.
+  - **Personal Balance Tab**: Displays **Your Net Balance** with bold color-coded financial standing (owed vs owe vs squared up), plain-English explanations, and To Pay / To Get totals.
+  - **Private Spends Tab**: Displays **Your Private Spends** with solo out-of-pocket totals, privacy guarantees, and private target progress tracking.
+- **Top-Level Intuitive Navigation Tabs**: Elevated subview tabs (`Personal Balance`, `Group Ledger`, `Private Spends`) to the top of the Expenses section, ensuring clear visual hierarchy and eliminating redundant nested headers.
+- **De-cluttered List Containers**: Standardized clean transaction feeds across all three expense subviews without repeated metric banners.
+
+---
+
 ## [1.1.1] - 2026-10-27
 
 ### 🎨 Mobile UX & Layout Optimization
