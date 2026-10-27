@@ -1290,11 +1290,11 @@ export default function MoneyClient({
       {activeView === 'expenses' && (
         <>
           {/* KPI Cards: Total Expenses & Your Net Position (Interactive quick jump) */}
-          <div className="grid grid-cols-2 gap-3 sm:gap-4 mb-4">
+          <div className="grid grid-cols-2 gap-2.5 sm:gap-4 mb-3 sm:mb-4">
             <button
               type="button"
               onClick={() => setExpenseSubView('ledger')}
-              className="text-left rounded-2xl sm:rounded-3xl p-4 sm:p-5 transition-all cursor-pointer hover:border-[#4a6454]"
+              className="text-left rounded-2xl sm:rounded-3xl p-3 sm:p-5 transition-all cursor-pointer hover:border-[#4a6454]"
               style={{
                 backgroundColor: '#ffffff',
                 border: expenseSubView === 'ledger' ? '1.5px solid #4a6454' : '1px solid var(--color-border)',
@@ -1307,10 +1307,10 @@ export default function MoneyClient({
                 </p>
                 <span className="text-[10px] font-semibold text-[#4a6454]">📜 Ledger</span>
               </div>
-              <p className="text-xl sm:text-2xl font-bold font-mono" style={{ color: '#1a1e1c' }}>
+              <p className="text-lg sm:text-2xl font-bold font-mono" style={{ color: '#1a1e1c' }}>
                 {formatMoney(totalSharedSpend, currency)}
               </p>
-              <p className="text-[0.6875rem] mt-1" style={{ color: 'rgba(26,30,28,0.45)' }}>
+              <p className="text-[0.6875rem] mt-1 hidden sm:block" style={{ color: 'rgba(26,30,28,0.45)' }}>
                 {sharedExpenses.length} logged • Click to view
               </p>
             </button>
@@ -1318,7 +1318,7 @@ export default function MoneyClient({
             <button
               type="button"
               onClick={() => setExpenseSubView('personal')}
-              className="text-left rounded-2xl sm:rounded-3xl p-4 sm:p-5 transition-all cursor-pointer hover:border-[#4a6454]"
+              className="text-left rounded-2xl sm:rounded-3xl p-3 sm:p-5 transition-all cursor-pointer hover:border-[#4a6454]"
               style={{
                 backgroundColor: '#ffffff',
                 border: expenseSubView === 'personal' ? '1.5px solid #4a6454' : '1px solid var(--color-border)',
@@ -1332,7 +1332,7 @@ export default function MoneyClient({
                 <span className="text-[10px] font-semibold text-[#4a6454]">👤 You</span>
               </div>
               <p
-                className="text-xl sm:text-2xl font-bold font-mono"
+                className="text-lg sm:text-2xl font-bold font-mono"
                 style={{
                   color: netSharedPosition > 0.01 ? '#15803d' : netSharedPosition < -0.01 ? '#ba1a1a' : '#7e9a88',
                 }}
@@ -1343,18 +1343,18 @@ export default function MoneyClient({
                   ? `-${formatMoney(Math.abs(netSharedPosition), currency)}`
                   : `${getCurrencySymbol(currency)}0`}
               </p>
-              <p className="text-[0.6875rem] mt-1" style={{ color: 'rgba(26,30,28,0.45)' }}>
+              <p className="text-[0.6875rem] mt-1 hidden sm:block" style={{ color: 'rgba(26,30,28,0.45)' }}>
                 {netSharedPosition > 0.01 ? 'You are owed' : netSharedPosition < -0.01 ? 'You owe money' : 'All squared up'} • Click to view
               </p>
             </button>
           </div>
 
           {/* Subview Navigation Pills inside Expenses: Personal Expense (Default) vs Group Ledger vs Private Spends */}
-          <div className="flex bg-[#e8ece9] p-1 rounded-2xl mb-5 text-xs sm:text-sm font-semibold">
+          <div className="flex bg-[#e8ece9] p-1 rounded-2xl mb-4 sm:mb-5 text-xs sm:text-sm font-semibold">
             <button
               type="button"
               onClick={() => setExpenseSubView('personal')}
-              className="flex-1 py-2 px-3 rounded-xl transition-all cursor-pointer flex items-center justify-center gap-1.5"
+              className="flex-1 py-1.5 sm:py-2 px-2 sm:px-3 rounded-xl transition-all cursor-pointer flex items-center justify-center gap-1 sm:gap-1.5"
               style={{
                 backgroundColor: expenseSubView === 'personal' ? '#ffffff' : 'transparent',
                 color: expenseSubView === 'personal' ? '#183124' : 'rgba(26,30,28,0.6)',
@@ -1362,9 +1362,9 @@ export default function MoneyClient({
               }}
             >
               <span>👤</span>
-              <span>Personal Expense</span>
+              <span>Personal<span className="hidden sm:inline"> Expense</span></span>
               {myLedgerTransactions.length > 0 && (
-                <span className="text-[0.625rem] font-bold px-1.5 py-0.5 rounded-full bg-[#ccead5] text-[#183124]">
+                <span className="text-[0.625rem] font-bold px-1.5 py-0.2 sm:py-0.5 rounded-full bg-[#ccead5] text-[#183124]">
                   {myLedgerTransactions.length}
                 </span>
               )}
@@ -1372,7 +1372,7 @@ export default function MoneyClient({
             <button
               type="button"
               onClick={() => setExpenseSubView('ledger')}
-              className="flex-1 py-2 px-3 rounded-xl transition-all cursor-pointer flex items-center justify-center gap-1.5"
+              className="flex-1 py-1.5 sm:py-2 px-2 sm:px-3 rounded-xl transition-all cursor-pointer flex items-center justify-center gap-1 sm:gap-1.5"
               style={{
                 backgroundColor: expenseSubView === 'ledger' ? '#ffffff' : 'transparent',
                 color: expenseSubView === 'ledger' ? '#183124' : 'rgba(26,30,28,0.6)',
@@ -1380,9 +1380,9 @@ export default function MoneyClient({
               }}
             >
               <span>📜</span>
-              <span>Group Ledger</span>
+              <span><span className="sm:hidden">Ledger</span><span className="hidden sm:inline">Group Ledger</span></span>
               {sharedExpenses.length > 0 && (
-                <span className="text-[0.625rem] font-bold px-1.5 py-0.5 rounded-full bg-[#ccead5] text-[#183124]">
+                <span className="text-[0.625rem] font-bold px-1.5 py-0.2 sm:py-0.5 rounded-full bg-[#ccead5] text-[#183124]">
                   {sharedExpenses.length}
                 </span>
               )}
@@ -1390,7 +1390,7 @@ export default function MoneyClient({
             <button
               type="button"
               onClick={() => setExpenseSubView('private-spends')}
-              className="flex-1 py-2 px-3 rounded-xl transition-all cursor-pointer flex items-center justify-center gap-1.5"
+              className="flex-1 py-1.5 sm:py-2 px-2 sm:px-3 rounded-xl transition-all cursor-pointer flex items-center justify-center gap-1 sm:gap-1.5"
               style={{
                 backgroundColor: expenseSubView === 'private-spends' ? '#ffffff' : 'transparent',
                 color: expenseSubView === 'private-spends' ? '#183124' : 'rgba(26,30,28,0.6)',
@@ -1398,9 +1398,9 @@ export default function MoneyClient({
               }}
             >
               <span>🔒</span>
-              <span>Private Spends</span>
+              <span>Private<span className="hidden sm:inline"> Spends</span></span>
               {myPersonalExpenses.length > 0 && (
-                <span className="text-[0.625rem] font-bold px-1.5 py-0.5 rounded-full bg-[#ccead5] text-[#183124]">
+                <span className="text-[0.625rem] font-bold px-1.5 py-0.2 sm:py-0.5 rounded-full bg-[#ccead5] text-[#183124]">
                   {myPersonalExpenses.length}
                 </span>
               )}
@@ -1410,29 +1410,29 @@ export default function MoneyClient({
           {/* SUBVIEW 1: PERSONAL EXPENSE (User's Personal Share & Receivables) -> DEFAULT! */}
           {expenseSubView === 'personal' && (
             <div
-              className="rounded-3xl p-4 sm:p-6 mb-6"
+              className="rounded-2xl sm:rounded-3xl p-3 sm:p-6 mb-4 sm:mb-6"
               style={{
                 backgroundColor: '#ffffff',
                 border: '1px solid var(--color-border)',
                 boxShadow: '0 4px 20px -2px rgba(26,30,28,0.04)',
               }}
             >
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4 pb-3 border-b border-[#f1f4f1]">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 sm:gap-3 mb-3 sm:mb-4 pb-2.5 sm:pb-3 border-b border-[#f1f4f1]">
                 <div>
                   <h2
-                    className="text-base font-semibold flex items-center gap-2"
+                    className="text-sm sm:text-base font-semibold flex items-center gap-2"
                     style={{ fontFamily: 'var(--font-heading)', color: 'var(--color-charcoal)' }}
                   >
                     <span>👤</span>
                     <span>Personal Expense Share</span>
                   </h2>
-                  <p className="text-xs text-gray-500 mt-0.5">
+                  <p className="text-xs text-gray-500 mt-0.5 hidden sm:block">
                     Your personal share of group expenses — what you owe in red, what you get back in green
                   </p>
                 </div>
 
                 <div className="flex items-center gap-2">
-                  <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-[#f1f4f1] text-gray-600">
+                  <span className="text-[11px] sm:text-xs font-semibold px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-full bg-[#f1f4f1] text-gray-600">
                     {myLedgerTransactions.length} {myLedgerTransactions.length === 1 ? 'item' : 'items'}
                   </span>
                   <button
@@ -1441,7 +1441,7 @@ export default function MoneyClient({
                       setExpenseType('shared');
                       setShowAddModal(true);
                     }}
-                    className="bg-[#4a6454] hover:bg-[#3d5345] text-white text-xs font-semibold rounded-xl px-3 py-1.5 shadow-2xs flex items-center gap-1 cursor-pointer transition-all active:scale-95"
+                    className="hidden sm:flex bg-[#4a6454] hover:bg-[#3d5345] text-white text-xs font-semibold rounded-xl px-3 py-1.5 shadow-2xs items-center gap-1 cursor-pointer transition-all active:scale-95"
                   >
                     <span>+</span>
                     <span>Add Expense</span>
@@ -1527,7 +1527,16 @@ export default function MoneyClient({
                               <span className="text-xs sm:text-sm font-semibold text-[#181c1a] truncate">
                                 {tx.expense.description}
                               </span>
-                              <span className="text-[10px] sm:text-[11px] text-[#424843] truncate mt-0.5">
+                              {/* Concise mobile subline: minimum detail required */}
+                              <span className="text-[10px] text-[#424843] truncate mt-0.5 sm:hidden">
+                                {isOwe ? (
+                                  <span>Paid by <strong className="text-[#181c1a]">{tx.payerName}</strong> • {date}</span>
+                                ) : (
+                                  <span>You paid • {date}</span>
+                                )}
+                              </span>
+                              {/* Full desktop detailed subline: 100% unchanged */}
+                              <span className="hidden sm:inline text-[11px] text-[#424843] truncate mt-0.5">
                                 {isOwe ? (
                                   <span>
                                     Paid by <strong className="text-[#181c1a]">{tx.payerName}</strong> ({formatMoney(tx.expense.amount, currency)}) •{' '}
@@ -1545,7 +1554,7 @@ export default function MoneyClient({
                             </div>
                           </div>
 
-                          <div className="flex items-center gap-1.5 shrink-0 pl-2 text-right">
+                          <div className="flex items-center gap-1 sm:gap-1.5 shrink-0 pl-2 text-right">
                             {isOwe ? (
                               <div className="flex flex-col items-end">
                                 <span className="text-xs sm:text-sm font-bold font-mono text-[#ba1a1a]">
@@ -1565,6 +1574,7 @@ export default function MoneyClient({
                                 </span>
                               </div>
                             )}
+                            <span className="text-gray-300 sm:hidden text-xs font-bold ml-1">›</span>
                           </div>
                         </div>
                       );
@@ -1572,64 +1582,66 @@ export default function MoneyClient({
                   </div>
 
                   {/* Bottom Total Card: Red for to pay, Green for to get, Total Net Balance */}
-                  <div className="bg-[#f7faf6] rounded-2xl p-4 sm:p-5 border border-[#e4e5e0] shadow-2xs">
-                    <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4">
-                      <div className="flex items-center gap-4 sm:gap-6">
+                  <div className="bg-[#f7faf6] rounded-2xl p-3 sm:p-5 border border-[#e4e5e0] shadow-2xs">
+                    <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 sm:gap-4">
+                      <div className="flex items-center justify-between sm:justify-start gap-4 sm:gap-6">
                         <div>
                           <span className="text-[10px] sm:text-xs font-bold text-gray-500 uppercase tracking-wider block">
                             Total To Pay
                           </span>
-                          <span className="text-base sm:text-xl font-bold font-mono text-[#ba1a1a]">
+                          <span className="text-sm sm:text-xl font-bold font-mono text-[#ba1a1a]">
                             -{formatMoney(totalToPay, currency)}
                           </span>
-                          <span className="text-[10px] text-gray-400 block">your share owed</span>
+                          <span className="text-[10px] text-gray-400 hidden sm:block">your share owed</span>
                         </div>
 
                         <div className="border-l border-gray-200 pl-4 sm:pl-6">
                           <span className="text-[10px] sm:text-xs font-bold text-gray-500 uppercase tracking-wider block">
                             Total To Get
                           </span>
-                          <span className="text-base sm:text-xl font-bold font-mono text-[#2e7d32]">
+                          <span className="text-sm sm:text-xl font-bold font-mono text-[#2e7d32]">
                             +{formatMoney(totalToGet, currency)}
                           </span>
-                          <span className="text-[10px] text-gray-400 block">receivable from group</span>
+                          <span className="text-[10px] text-gray-400 hidden sm:block">receivable from group</span>
                         </div>
                       </div>
 
-                      <div className="sm:text-right border-t sm:border-t-0 sm:border-l border-gray-200 pt-3 sm:pt-0 sm:pl-6">
+                      <div className="sm:text-right border-t sm:border-t-0 sm:border-l border-gray-200 pt-2.5 sm:pt-0 sm:pl-6 flex items-center justify-between sm:block">
                         <span className="text-[10px] sm:text-xs font-bold text-gray-500 uppercase tracking-wider block">
                           Net Balance
                         </span>
-                        <span
-                          className={`text-lg sm:text-2xl font-extrabold font-mono ${
-                            netSharedPosition < -0.01
-                              ? 'text-[#ba1a1a]'
+                        <div className="flex items-center gap-2 sm:block">
+                          <span
+                            className={`text-base sm:text-2xl font-extrabold font-mono ${
+                              netSharedPosition < -0.01
+                                ? 'text-[#ba1a1a]'
+                                : netSharedPosition > 0.01
+                                ? 'text-[#2e7d32]'
+                                : 'text-[#4a6454]'
+                            }`}
+                          >
+                            {netSharedPosition < -0.01
+                              ? `-${formatMoney(Math.abs(netSharedPosition), currency)}`
                               : netSharedPosition > 0.01
-                              ? 'text-[#2e7d32]'
-                              : 'text-[#4a6454]'
-                          }`}
-                        >
-                          {netSharedPosition < -0.01
-                            ? `-${formatMoney(Math.abs(netSharedPosition), currency)}`
-                            : netSharedPosition > 0.01
-                            ? `+${formatMoney(netSharedPosition, currency)}`
-                            : `${getCurrencySymbol(currency)}0`}
-                        </span>
-                        <span
-                          className={`inline-block text-[10px] font-bold px-2 py-0.5 rounded-full mt-1 ${
-                            netSharedPosition < -0.01
-                              ? 'bg-[#ffdad6] text-[#ba1a1a]'
+                              ? `+${formatMoney(netSharedPosition, currency)}`
+                              : `${getCurrencySymbol(currency)}0`}
+                          </span>
+                          <span
+                            className={`inline-block text-[9px] sm:text-[10px] font-bold px-1.5 sm:px-2 py-0.5 rounded-full sm:mt-1 ${
+                              netSharedPosition < -0.01
+                                ? 'bg-[#ffdad6] text-[#ba1a1a]'
+                                : netSharedPosition > 0.01
+                                ? 'bg-[#dcfce7] text-[#15803d]'
+                                : 'bg-[#f1f4f1] text-[#4a6454]'
+                            }`}
+                          >
+                            {netSharedPosition < -0.01
+                              ? 'You owe'
                               : netSharedPosition > 0.01
-                              ? 'bg-[#dcfce7] text-[#15803d]'
-                              : 'bg-[#f1f4f1] text-[#4a6454]'
-                          }`}
-                        >
-                          {netSharedPosition < -0.01
-                            ? 'You owe money'
-                            : netSharedPosition > 0.01
-                            ? 'You are owed'
-                            : 'All squared up'}
-                        </span>
+                              ? 'You are owed'
+                              : 'All squared up'}
+                          </span>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -1641,22 +1653,22 @@ export default function MoneyClient({
           {/* SUBVIEW 2: GROUP EXPENSE LEDGER */}
           {expenseSubView === 'ledger' && (
             <div
-              className="rounded-3xl p-5 sm:p-6 mb-6"
+              className="rounded-2xl sm:rounded-3xl p-3.5 sm:p-6 mb-4 sm:mb-6"
               style={{
                 backgroundColor: '#ffffff',
                 border: '1px solid var(--color-border)',
                 boxShadow: '0 4px 20px -2px rgba(26,30,28,0.04)',
               }}
             >
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4 pb-3 border-b border-[#f1f4f1]">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 sm:gap-3 mb-3 sm:mb-4 pb-2.5 sm:pb-3 border-b border-[#f1f4f1]">
                 <div>
                   <h2
-                    className="text-base font-semibold"
+                    className="text-sm sm:text-base font-semibold"
                     style={{ fontFamily: 'var(--font-heading)', color: 'var(--color-charcoal)' }}
                   >
                     📜 Group Expense Ledger
                   </h2>
-                  <p className="text-xs text-gray-500 mt-0.5">
+                  <p className="text-xs text-gray-500 mt-0.5 hidden sm:block">
                     {expenses.length} shared {expenses.length === 1 ? 'expense' : 'expenses'} logged across group
                   </p>
                 </div>
@@ -1664,7 +1676,7 @@ export default function MoneyClient({
                 <button
                   type="button"
                   onClick={() => setShowAddModal(true)}
-                  className="text-white text-xs font-medium rounded-xl px-3.5 py-2 transition-all cursor-pointer hover:opacity-90 self-start sm:self-auto flex items-center gap-1.5"
+                  className="hidden sm:flex text-white text-xs font-medium rounded-xl px-3.5 py-2 transition-all cursor-pointer hover:opacity-90 self-start sm:self-auto items-center gap-1.5"
                   style={{
                     backgroundColor: '#4a6454',
                     boxShadow: '0 2px 8px -1px rgba(74,100,84,0.25)',
@@ -1818,11 +1830,12 @@ export default function MoneyClient({
                     return (
                       <div
                         key={expense._id}
-                        className="py-3.5 flex flex-col sm:flex-row sm:items-center justify-between first:pt-0 last:pb-0 gap-3"
+                        onClick={() => setSelectedExpenseDetail(expense)}
+                        className="py-2.5 sm:py-3.5 flex items-center justify-between first:pt-0 last:pb-0 gap-2 sm:gap-3 cursor-pointer sm:cursor-default hover:bg-[#fafbfa] sm:hover:bg-transparent rounded-xl px-1 sm:px-0 transition-colors"
                       >
-                        <div className="flex items-start sm:items-center gap-3 min-w-0">
+                        <div className="flex items-center gap-2.5 sm:gap-3 min-w-0">
                           <div
-                            className="w-10 h-10 rounded-2xl flex items-center justify-center text-lg select-none shrink-0"
+                            className="w-9 h-9 sm:w-10 sm:h-10 rounded-2xl flex items-center justify-center text-base sm:text-lg select-none shrink-0"
                             style={{
                               backgroundColor: '#f7faf6',
                               border: '1px solid var(--color-border)',
@@ -1832,21 +1845,21 @@ export default function MoneyClient({
                           </div>
                           <div className="min-w-0">
                             <div className="flex items-center gap-1.5 flex-wrap">
-                              <p className="text-sm font-semibold truncate" style={{ color: 'var(--color-charcoal)' }}>
+                              <p className="text-xs sm:text-sm font-semibold truncate" style={{ color: 'var(--color-charcoal)' }}>
                                 {expense.description}
                               </p>
                               {expense.category === 'Settlement' && (
-                                <span className="text-[10px] font-bold px-1.5 py-0.2 rounded-md bg-[#eef1ee] text-[#183124] border border-[#ccead5]">
+                                <span className="hidden sm:inline-block text-[10px] font-bold px-1.5 py-0.2 rounded-md bg-[#eef1ee] text-[#183124] border border-[#ccead5]">
                                   [Transfer]
                                 </span>
                               )}
                               {expense.splitType === 'exact' && (
-                                <span className="text-[10px] font-semibold px-1.5 py-0.2 rounded-md bg-[#e0f2fe] text-[#0369a1]">
+                                <span className="hidden sm:inline-block text-[10px] font-semibold px-1.5 py-0.2 rounded-md bg-[#e0f2fe] text-[#0369a1]">
                                   Exact Split
                                 </span>
                               )}
                               {expense.splitType === 'percentage' && (
-                                <span className="text-[10px] font-semibold px-1.5 py-0.2 rounded-md bg-[#fef3c7] text-[#92400e]">
+                                <span className="hidden sm:inline-block text-[10px] font-semibold px-1.5 py-0.2 rounded-md bg-[#fef3c7] text-[#92400e]">
                                   % Split
                                 </span>
                               )}
@@ -1857,7 +1870,7 @@ export default function MoneyClient({
                                     e.stopPropagation();
                                     setActiveReceiptModalUrl(expense.receiptImage || null);
                                   }}
-                                  className="text-[10px] font-semibold px-1.5 py-0.2 rounded-md bg-[#f3f4f6] text-gray-700 hover:bg-[#e5e7eb] border border-gray-200 flex items-center gap-0.5 cursor-pointer"
+                                  className="hidden sm:inline-flex text-[10px] font-semibold px-1.5 py-0.2 rounded-md bg-[#f3f4f6] text-gray-700 hover:bg-[#e5e7eb] border border-gray-200 items-center gap-0.5 cursor-pointer"
                                   title="View Receipt"
                                 >
                                   <span>📷</span>
@@ -1865,11 +1878,11 @@ export default function MoneyClient({
                                 </button>
                               )}
                             </div>
-                            <p className="text-xs truncate" style={{ color: 'rgba(26,30,28,0.5)' }}>
+                            <p className="text-[10px] sm:text-xs truncate" style={{ color: 'rgba(26,30,28,0.5)' }}>
                               Paid by <span className="font-semibold text-[#4a6454]">{expense.paidBy?.username || 'Member'}</span> • {date}
                             </p>
-                            {/* Participant breakdown badge & avatars */}
-                            <div className="flex items-center gap-1.5 mt-1 flex-wrap">
+                            {/* Participant breakdown badge & avatars (desktop only to keep mobile uncluttered) */}
+                            <div className="hidden sm:flex items-center gap-1.5 mt-1 flex-wrap">
                               <span className="text-[0.6875rem] font-medium text-gray-500">
                                 Split ({participatingCount} of {members.length}):
                               </span>
@@ -1894,15 +1907,19 @@ export default function MoneyClient({
                           </div>
                         </div>
 
-                        <div className="flex items-center justify-between sm:justify-end gap-2 sm:gap-3 shrink-0 pt-1 sm:pt-0 border-t sm:border-t-0 border-gray-100">
-                          <span className="text-sm sm:text-base font-bold font-mono" style={{ color: 'var(--color-charcoal)' }}>
+                        <div className="flex items-center gap-1.5 sm:gap-3 shrink-0">
+                          <span className="text-xs sm:text-base font-bold font-mono" style={{ color: 'var(--color-charcoal)' }}>
                             {formatMoney(expense.amount, currency)}
                           </span>
 
-                          <div className="flex items-center gap-1.5">
+                          {/* Desktop action buttons (on mobile, user taps row to open detail sheet with edit/delete) */}
+                          <div className="hidden sm:flex items-center gap-1.5">
                             {expense.category !== 'Settlement' ? (
                               <button
-                                onClick={() => openEditModal(expense)}
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  openEditModal(expense);
+                                }}
                                 title="Edit expense details and participants"
                                 className="text-xs font-medium px-2.5 py-1 rounded-lg border border-gray-200 hover:bg-gray-50 text-gray-700 transition-colors cursor-pointer flex items-center gap-1"
                               >
@@ -1919,7 +1936,10 @@ export default function MoneyClient({
                             )}
 
                             <button
-                              onClick={() => handleDeleteExpense(expense._id)}
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                handleDeleteExpense(expense._id);
+                              }}
                               title={expense.category === 'Settlement' ? 'Delete recorded settlement' : 'Remove expense from ledger'}
                               className="text-xs font-medium px-2.5 py-1 rounded-lg border border-red-100 hover:bg-red-50 text-red-600 transition-colors cursor-pointer flex items-center gap-1"
                             >
@@ -1927,6 +1947,8 @@ export default function MoneyClient({
                               <span className="hidden sm:inline">{expense.category === 'Settlement' ? 'Delete' : 'Remove'}</span>
                             </button>
                           </div>
+
+                          <span className="text-gray-300 sm:hidden text-xs font-bold pl-0.5">›</span>
                         </div>
                       </div>
                     );
@@ -2060,7 +2082,7 @@ export default function MoneyClient({
                                 </div>
                               </div>
 
-                              <div className="flex items-center gap-2 shrink-0 pl-2">
+                              <div className="flex items-center gap-1.5 sm:gap-2 shrink-0 pl-2">
                                 <span className="text-xs sm:text-sm font-bold font-mono text-[#181c1a]">
                                   -{formatMoney(exp.amount, currency)}
                                 </span>
@@ -2070,11 +2092,12 @@ export default function MoneyClient({
                                     e.stopPropagation();
                                     handleDeleteExpense(exp._id);
                                   }}
-                                  className="text-xs text-red-500 hover:text-red-700 p-1 cursor-pointer"
+                                  className="hidden sm:inline-flex text-xs text-red-500 hover:text-red-700 p-1 cursor-pointer"
                                   title="Delete private spend"
                                 >
                                   🗑️
                                 </button>
+                                <span className="text-gray-300 sm:hidden text-xs font-bold pl-0.5">›</span>
                               </div>
                             </div>
                           );
@@ -2107,7 +2130,7 @@ export default function MoneyClient({
               >
                 ⚖️ Settle Up (Optimized Debts)
               </h2>
-              <p className="text-xs text-gray-500 mt-0.5">
+              <p className="text-xs text-gray-500 mt-0.5 hidden sm:block">
                 Minimal direct transfers required to settle all shared debts
               </p>
             </div>

@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [1.1.1] - 2026-10-27
+
+### 🎨 Mobile UX & Layout Optimization
+- **Touch-Optimized Expense Ledger**: Replaced bulky inline action buttons in mobile expense lists with touch-friendly disclosure indicators (`›`); tapping an expense row on mobile triggers the comprehensive detail and action sheet, while desktop viewports retain inline quick-action controls.
+- **Responsive Financial KPI Cards**: Optimized padding, font scaling, and secondary text visibility on mobile viewports for Total Spend and Net Position cards, eliminating awkward text clipping on small screens.
+- **Adaptive Navigation Pills**: Streamlined tab pill labels for Personal, Group Ledger, and Private Spend toggles (`Personal` vs `Personal Expense`) to guarantee fit on narrow mobile devices.
+- **Compact Overview Responsibilities**: Implemented responsive badges and streamlined action buttons (`Tasks →` and `Claim`) for assigned and unclaimed group logistics in the Overview tab.
+- **Event Propagation Hardening**: Added `stopPropagation()` to inline delete and edit action triggers to prevent unwanted row-tap sheet collisions.
+
+---
+
 ## [1.0.1] - 2026-10-27
 
 ### 🐛 Fixed

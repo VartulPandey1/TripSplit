@@ -11,7 +11,7 @@
   </p>
 
   <p align="center">
-    <a href="#key-features"><img src="https://img.shields.io/badge/version-1.0.1-4a6454.svg?style=flat-square" alt="Version 1.0.1" /></a>
+    <a href="#key-features"><img src="https://img.shields.io/badge/version-1.1.1-4a6454.svg?style=flat-square" alt="Version 1.1.1" /></a>
     <a href="https://nextjs.org/"><img src="https://img.shields.io/badge/Next.js-16.4.3-black?style=flat-square&logo=next.js" alt="Next.js 16" /></a>
     <a href="https://react.dev/"><img src="https://img.shields.io/badge/React-19.3.0-61dafb?style=flat-square&logo=react" alt="React 19" /></a>
     <a href="https://tailwindcss.com/"><img src="https://img.shields.io/badge/Tailwind-v4-38bdf8?style=flat-square&logo=tailwindcss" alt="Tailwind CSS v4" /></a>

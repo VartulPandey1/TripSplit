@@ -173,7 +173,7 @@ async function OverviewContent({ params }: { params: Promise<{ id: string }> }) 
           <p className="text-lg sm:text-2xl font-bold font-mono truncate" style={{ color: '#4a6454' }}>
             {formatMoney(totalTripSpend, currency)}
           </p>
-          <p className="text-[0.6875rem] mt-1" style={{ color: 'rgba(26,30,28,0.45)' }}>
+          <p className="text-[0.6875rem] mt-1 hidden sm:block" style={{ color: 'rgba(26,30,28,0.45)' }}>
             {expenses.length} expenses logged →
           </p>
         </Link>
@@ -198,7 +198,7 @@ async function OverviewContent({ params }: { params: Promise<{ id: string }> }) 
           >
             {formatMoney(myNetBalance, currency)}
           </p>
-          <p className="text-[0.6875rem] mt-1" style={{ color: 'rgba(26,30,28,0.45)' }}>
+          <p className="text-[0.6875rem] mt-1 hidden sm:block" style={{ color: 'rgba(26,30,28,0.45)' }}>
             {myNetBalance > 0.01 ? 'You get back' : myNetBalance < -0.01 ? 'You owe money' : 'All balanced'}
           </p>
         </Link>
@@ -398,7 +398,7 @@ async function OverviewContent({ params }: { params: Promise<{ id: string }> }) 
               style={{ fontFamily: 'var(--font-heading)', color: 'var(--color-charcoal)' }}
             >
               <span>🎯</span>
-              <span>Your Responsibilities (Taken by You)</span>
+              <span>Your Responsibilities<span className="hidden sm:inline"> (Taken by You)</span></span>
             </h2>
             <span className="text-xs font-semibold px-2 py-0.5 rounded-full bg-[#ccead5] text-[#183124]">
               {myClaimedItems.length}
@@ -423,7 +423,8 @@ async function OverviewContent({ params }: { params: Promise<{ id: string }> }) 
                   href={`/trip/${id}/tasks`}
                   className="text-xs text-[#4a6454] font-semibold px-2.5 py-1 rounded-lg bg-[#eef1ee] hover:bg-[#e0e3e0] transition-colors shrink-0"
                 >
-                  Complete in Tasks →
+                  <span className="sm:hidden">Tasks →</span>
+                  <span className="hidden sm:inline">Complete in Tasks →</span>
                 </Link>
               </div>
             ))}
@@ -447,7 +448,7 @@ async function OverviewContent({ params }: { params: Promise<{ id: string }> }) 
               style={{ fontFamily: 'var(--font-heading)', color: 'var(--color-charcoal)' }}
             >
               <span>🙋</span>
-              <span>Needs a Volunteer (Unclaimed Items)</span>
+              <span>Needs a Volunteer<span className="hidden sm:inline"> (Unclaimed Items)</span></span>
             </h2>
             <span className="text-xs font-semibold px-2 py-0.5 rounded-full bg-amber-100 text-amber-800">
               {unclaimedItems.length} open
@@ -472,7 +473,8 @@ async function OverviewContent({ params }: { params: Promise<{ id: string }> }) 
                   href={`/trip/${id}/tasks`}
                   className="text-xs font-semibold text-[#183124] px-2.5 py-1 rounded-full bg-[#ccead5] hover:bg-[#b0cdba] transition-colors shrink-0"
                 >
-                  Volunteer / Claim
+                  <span className="sm:hidden">Claim</span>
+                  <span className="hidden sm:inline">Volunteer / Claim</span>
                 </Link>
               </div>
             ))}
