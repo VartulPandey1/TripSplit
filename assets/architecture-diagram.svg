@@ -1,0 +1,114 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 400" width="100%" height="auto">
+  <defs>
+    <linearGradient id="layerGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e2721"/>
+      <stop offset="100%" stop-color="#151b17"/>
+    </linearGradient>
+    <linearGradient id="arrowGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#4a6454"/>
+      <stop offset="100%" stop-color="#ccead5"/>
+    </linearGradient>
+    <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#7e9a88"/>
+    </marker>
+  </defs>
+
+  <style>
+    .font-sans { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Inter', sans-serif; }
+    .font-mono { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; }
+  </style>
+
+  <rect width="1200" height="400" rx="20" fill="#0d110f"/>
+  <rect width="1200" height="400" rx="20" fill="none" stroke="#222b25" stroke-width="1.5"/>
+
+  <!-- Section Header -->
+  <g transform="translate(60, 40)">
+    <text x="0" y="20" fill="#7e9a88" font-size="12" font-weight="700" letter-spacing="1.5" class="font-sans">DATA FLOW &amp; ARCHITECTURE</text>
+    <text x="0" y="50" fill="#ffffff" font-size="24" font-weight="800" class="font-sans">Offline-First Synchronous Hybrid Topology</text>
+  </g>
+
+  <!-- 3 Main Architecture Layers -->
+  <!-- Layer 1: Client / Browser PWA -->
+  <g transform="translate(60, 115)">
+    <rect width="320" height="235" rx="16" fill="url(#layerGrad)" stroke="#2f3d33" stroke-width="1.5"/>
+    
+    <rect x="20" y="20" width="34" height="34" rx="8" fill="#2d3a31"/>
+    <text x="37" y="42" fill="#ccead5" font-size="16" text-anchor="middle" class="font-sans">📱</text>
+    <text x="64" y="36" fill="#ffffff" font-size="16" font-weight="700" class="font-sans">Client PWA Layer</text>
+    <text x="64" y="52" fill="#7e9a88" font-size="11" class="font-sans">Browser / Mobile IndexedDB</text>
+
+    <!-- Sub-blocks -->
+    <g transform="translate(20, 75)">
+      <rect width="280" height="42" rx="8" fill="#141a16" stroke="#26332a" stroke-width="1"/>
+      <text x="14" y="26" fill="#ccead5" font-size="12" font-weight="600" class="font-sans">⚡ Next.js 16 App Router + React 19</text>
+    </g>
+    <g transform="translate(20, 125)">
+      <rect width="280" height="42" rx="8" fill="#141a16" stroke="#26332a" stroke-width="1"/>
+      <text x="14" y="26" fill="#ccead5" font-size="12" font-weight="600" class="font-sans">💾 Dexie.js (Local IndexedDB Cache)</text>
+    </g>
+    <g transform="translate(20, 175)">
+      <rect width="280" height="42" rx="8" fill="#141a16" stroke="#26332a" stroke-width="1"/>
+      <text x="14" y="26" fill="#ccead5" font-size="12" font-weight="600" class="font-sans">🎨 Tailwind CSS v4 + Ethereal Palette</text>
+    </g>
+  </g>
+
+  <!-- Flow Connector 1 to 2 -->
+  <g transform="translate(385, 230)">
+    <line x1="0" y1="0" x2="45" y2="0" stroke="#7e9a88" stroke-width="2" stroke-dasharray="4,4" marker-end="url(#arrow)"/>
+    <text x="22" y="-10" fill="#9cb1a4" font-size="10" font-weight="600" text-anchor="middle" class="font-sans">Sync / REST</text>
+  </g>
+
+  <!-- Layer 2: Next.js Server & Edge Proxy -->
+  <g transform="translate(440, 115)">
+    <rect width="320" height="235" rx="16" fill="url(#layerGrad)" stroke="#2f3d33" stroke-width="1.5"/>
+
+    <rect x="20" y="20" width="34" height="34" rx="8" fill="#2d3a31"/>
+    <text x="37" y="42" fill="#ccead5" font-size="16" text-anchor="middle" class="font-sans">🛡️</text>
+    <text x="64" y="36" fill="#ffffff" font-size="16" font-weight="700" class="font-sans">Server &amp; Proxy Layer</text>
+    <text x="64" y="52" fill="#7e9a88" font-size="11" class="font-sans">Next.js Turbopack Runtime</text>
+
+    <!-- Sub-blocks -->
+    <g transform="translate(20, 75)">
+      <rect width="280" height="42" rx="8" fill="#141a16" stroke="#26332a" stroke-width="1"/>
+      <text x="14" y="26" fill="#ccead5" font-size="12" font-weight="600" class="font-sans">🚦 proxy.ts (IP Rate Limiting)</text>
+    </g>
+    <g transform="translate(20, 125)">
+      <rect width="280" height="42" rx="8" fill="#141a16" stroke="#26332a" stroke-width="1"/>
+      <text x="14" y="26" fill="#ccead5" font-size="12" font-weight="600" class="font-sans">🔐 Auth.js v5 (JWT &amp; DB Session Check)</text>
+    </g>
+    <g transform="translate(20, 175)">
+      <rect width="280" height="42" rx="8" fill="#141a16" stroke="#26332a" stroke-width="1"/>
+      <text x="14" y="26" fill="#ccead5" font-size="12" font-weight="600" class="font-sans">🧮 SettleUp Engine (O(N) Debt Graph)</text>
+    </g>
+  </g>
+
+  <!-- Flow Connector 2 to 3 -->
+  <g transform="translate(765, 230)">
+    <line x1="0" y1="0" x2="45" y2="0" stroke="#7e9a88" stroke-width="2" stroke-dasharray="4,4" marker-end="url(#arrow)"/>
+    <text x="22" y="-10" fill="#9cb1a4" font-size="10" font-weight="600" text-anchor="middle" class="font-sans">Mongoose</text>
+  </g>
+
+  <!-- Layer 3: Database & Cloud Persistence -->
+  <g transform="translate(820, 115)">
+    <rect width="320" height="235" rx="16" fill="url(#layerGrad)" stroke="#2f3d33" stroke-width="1.5"/>
+
+    <rect x="20" y="20" width="34" height="34" rx="8" fill="#2d3a31"/>
+    <text x="37" y="42" fill="#ccead5" font-size="16" text-anchor="middle" class="font-sans">🍃</text>
+    <text x="64" y="36" fill="#ffffff" font-size="16" font-weight="700" class="font-sans">Persistence Layer</text>
+    <text x="64" y="52" fill="#7e9a88" font-size="11" class="font-sans">Cloud MongoDB Atlas</text>
+
+    <!-- Sub-blocks -->
+    <g transform="translate(20, 75)">
+      <rect width="280" height="42" rx="8" fill="#141a16" stroke="#26332a" stroke-width="1"/>
+      <text x="14" y="26" fill="#ccead5" font-size="12" font-weight="600" class="font-sans">📁 Trips &amp; Room Codes (Indexes)</text>
+    </g>
+    <g transform="translate(20, 125)">
+      <rect width="280" height="42" rx="8" fill="#141a16" stroke="#26332a" stroke-width="1"/>
+      <text x="14" y="26" fill="#ccead5" font-size="12" font-weight="600" class="font-sans">💰 Expenses &amp; Budgets with Guesses</text>
+    </g>
+    <g transform="translate(20, 175)">
+      <rect width="280" height="42" rx="8" fill="#141a16" stroke="#26332a" stroke-width="1"/>
+      <text x="14" y="26" fill="#ccead5" font-size="12" font-weight="600" class="font-sans">👥 Users with Secure Bcrypt Hashing</text>
+    </g>
+  </g>
+</svg>

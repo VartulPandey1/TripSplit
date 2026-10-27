@@ -1,0 +1,21 @@
+{
+  "name": "TripSplit – Group Travel Organizer",
+  "short_name": "TripSplit",
+  "description": "Plan, split expenses, and coordinate with your travel group.",
+  "start_url": "/dashboard",
+  "display": "standalone",
+  "background_color": "#f7faf6",
+  "theme_color": "#4a6454",
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

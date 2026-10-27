@@ -1,0 +1,196 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 460" width="100%" height="auto">
+  <defs>
+    <!-- Background Gradients -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#121614"/>
+      <stop offset="50%" stop-color="#1a221d"/>
+      <stop offset="100%" stop-color="#141a16"/>
+    </linearGradient>
+
+    <linearGradient id="sageAccent" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#5a7a67"/>
+      <stop offset="100%" stop-color="#3d5345"/>
+    </linearGradient>
+
+    <linearGradient id="cardBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#222b25" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#1a211c" stop-opacity="0.95"/>
+    </linearGradient>
+
+    <linearGradient id="pillGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#4a6454" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="#7e9a88" stop-opacity="0.2"/>
+    </linearGradient>
+
+    <linearGradient id="glowRing" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ccead5" stop-opacity="0.25"/>
+      <stop offset="100%" stop-color="#4a6454" stop-opacity="0"/>
+    </linearGradient>
+
+    <!-- Filters for soft drop shadow -->
+    <filter id="cardShadow" x="-10%" y="-10%" width="125%" height="125%">
+      <feDropShadow dx="0" dy="16" stdDeviation="20" flood-color="#000000" flood-opacity="0.5"/>
+    </filter>
+  </defs>
+
+  <style>
+    .font-sans { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Inter', sans-serif; }
+    .font-mono { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; }
+  </style>
+
+  <!-- Canvas Background -->
+  <rect width="1200" height="460" rx="24" fill="url(#bgGrad)"/>
+  <rect width="1200" height="460" rx="24" fill="none" stroke="#2d3931" stroke-width="1.5"/>
+
+  <!-- Subtle Topographic & Compass Background Accents -->
+  <g opacity="0.12" stroke="#7e9a88" stroke-width="1" fill="none">
+    <circle cx="200" cy="230" r="160"/>
+    <circle cx="200" cy="230" r="280"/>
+    <circle cx="200" cy="230" r="400"/>
+    <line x1="200" y1="30" x2="200" y2="430" stroke-dasharray="6,6"/>
+    <line x1="0" y1="230" x2="400" y2="230" stroke-dasharray="6,6"/>
+  </g>
+
+  <!-- Glowing Aura behind Mockup -->
+  <circle cx="910" cy="230" r="220" fill="url(#glowRing)"/>
+
+  <!-- Left Content Area -->
+  <g transform="translate(70, 65)">
+    <!-- Brand Logo Mark & Name -->
+    <g transform="translate(0, 0)">
+      <rect width="56" height="56" rx="16" fill="url(#sageAccent)"/>
+      <path d="M40 18L24 26L17 23.5L15 26.5L23 30.5L21 38L24 39L29 32.5L37 35.5L39 33.5L30 20.5L40 18Z" fill="#ffffff"/>
+      <line x1="16" y1="44" x2="40" y2="44" stroke="#ccead5" stroke-width="2.5" stroke-linecap="round"/>
+
+      <text x="72" y="38" fill="#ffffff" font-size="34" font-weight="800" letter-spacing="-0.5" class="font-sans">
+        Trip<tspan fill="#7e9a88">Split</tspan>
+      </text>
+      <rect x="206" y="16" width="60" height="24" rx="12" fill="#2d3a31" stroke="#4a6454" stroke-width="1"/>
+      <text x="236" y="32" fill="#ccead5" font-size="11" font-weight="700" text-anchor="middle" class="font-sans">v1.0.0</text>
+    </g>
+
+    <!-- Headline -->
+    <text x="0" y="125" fill="#f2f5f3" font-size="40" font-weight="800" line-height="1.2" letter-spacing="-0.8" class="font-sans">
+      Group travel planning,
+    </text>
+    <text x="0" y="170" fill="#a4c2af" font-size="40" font-weight="800" line-height="1.2" letter-spacing="-0.8" class="font-sans">
+      seamlessly shared.
+    </text>
+
+    <!-- Subtitle -->
+    <text x="0" y="215" fill="#9cb1a4" font-size="16" font-weight="400" line-height="24" class="font-sans">
+      Collaborative itinerary planning, consensus price guessing, dual budget targets,
+    </text>
+    <text x="0" y="240" fill="#9cb1a4" font-size="16" font-weight="400" line-height="24" class="font-sans">
+      and automated O(N) debt simplification — fully offline-first.
+    </text>
+
+    <!-- Feature Tag Badges -->
+    <g transform="translate(0, 275)">
+      <!-- Tag 1 -->
+      <g>
+        <rect width="145" height="32" rx="16" fill="url(#pillGrad)" stroke="#4a6454" stroke-width="1"/>
+        <text x="72.5" y="20.5" fill="#ccead5" font-size="12" font-weight="600" text-anchor="middle" class="font-sans">
+          🎯 Dual Budget Targets
+        </text>
+      </g>
+      <!-- Tag 2 -->
+      <g transform="translate(155, 0)">
+        <rect width="150" height="32" rx="16" fill="url(#pillGrad)" stroke="#4a6454" stroke-width="1"/>
+        <text x="75" y="20.5" fill="#ccead5" font-size="12" font-weight="600" text-anchor="middle" class="font-sans">
+          ⚖️ Smart Settle Up
+        </text>
+      </g>
+      <!-- Tag 3 -->
+      <g transform="translate(315, 0)">
+        <rect width="140" height="32" rx="16" fill="url(#pillGrad)" stroke="#4a6454" stroke-width="1"/>
+        <text x="70" y="20.5" fill="#ccead5" font-size="12" font-weight="600" text-anchor="middle" class="font-sans">
+          📶 Offline PWA
+        </text>
+      </g>
+    </g>
+
+    <!-- Tech Stack Mini Badges -->
+    <g transform="translate(0, 325)">
+      <text x="0" y="16" fill="#698272" font-size="12" font-weight="600" letter-spacing="1" class="font-sans">
+        BUILT WITH:
+      </text>
+      <text x="90" y="16" fill="#a4baa9" font-size="12" font-weight="500" class="font-sans">
+        Next.js 16 (App Router) • React 19 • Tailwind CSS v4 • MongoDB Atlas • Dexie.js
+      </text>
+    </g>
+  </g>
+
+  <!-- Right Visual Mockup Card (App Preview) -->
+  <g transform="translate(680, 50)" filter="url(#cardShadow)">
+    <!-- Main Card Container -->
+    <rect width="450" height="360" rx="20" fill="url(#cardBg)" stroke="#334237" stroke-width="1.5"/>
+
+    <!-- App Header Inside Card -->
+    <g transform="translate(25, 25)">
+      <circle cx="16" cy="16" r="16" fill="#2d3a31"/>
+      <text x="16" y="21" fill="#ccead5" font-size="14" text-anchor="middle" class="font-sans">⛰️</text>
+      <text x="42" y="16" fill="#ffffff" font-size="16" font-weight="700" class="font-sans">Alps Expedition 2026</text>
+      <text x="42" y="32" fill="#7e9a88" font-size="11" font-weight="500" class="font-sans">4 Travelers • Room: ALP-8821</text>
+      <rect x="330" y="4" width="70" height="24" rx="12" fill="#4a6454" fill-opacity="0.3" stroke="#5a7a67" stroke-width="1"/>
+      <text x="365" y="20" fill="#ccead5" font-size="11" font-weight="600" text-anchor="middle" class="font-sans">Active</text>
+    </g>
+
+    <!-- Mini Personal Budget Target Card 1 (Trip Share) -->
+    <g transform="translate(25, 80)">
+      <rect width="400" height="110" rx="14" fill="#171e19" stroke="#2d3a31" stroke-width="1"/>
+      
+      <text x="16" y="26" fill="#a4baa9" font-size="11" font-weight="700" class="font-sans">Personal Budget Target</text>
+      <rect x="145" y="13" width="72" height="18" rx="9" fill="#253329"/>
+      <text x="181" y="26" fill="#ccead5" font-size="9" font-weight="700" text-anchor="middle" class="font-sans">Trip Share</text>
+
+      <!-- Amount and subtitle -->
+      <text x="16" y="58" fill="#ffffff" font-size="22" font-weight="800" class="font-mono">€ 4,200</text>
+      <text x="120" y="56" fill="#7e9a88" font-size="11" class="font-sans">≈ € 1,050 / person</text>
+
+      <!-- Action Button on Right -->
+      <rect x="290" y="18" width="94" height="28" rx="8" fill="#4a6454"/>
+      <text x="337" y="36" fill="#ffffff" font-size="11" font-weight="600" text-anchor="middle" class="font-sans">+ Add Budget</text>
+      <text x="337" y="56" fill="#698272" font-size="9" text-anchor="middle" class="font-sans">shared with all</text>
+
+      <!-- Progress Track -->
+      <rect x="16" y="74" width="368" height="6" rx="3" fill="#253329"/>
+      <rect x="16" y="74" width="240" height="6" rx="3" fill="#5a7a67"/>
+
+      <text x="16" y="96" fill="#7e9a88" font-size="10" class="font-sans">Spent: € 2,730 (65%)</text>
+      <text x="384" y="96" fill="#ccead5" font-size="10" font-weight="700" text-anchor="end" class="font-mono">+€ 1,470 left</text>
+    </g>
+
+    <!-- Mini Personal Budget Target Card 2 (Private Allowance) -->
+    <g transform="translate(25, 205)">
+      <rect width="400" height="110" rx="14" fill="#171e19" stroke="#2d3a31" stroke-width="1"/>
+      
+      <text x="16" y="26" fill="#a4baa9" font-size="11" font-weight="700" class="font-sans">Personal Budget Target</text>
+      <rect x="145" y="13" width="82" height="18" rx="9" fill="#253329"/>
+      <text x="186" y="26" fill="#ccead5" font-size="9" font-weight="700" text-anchor="middle" class="font-sans">Private to you</text>
+
+      <!-- Amount and subtitle -->
+      <text x="16" y="58" fill="#ffffff" font-size="22" font-weight="800" class="font-mono">€ 1,200</text>
+      <text x="115" y="56" fill="#7e9a88" font-size="11" class="font-sans">custom allowance</text>
+
+      <!-- Action Button on Right -->
+      <rect x="290" y="18" width="94" height="28" rx="8" fill="#4a6454"/>
+      <text x="337" y="36" fill="#ffffff" font-size="11" font-weight="600" text-anchor="middle" class="font-sans">✎ Edit Target</text>
+      <text x="337" y="56" fill="#698272" font-size="9" text-anchor="middle" class="font-sans">visible only to you</text>
+
+      <!-- Progress Track -->
+      <rect x="16" y="74" width="368" height="6" rx="3" fill="#253329"/>
+      <rect x="16" y="74" width="180" height="6" rx="3" fill="#7e9a88"/>
+
+      <text x="16" y="96" fill="#7e9a88" font-size="10" class="font-sans">Spent: € 585 (48%)</text>
+      <text x="384" y="96" fill="#ccead5" font-size="10" font-weight="700" text-anchor="end" class="font-mono">+€ 615 left</text>
+    </g>
+
+    <!-- Bottom Settle-Up Mini Strip -->
+    <g transform="translate(25, 328)">
+      <circle cx="8" cy="8" r="8" fill="#4a6454"/>
+      <text x="8" y="12" fill="#ffffff" font-size="9" text-anchor="middle" class="font-sans">✓</text>
+      <text x="24" y="12" fill="#9cb1a4" font-size="11" class="font-sans">Settle-Up Matrix: 3 transfers settle all 12 group expenses</text>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,109 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Inter:wght@400;500&display=swap');
+@import "tailwindcss";
+
+@theme {
+  /* Ethereal Sanctuary palette */
+  --color-sage-50:  #f7faf6;
+  --color-sage-100: #ecefeb;
+  --color-sage-200: #d8dbd7;
+  --color-sage-300: #c2c8c2;
+  --color-sage-400: #b0cdba;
+  --color-sage-500: #7e9a88;
+  --color-sage-600: #4a6454;
+  --color-sage-700: #324c3d;
+  --color-sage-800: #183124;
+  --color-sage-900: #062014;
+
+  --color-cloud-100: #cce5ff;
+  --color-cloud-200: #9ab7d3;
+  --color-cloud-300: #adcae6;
+
+  --color-charcoal:  #1a1e1c;
+  --color-silk:      #f7faf6;
+  --color-border:    #e4e5e0;
+
+  --color-error:     #ba1a1a;
+  --color-error-bg:  #ffdad6;
+
+  /* Typography */
+  --font-heading: 'Manrope', sans-serif;
+  --font-body:    'Inter', sans-serif;
+}
+
+* {
+  /* Prevent insertion pointer / text caret on static elements */
+  caret-color: transparent;
+}
+
+html, body {
+  font-family: var(--font-body);
+  background-color: var(--color-silk);
+  color: var(--color-charcoal);
+  -webkit-font-smoothing: antialiased;
+  cursor: default;
+  overflow-x: hidden;
+  -webkit-tap-highlight-color: transparent;
+  scrollbar-gutter: stable;
+}
+
+/* Allow text insertion caret only in real form inputs */
+input, textarea, [contenteditable="true"] {
+  caret-color: #4a6454;
+  cursor: text;
+}
+
+button,
+a,
+[role="button"],
+input[type="button"],
+input[type="submit"],
+input[type="reset"],
+input[type="checkbox"],
+input[type="radio"],
+select,
+.cursor-pointer,
+button *,
+a * {
+  cursor: pointer !important;
+}
+
+button:disabled,
+button[disabled],
+.cursor-not-allowed,
+.cursor-not-allowed * {
+  cursor: not-allowed !important;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-heading);
+}
+
+/* Hide Next.js Turbopack dev badge/indicator ONLY on mobile view (< 640px) */
+@media (max-width: 640px) {
+  nextjs-portal,
+  #nextjs-dev-indicator,
+  [data-nextjs-dev-indicator],
+  [data-next-badge],
+  .nextjs-toast-errors-parent {
+    display: none !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+  }
+}
+
+/* Prevent iOS Safari forceful auto-zoom on form input focus while preserving desktop styling */
+@media screen and (max-width: 767px) {
+  input[type='text'],
+  input[type='number'],
+  input[type='email'],
+  input[type='password'],
+  input[type='search'],
+  input[type='tel'],
+  input[type='url'],
+  input[type='date'],
+  input[type='time'],
+  select,
+  textarea {
+    font-size: 16px !important;
+  }
+}

@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none">
+  <!-- Brand Circle -->
+  <circle cx="24" cy="24" r="24" fill="#4a6454"/>
+  <!-- Plane Silhouette -->
+  <path d="M35 15L20 22.5L14 20L12 23L19 26.5L17 33.5L20 34.5L24.5 28.5L31.5 31.5L33.5 29.5L25 17.5L35 15Z" fill="#ffffff"/>
+  <!-- Split Line -->
+  <line x1="13" y1="38" x2="35" y2="38" stroke="#b0cdba" stroke-width="2.5" stroke-linecap="round"/>
+</svg>
