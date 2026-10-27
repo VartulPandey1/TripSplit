@@ -1289,108 +1289,39 @@ export default function MoneyClient({
       {/* VIEW 2: Expenses View */}
       {activeView === 'expenses' && (
         <>
-          {/* Subview Navigation Tabs inside Expenses */}
-          <div className="flex bg-[#e8ece9] p-1 rounded-2xl mb-3 sm:mb-4 text-xs sm:text-sm font-semibold">
-            <button
-              type="button"
-              onClick={() => setExpenseSubView('personal')}
-              className="flex-1 py-2 px-2 sm:px-3 rounded-xl transition-all cursor-pointer flex items-center justify-center gap-1.5"
-              style={{
-                backgroundColor: expenseSubView === 'personal' ? '#ffffff' : 'transparent',
-                color: expenseSubView === 'personal' ? '#183124' : 'rgba(26,30,28,0.6)',
-                boxShadow: expenseSubView === 'personal' ? '0 2px 8px rgba(0,0,0,0.06)' : 'none',
-              }}
-            >
-              <span>👤</span>
-              <span>Personal<span className="hidden sm:inline"> Balance</span></span>
-              {myLedgerTransactions.length > 0 && (
-                <span className="text-[0.625rem] font-bold px-1.5 py-0.2 sm:py-0.5 rounded-full bg-[#ccead5] text-[#183124]">
-                  {myLedgerTransactions.length}
-                </span>
-              )}
-            </button>
-            <button
-              type="button"
-              onClick={() => setExpenseSubView('ledger')}
-              className="flex-1 py-2 px-2 sm:px-3 rounded-xl transition-all cursor-pointer flex items-center justify-center gap-1.5"
-              style={{
-                backgroundColor: expenseSubView === 'ledger' ? '#ffffff' : 'transparent',
-                color: expenseSubView === 'ledger' ? '#183124' : 'rgba(26,30,28,0.6)',
-                boxShadow: expenseSubView === 'ledger' ? '0 2px 8px rgba(0,0,0,0.06)' : 'none',
-              }}
-            >
-              <span>👥</span>
-              <span><span className="sm:hidden">Ledger</span><span className="hidden sm:inline">Group Ledger</span></span>
-              {sharedExpenses.length > 0 && (
-                <span className="text-[0.625rem] font-bold px-1.5 py-0.2 sm:py-0.5 rounded-full bg-[#ccead5] text-[#183124]">
-                  {sharedExpenses.length}
-                </span>
-              )}
-            </button>
-            <button
-              type="button"
-              onClick={() => setExpenseSubView('private-spends')}
-              className="flex-1 py-2 px-2 sm:px-3 rounded-xl transition-all cursor-pointer flex items-center justify-center gap-1.5"
-              style={{
-                backgroundColor: expenseSubView === 'private-spends' ? '#ffffff' : 'transparent',
-                color: expenseSubView === 'private-spends' ? '#183124' : 'rgba(26,30,28,0.6)',
-                boxShadow: expenseSubView === 'private-spends' ? '0 2px 8px rgba(0,0,0,0.06)' : 'none',
-              }}
-            >
-              <span>🔒</span>
-              <span>Private<span className="hidden sm:inline"> Spends</span></span>
-              {myPersonalExpenses.length > 0 && (
-                <span className="text-[0.625rem] font-bold px-1.5 py-0.2 sm:py-0.5 rounded-full bg-[#ccead5] text-[#183124]">
-                  {myPersonalExpenses.length}
-                </span>
-              )}
-            </button>
-          </div>
-
-          {/* SINGLE DYNAMIC KPI CARD ACCORDING TO SELECTED TAB */}
-          {expenseSubView === 'personal' && (
-            <div
-              className="rounded-2xl sm:rounded-3xl p-4 sm:p-5 mb-4 transition-all"
-              style={{
-                backgroundColor: '#ffffff',
-                border: '1px solid var(--color-border)',
-                boxShadow: '0 4px 20px -2px rgba(26,30,28,0.04)',
-              }}
-            >
-              <div className="flex items-center justify-between gap-2 mb-2">
-                <div className="flex items-center gap-2">
-                  <span className="text-base sm:text-lg">👤</span>
-                  <div>
-                    <h3 className="text-xs sm:text-sm font-semibold text-[#181c1a]">
-                      Your Net Balance
-                    </h3>
-                    <p className="text-[11px] text-gray-500 hidden sm:block">
-                      Your personal standing within the group expenses
-                    </p>
-                  </div>
-                </div>
-
-                <span
-                  className={`text-[10px] sm:text-[11px] font-bold px-2.5 py-1 rounded-full border shrink-0 ${
-                    netSharedPosition > 0.01
-                      ? 'bg-emerald-50 text-emerald-800 border-emerald-200'
-                      : netSharedPosition < -0.01
-                      ? 'bg-rose-50 text-rose-800 border-rose-200'
-                      : 'bg-[#f1f4f1] text-[#4a6454] border-[#e0e4e0]'
-                  }`}
-                >
-                  {netSharedPosition > 0.01
-                    ? '🟢 You are owed money'
-                    : netSharedPosition < -0.01
-                    ? '🔴 You owe money'
-                    : '⚪ All squared up'}
-                </span>
-              </div>
-
-              <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1 sm:gap-4 mt-2 pt-2 border-t border-[#f1f4f1]">
+          {/* 1. TOP SUMMARY CARD (Clean, compact, NOT text-heavy) */}
+          <div
+            className="rounded-2xl sm:rounded-3xl p-4 sm:p-5 mb-3 sm:mb-4 bg-white transition-all"
+            style={{
+              border: '1px solid var(--color-border)',
+              boxShadow: '0 4px 20px -2px rgba(26,30,28,0.04)',
+            }}
+          >
+            {expenseSubView === 'personal' && (
+              <div className="flex items-center justify-between gap-3">
                 <div>
-                  <span
-                    className={`text-2xl sm:text-4xl font-extrabold font-mono ${
+                  <div className="flex items-center gap-1.5 mb-1">
+                    <span className="text-xs font-semibold text-gray-500 uppercase tracking-wider">
+                      Your Net Balance
+                    </span>
+                    <span
+                      className={`text-[10px] font-bold px-2 py-0.2 rounded-full border ${
+                        netSharedPosition > 0.01
+                          ? 'bg-emerald-50 text-emerald-800 border-emerald-200'
+                          : netSharedPosition < -0.01
+                          ? 'bg-rose-50 text-rose-800 border-rose-200'
+                          : 'bg-[#f1f4f1] text-[#4a6454] border-[#e0e4e0]'
+                      }`}
+                    >
+                      {netSharedPosition > 0.01
+                        ? '🟢 You are owed'
+                        : netSharedPosition < -0.01
+                        ? '🔴 You owe'
+                        : '⚪ Squared up'}
+                    </span>
+                  </div>
+                  <p
+                    className={`text-2xl sm:text-3xl font-bold font-mono ${
                       netSharedPosition > 0.01
                         ? 'text-[#15803d]'
                         : netSharedPosition < -0.01
@@ -1403,148 +1334,140 @@ export default function MoneyClient({
                       : netSharedPosition < -0.01
                       ? `-${formatMoney(Math.abs(netSharedPosition), currency)}`
                       : `${getCurrencySymbol(currency)}0`}
-                  </span>
-                  <p className="text-xs text-gray-500 mt-1">
-                    {netSharedPosition > 0.01
-                      ? 'You paid more upfront than your personal share. Other members will reimburse you.'
-                      : netSharedPosition < -0.01
-                      ? 'Your share of group expenses exceeds what you paid. Settle up to clear debt.'
-                      : 'You are completely settled up with all group members.'}
                   </p>
                 </div>
 
-                <div className="flex items-center gap-3 text-xs text-gray-500 pt-1 sm:pt-0">
-                  <span>To pay: <strong className="text-[#ba1a1a] font-mono">-{formatMoney(totalToPay, currency)}</strong></span>
-                  <span>•</span>
-                  <span>To get: <strong className="text-[#2e7d32] font-mono">+{formatMoney(totalToGet, currency)}</strong></span>
+                <div className="text-right text-xs text-gray-500 shrink-0">
+                  <div>To pay: <strong className="text-[#ba1a1a] font-mono">-{formatMoney(totalToPay, currency)}</strong></div>
+                  <div className="mt-0.5">To get: <strong className="text-[#2e7d32] font-mono">+{formatMoney(totalToGet, currency)}</strong></div>
                 </div>
               </div>
-            </div>
-          )}
+            )}
 
-          {expenseSubView === 'ledger' && (
-            <div
-              className="rounded-2xl sm:rounded-3xl p-4 sm:p-5 mb-4 transition-all"
-              style={{
-                backgroundColor: '#ffffff',
-                border: '1px solid var(--color-border)',
-                boxShadow: '0 4px 20px -2px rgba(26,30,28,0.04)',
-              }}
-            >
-              <div className="flex items-center justify-between gap-2 mb-2">
-                <div className="flex items-center gap-2">
-                  <span className="text-base sm:text-lg">👥</span>
-                  <div>
-                    <h3 className="text-xs sm:text-sm font-semibold text-[#181c1a]">
-                      Total Group Expenses
-                    </h3>
-                    <p className="text-[11px] text-gray-500 hidden sm:block">
-                      Collective spending across all {members.length} trip members
-                    </p>
-                  </div>
-                </div>
-
-                <span className="text-[10px] sm:text-[11px] font-bold px-2.5 py-1 rounded-full bg-[#f1f4f1] text-[#4a6454] border border-[#e0e4e0] shrink-0">
-                  📜 Collective Group Spend
-                </span>
-              </div>
-
-              <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1 sm:gap-4 mt-2 pt-2 border-t border-[#f1f4f1]">
+            {expenseSubView === 'ledger' && (
+              <div className="flex items-center justify-between gap-3">
                 <div>
-                  <span className="text-2xl sm:text-4xl font-extrabold font-mono text-[#1a1e1c]">
+                  <div className="flex items-center gap-1.5 mb-1">
+                    <span className="text-xs font-semibold text-gray-500 uppercase tracking-wider">
+                      Total Group Expenses
+                    </span>
+                    <span className="text-[10px] font-bold px-2 py-0.2 rounded-full bg-[#f1f4f1] text-[#4a6454] border border-[#e0e4e0]">
+                      📜 Collective
+                    </span>
+                  </div>
+                  <p className="text-2xl sm:text-3xl font-bold font-mono text-[#1a1e1c]">
                     {formatMoney(totalSharedSpend, currency)}
-                  </span>
-                  <p className="text-xs text-gray-500 mt-1">
-                    Combined total of all {sharedExpenses.length} shared {sharedExpenses.length === 1 ? 'expense' : 'expenses'} split amongst the group
+                  </p>
+                  <p className="text-xs text-gray-400 mt-0.5">
+                    {sharedExpenses.length} shared {sharedExpenses.length === 1 ? 'expense' : 'expenses'} across {members.length} members
                   </p>
                 </div>
 
                 {myTotalSharedPaid > 0 && (
-                  <div className="text-xs text-gray-500 sm:text-right pt-1 sm:pt-0">
-                    <span>You personally paid: </span>
-                    <strong className="text-[#181c1a] font-mono">{formatMoney(myTotalSharedPaid, currency)}</strong>
+                  <div className="text-right text-xs text-gray-500 shrink-0">
+                    <span className="text-gray-400 block">You paid upfront</span>
+                    <strong className="text-[#181c1a] font-mono text-sm">{formatMoney(myTotalSharedPaid, currency)}</strong>
                   </div>
                 )}
               </div>
-            </div>
-          )}
+            )}
 
-          {expenseSubView === 'private-spends' && (
-            <div
-              className="rounded-2xl sm:rounded-3xl p-4 sm:p-5 mb-4 transition-all"
-              style={{
-                backgroundColor: '#ffffff',
-                border: '1px solid var(--color-border)',
-                boxShadow: '0 4px 20px -2px rgba(26,30,28,0.04)',
-              }}
-            >
-              <div className="flex items-center justify-between gap-2 mb-2">
-                <div className="flex items-center gap-2">
-                  <span className="text-base sm:text-lg">🔒</span>
-                  <div>
-                    <h3 className="text-xs sm:text-sm font-semibold text-[#181c1a]">
-                      Your Private Spends
-                    </h3>
-                    <p className="text-[11px] text-gray-500 hidden sm:block">
-                      Solo out-of-pocket purchases (not shared with group)
-                    </p>
-                  </div>
-                </div>
-
-                <span className="text-[10px] sm:text-[11px] font-bold px-2.5 py-1 rounded-full bg-amber-50 text-amber-800 border border-amber-200 shrink-0">
-                  🛡️ 100% Private (Solo)
-                </span>
-              </div>
-
-              <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1 sm:gap-4 mt-2 pt-2 border-t border-[#f1f4f1]">
+            {expenseSubView === 'private-spends' && (
+              <div className="flex items-center justify-between gap-3">
                 <div>
-                  <span className="text-2xl sm:text-4xl font-extrabold font-mono text-[#1a1e1c]">
+                  <div className="flex items-center gap-1.5 mb-1">
+                    <span className="text-xs font-semibold text-gray-500 uppercase tracking-wider">
+                      Your Private Spends
+                    </span>
+                    <span className="text-[10px] font-bold px-2 py-0.2 rounded-full bg-amber-50 text-amber-800 border border-amber-200">
+                      🔒 Solo
+                    </span>
+                  </div>
+                  <p className="text-2xl sm:text-3xl font-bold font-mono text-[#1a1e1c]">
                     {formatMoney(myPersonalSpend, currency)}
-                  </span>
-                  <p className="text-xs text-gray-500 mt-1">
-                    {myPersonalExpenses.length} private {myPersonalExpenses.length === 1 ? 'purchase' : 'purchases'} • Completely excluded from group splitting and settle-up
+                  </p>
+                  <p className="text-xs text-gray-400 mt-0.5">
+                    {myPersonalExpenses.length} solo {myPersonalExpenses.length === 1 ? 'item' : 'items'} • Excluded from group
                   </p>
                 </div>
 
-                {personalBudget > 0 ? (
-                  <div className="text-xs text-gray-500 sm:text-right pt-1 sm:pt-0">
-                    <div>
-                      Target Limit: <strong className="text-[#181c1a] font-mono">{formatMoney(personalBudget, currency)}</strong>
-                    </div>
-                    <div className="mt-0.5">
-                      {personalBudget - myPersonalSpend >= 0 ? (
-                        <span className="text-[#2e7d32] font-semibold">
-                          {formatMoney(personalBudget - myPersonalSpend, currency)} remaining
-                        </span>
-                      ) : (
-                        <span className="text-red-600 font-semibold">
-                          {formatMoney(Math.abs(personalBudget - myPersonalSpend), currency)} over
-                        </span>
-                      )}
-                    </div>
-                  </div>
-                ) : (
-                  <div className="text-xs text-gray-400 sm:text-right pt-1 sm:pt-0">
-                    <span>No private budget cap set</span>
+                {personalBudget > 0 && (
+                  <div className="text-right text-xs text-gray-500 shrink-0">
+                    <span className="text-gray-400 block">Target: {formatMoney(personalBudget, currency)}</span>
+                    <strong
+                      className={`font-mono text-sm ${
+                        personalBudget - myPersonalSpend >= 0 ? 'text-[#2e7d32]' : 'text-red-600'
+                      }`}
+                    >
+                      {personalBudget - myPersonalSpend >= 0
+                        ? `${formatMoney(personalBudget - myPersonalSpend, currency)} left`
+                        : `${formatMoney(Math.abs(personalBudget - myPersonalSpend), currency)} over`}
+                    </strong>
                   </div>
                 )}
               </div>
+            )}
+          </div>
 
-              {personalBudget > 0 && (
-                <div className="h-1.5 w-full bg-[#ecefeb] rounded-full overflow-hidden mt-3">
-                  <div
-                    className={`h-full rounded-full transition-all duration-500 ${
-                      personalBudget - myPersonalSpend >= 0 ? 'bg-[#4a6454]' : 'bg-red-500'
-                    }`}
-                    style={{
-                      width: `${Math.min(100, (myPersonalSpend / personalBudget) * 100)}%`,
-                    }}
-                  />
-                </div>
+          {/* 2. SUB TABS (Personal, Ledger, Private) */}
+          <div className="flex bg-[#e8ece9] p-1 rounded-2xl mb-3 sm:mb-4 text-xs sm:text-sm font-semibold">
+            <button
+              type="button"
+              onClick={() => setExpenseSubView('personal')}
+              className="flex-1 py-1.5 sm:py-2 px-2 sm:px-3 rounded-xl transition-all cursor-pointer flex items-center justify-center gap-1 sm:gap-1.5"
+              style={{
+                backgroundColor: expenseSubView === 'personal' ? '#ffffff' : 'transparent',
+                color: expenseSubView === 'personal' ? '#183124' : 'rgba(26,30,28,0.6)',
+                boxShadow: expenseSubView === 'personal' ? '0 2px 8px rgba(0,0,0,0.06)' : 'none',
+              }}
+            >
+              <span>👤</span>
+              <span>Personal</span>
+              {myLedgerTransactions.length > 0 && (
+                <span className="text-[0.625rem] font-bold px-1.5 py-0.2 sm:py-0.5 rounded-full bg-[#ccead5] text-[#183124]">
+                  {myLedgerTransactions.length}
+                </span>
               )}
-            </div>
-          )}
+            </button>
+            <button
+              type="button"
+              onClick={() => setExpenseSubView('ledger')}
+              className="flex-1 py-1.5 sm:py-2 px-2 sm:px-3 rounded-xl transition-all cursor-pointer flex items-center justify-center gap-1 sm:gap-1.5"
+              style={{
+                backgroundColor: expenseSubView === 'ledger' ? '#ffffff' : 'transparent',
+                color: expenseSubView === 'ledger' ? '#183124' : 'rgba(26,30,28,0.6)',
+                boxShadow: expenseSubView === 'ledger' ? '0 2px 8px rgba(0,0,0,0.06)' : 'none',
+              }}
+            >
+              <span>👥</span>
+              <span>Group Ledger</span>
+              {sharedExpenses.length > 0 && (
+                <span className="text-[0.625rem] font-bold px-1.5 py-0.2 sm:py-0.5 rounded-full bg-[#ccead5] text-[#183124]">
+                  {sharedExpenses.length}
+                </span>
+              )}
+            </button>
+            <button
+              type="button"
+              onClick={() => setExpenseSubView('private-spends')}
+              className="flex-1 py-1.5 sm:py-2 px-2 sm:px-3 rounded-xl transition-all cursor-pointer flex items-center justify-center gap-1 sm:gap-1.5"
+              style={{
+                backgroundColor: expenseSubView === 'private-spends' ? '#ffffff' : 'transparent',
+                color: expenseSubView === 'private-spends' ? '#183124' : 'rgba(26,30,28,0.6)',
+                boxShadow: expenseSubView === 'private-spends' ? '0 2px 8px rgba(0,0,0,0.06)' : 'none',
+              }}
+            >
+              <span>🔒</span>
+              <span>Private Spends</span>
+              {myPersonalExpenses.length > 0 && (
+                <span className="text-[0.625rem] font-bold px-1.5 py-0.2 sm:py-0.5 rounded-full bg-[#ccead5] text-[#183124]">
+                  {myPersonalExpenses.length}
+                </span>
+              )}
+            </button>
+          </div>
 
+          {/* 3. BELOW THAT THE CARD (The list container card) */}
           {/* SUBVIEW 1: PERSONAL EXPENSE (User's Personal Share & Receivables) -> DEFAULT! */}
           {expenseSubView === 'personal' && (
             <div
@@ -1555,24 +1478,12 @@ export default function MoneyClient({
                 boxShadow: '0 4px 20px -2px rgba(26,30,28,0.04)',
               }}
             >
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 sm:gap-3 mb-3 sm:mb-4 pb-2.5 sm:pb-3 border-b border-[#f1f4f1]">
-                <div>
-                  <h2
-                    className="text-sm sm:text-base font-semibold flex items-center gap-2"
-                    style={{ fontFamily: 'var(--font-heading)', color: 'var(--color-charcoal)' }}
-                  >
-                    <span>👤</span>
-                    <span>Personal Expense Share</span>
-                  </h2>
-                  <p className="text-xs text-gray-500 mt-0.5 hidden sm:block">
-                    Your personal share of group expenses — what you owe in red, what you get back in green
-                  </p>
-                </div>
+              <div className="flex items-center justify-between gap-2 mb-3 pb-2.5 border-b border-[#f1f4f1]">
+                <span className="text-xs sm:text-sm font-semibold text-[#181c1a]">
+                  Your Shared Items ({myLedgerTransactions.length})
+                </span>
 
                 <div className="flex items-center gap-2">
-                  <span className="text-[11px] sm:text-xs font-semibold px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-full bg-[#f1f4f1] text-gray-600">
-                    {myLedgerTransactions.length} {myLedgerTransactions.length === 1 ? 'item' : 'items'}
-                  </span>
                   <button
                     type="button"
                     onClick={() => {
@@ -1798,23 +1709,15 @@ export default function MoneyClient({
                 boxShadow: '0 4px 20px -2px rgba(26,30,28,0.04)',
               }}
             >
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 sm:gap-3 mb-3 sm:mb-4 pb-2.5 sm:pb-3 border-b border-[#f1f4f1]">
-                <div>
-                  <h2
-                    className="text-sm sm:text-base font-semibold"
-                    style={{ fontFamily: 'var(--font-heading)', color: 'var(--color-charcoal)' }}
-                  >
-                    📜 Group Expense Ledger
-                  </h2>
-                  <p className="text-xs text-gray-500 mt-0.5 hidden sm:block">
-                    {expenses.length} shared {expenses.length === 1 ? 'expense' : 'expenses'} logged across group
-                  </p>
-                </div>
+              <div className="flex items-center justify-between gap-2 mb-3 pb-2.5 border-b border-[#f1f4f1]">
+                <span className="text-xs sm:text-sm font-semibold text-[#181c1a]">
+                  Group Ledger ({sharedExpenses.length})
+                </span>
 
                 <button
                   type="button"
                   onClick={() => setShowAddModal(true)}
-                  className="hidden sm:flex text-white text-xs font-medium rounded-xl px-3.5 py-2 transition-all cursor-pointer hover:opacity-90 self-start sm:self-auto items-center gap-1.5"
+                  className="hidden sm:flex text-white text-xs font-medium rounded-xl px-3.5 py-1.5 transition-all cursor-pointer hover:opacity-90 items-center gap-1"
                   style={{
                     backgroundColor: '#4a6454',
                     boxShadow: '0 2px 8px -1px rgba(74,100,84,0.25)',
