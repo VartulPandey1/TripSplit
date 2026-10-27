@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [1.0.1] - 2026-10-27
+
+### 🐛 Fixed
+- **GitHub Markdown Mermaid Render Compatibility**: Fixed syntax parse error in `README.md` flowchart subgraph declaration (`subgraph G2 ["Settle-Up Minimization O(N)"]`), eliminating unquoted parenthesis token collision (`got 'PS'`) on GitHub's native Mermaid markdown parser.
+- **Architectural Flowchart Subgraph IDs**: Enhanced `Doc/SystemDesign.md` with explicit node identifiers on all client and serverless edge diagram subgraphs.
+
+---
+
 ## [1.0.0] - 2026-10-27
 
 ### 🚀 Initial Major Release (v1.0.0)

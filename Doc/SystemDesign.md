@@ -1,7 +1,7 @@
 # System Design Document
 
 **Project:** TripSplit — Collaborative Group Travel Organizer & Budgeting PWA  
-**Version:** 1.0.0  
+**Version:** 1.0.1  
 **Architecture Style:** Modular Monolith (Next.js 16 App Router)  
 **Target Cost:** $0/month (Free-Tier Production Stack)
 
@@ -184,7 +184,7 @@ erDiagram
 
 ```mermaid
 flowchart TD
-    subgraph Browser Client
+    subgraph Client ["Browser Client"]
         UI["React 19 View Components"]
         Dexie["Dexie.js (IndexedDB)"]
         Queue["pending_sync_queue Table"]
@@ -192,7 +192,7 @@ flowchart TD
         SW["navigator.onLine Listener"]
     end
 
-    subgraph Serverless Edge
+    subgraph Edge ["Serverless Edge"]
         Proxy["proxy.ts (Rate Limiter)"]
         SyncAPI["/api/sync Route Handler"]
         MongoDB[("MongoDB Atlas")]
