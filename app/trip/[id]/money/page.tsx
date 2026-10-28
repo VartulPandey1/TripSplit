@@ -6,22 +6,32 @@ import { connectDB } from '@/lib/db/mongoose';
 import Trip from '@/lib/db/models/Trip';
 import Expense from '@/lib/db/models/Expense';
 import Budget from '@/lib/db/models/Budget';
+import '@/lib/db/models/User';
 import MoneyClient from './MoneyClient';
+import MoneySkeleton from './MoneySkeleton';
 
 async function MoneyContent({
   params,
   searchParams,
 }: {
   params: Promise<{ id: string }>;
-  searchParams?: Promise<{ tab?: string }>;
+  searchParams?: Promise<{ view?: string; tab?: string; mode?: string }>;
 }) {
   await connection();
   const { id } = await params;
   const sParams = searchParams ? await searchParams : {};
-  const initialTab =
-    sParams?.tab === 'budget' || sParams?.tab === 'settle' || sParams?.tab === 'expenses'
-      ? (sParams.tab as 'budget' | 'expenses' | 'settle')
-      : 'expenses';
+  const rawView =
+    sParams?.view ||
+    (sParams?.tab === 'settle'
+      ? 'settle'
+      : sParams?.tab === 'expenses'
+      ? 'transactions'
+      : undefined);
+  const initialView =
+    rawView === 'settle' || rawView === 'transactions' || rawView === 'private'
+      ? (rawView as 'settle' | 'transactions' | 'private')
+      : 'hub';
+  const initialMode = sParams?.mode === 'group' ? 'group' : 'mine';
 
   const session = await auth();
   if (!session?.user?.id) redirect('/login');
@@ -39,7 +49,14 @@ async function MoneyContent({
 
   if (!isMember) redirect('/dashboard');
 
-  const expenses = await Expense.find({ tripId: id })
+  const expenses = await Expense.find({
+    tripId: id,
+    $or: [
+      { isPersonal: false },
+      { isPersonal: { $exists: false } },
+      { paidBy: session.user.id },
+    ],
+  })
     .populate('paidBy', 'username avatarId')
     .sort({ timestamp: -1 })
     .lean();
@@ -124,9 +141,9 @@ async function MoneyContent({
       members={serializedMembers}
       initialExpenses={serializedExpenses}
       initialCurrency={trip.currency || 'INR'}
-      initialBudget={serializedBudget}
       initialPersonalBudget={initialPersonalBudget}
-      initialTab={initialTab}
+      initialView={initialView}
+      initialMode={initialMode}
     />
   );
 }
@@ -136,16 +153,10 @@ export default function MoneyPage({
   searchParams,
 }: {
   params: Promise<{ id: string }>;
-  searchParams?: Promise<{ tab?: string }>;
+  searchParams?: Promise<{ view?: string; tab?: string; mode?: string }>;
 }) {
   return (
-    <Suspense
-      fallback={
-        <div className="p-6 max-w-2xl mx-auto text-center py-20" style={{ color: 'rgba(26,30,28,0.45)' }}>
-          Loading ledger & settlements…
-        </div>
-      }
-    >
+    <Suspense fallback={<MoneySkeleton />}>
       <MoneyContent params={params} searchParams={searchParams} />
     </Suspense>
   );

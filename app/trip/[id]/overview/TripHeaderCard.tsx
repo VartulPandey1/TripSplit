@@ -20,6 +20,7 @@ interface TripData {
   status?: string;
   currency?: string;
   roomCode: string;
+  creatorId?: string;
 }
 
 interface TripHeaderCardProps {
@@ -54,6 +55,9 @@ export default function TripHeaderCard({ trip: initialTrip, members, isCreator }
   const [isUpdatingStatus, setIsUpdatingStatus] = useState(false);
   const [copiedCode, setCopiedCode] = useState(false);
   const [copiedLink, setCopiedLink] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isInviteModalOpen, setIsInviteModalOpen] = useState(false);
+  const [isCrewSheetOpen, setIsCrewSheetOpen] = useState(false);
 
   // Delete & Leave state
   const [isDeleting, setIsDeleting] = useState(false);
@@ -263,32 +267,18 @@ export default function TripHeaderCard({ trip: initialTrip, members, isCreator }
 
   return (
     <>
-      <div
-        className="rounded-2xl sm:rounded-3xl p-4 sm:p-6 mb-4 sm:mb-6"
-        style={{
-          backgroundColor: '#ffffff',
-          border: '1px solid var(--color-border)',
-          boxShadow: '0 4px 20px -2px rgba(26,30,28,0.04)',
-        }}
-      >
-        {/* Top Badges & Actions Bar */}
-        <div className="flex items-center justify-between mb-3.5 flex-wrap gap-2.5">
-          <div className="flex items-center gap-2 flex-wrap">
+      <div className="rounded-2xl sm:rounded-3xl p-4 sm:p-5 mb-3 sm:mb-4 bg-white transition-all border border-black/[0.05]">
+        {/* Top Status & ⋯ Menu */}
+        <div className="flex items-center justify-between mb-2.5">
+          <div className="flex items-center gap-1.5 flex-wrap">
             {/* Dynamic Status Badge */}
             <span
-              className="text-[0.6875rem] font-semibold px-2.5 py-0.5 rounded-full uppercase tracking-wider flex items-center gap-1.5"
+              className="text-[0.6875rem] font-semibold px-2.5 py-0.5 rounded-full flex items-center gap-1.5"
               style={{
                 backgroundColor: badge.bg,
                 color: badge.color,
                 border: `1px solid ${badge.border}`,
               }}
-              title={
-                displayStatus === 'upcoming'
-                  ? 'Upcoming adventure'
-                  : displayStatus === 'ongoing'
-                  ? 'Currently ongoing trip'
-                  : 'Trip completed'
-              }
             >
               <span>{badge.icon}</span>
               <span>{badge.label}</span>
@@ -306,189 +296,394 @@ export default function TripHeaderCard({ trip: initialTrip, members, isCreator }
             </span>
           </div>
 
-          <div className="flex items-center gap-1.5 flex-wrap">
-            {/* Copy Invite Link */}
+          {/* Secondary Actions Consolidated in ⋯ Menu */}
+          <div className="relative">
             <button
-              onClick={handleCopyInviteLink}
               type="button"
-              className="text-xs font-medium px-2.5 py-1 rounded-lg flex items-center gap-1.5 transition-all cursor-pointer border"
-              style={{
-                backgroundColor: copiedLink ? '#e8f5e9' : '#ffffff',
-                borderColor: copiedLink ? '#a5d6a7' : 'var(--color-border)',
-                color: copiedLink ? '#1b5e20' : '#4a6454',
-              }}
-              title="Copy shareable invite link (https://tripsplit.app/trips/join?code=...)"
+              onClick={() => setIsMenuOpen((prev) => !prev)}
+              className="w-11 h-11 min-w-[44px] min-h-[44px] rounded-xl border border-gray-200 bg-white text-gray-600 flex items-center justify-center font-bold text-lg hover:bg-gray-50 active:scale-95 shadow-3xs cursor-pointer transition-all select-none touch-manipulation"
+              title="Trip options"
+              aria-label="Trip options"
             >
-              <span>{copiedLink ? '✓' : '🔗'}</span>
-              <span>{copiedLink ? 'Link Copied!' : 'Copy Link'}</span>
+              ⋯
             </button>
-
-            {/* WhatsApp Share */}
-            <button
-              onClick={handleShareWhatsApp}
-              type="button"
-              className="text-xs font-medium px-2.5 py-1 rounded-lg flex items-center gap-1 transition-colors cursor-pointer bg-[#e8f5e9] text-[#1b5e20] hover:bg-[#c8e6c9] border border-[#a5d6a7]/60"
-              title="Share invite via WhatsApp"
-            >
-              <span>💬</span>
-              <span className="hidden xs:inline">WhatsApp</span>
-            </button>
-
-            {/* Room Code with 1-click copy */}
-            <button
-              onClick={handleCopyCode}
-              type="button"
-              className="text-xs font-mono font-medium px-2.5 py-1 rounded-lg flex items-center gap-1.5 transition-colors cursor-pointer hover:bg-[#e4e8e4]"
-              style={{
-                backgroundColor: '#f1f4f1',
-                color: 'rgba(26,30,28,0.75)',
-              }}
-              title="Click to copy 6-character trip room code"
-            >
-              <span>Code: {trip.roomCode}</span>
-              <span className="text-[11px]">{copiedCode ? '✓' : '📋'}</span>
-            </button>
-          </div>
-        </div>
-
-        {/* Title & Info */}
-        <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-3 mb-4">
-          <div>
-            <h1
-              className="text-xl sm:text-2xl font-bold mb-1"
-              style={{ fontFamily: 'var(--font-heading)', letterSpacing: '-0.02em', color: 'var(--color-charcoal)' }}
-            >
-              {trip.name}
-            </h1>
-            <p className="text-xs sm:text-sm flex items-center gap-1.5 flex-wrap" style={{ color: 'rgba(26,30,28,0.6)' }}>
-              <span>📍</span>
-              <span className="font-medium text-gray-700">{trip.destinationQuery}</span>
-              <span className="mx-1 text-gray-300">•</span>
-              <span>🗓️ {formatDateRange(trip.startDate, trip.endDate)}</span>
-            </p>
-          </div>
-
-          {/* Creator & Member Controls */}
-          <div className="flex items-center gap-2 self-start shrink-0 flex-wrap">
-            {isCreator ? (
+            {isMenuOpen && (
               <>
-                <button
-                  type="button"
-                  onClick={() => {
-                    setEditForm({
-                      name: trip.name,
-                      destinationQuery: trip.destinationQuery,
-                      startDate: toInputDate(trip.startDate),
-                      endDate: toInputDate(trip.endDate),
-                    });
-                    setErrorMsg('');
-                    setIsEditing(true);
-                  }}
-                  className="text-xs font-medium px-3 py-1.5 rounded-xl border border-gray-200 bg-white hover:bg-gray-50 text-gray-700 flex items-center gap-1.5 shadow-2xs transition-all cursor-pointer"
-                  title="Edit trip details and reschedule dates"
-                >
-                  <span>✏️</span>
-                  <span>Edit</span>
-                </button>
-
-                <button
-                  type="button"
-                  onClick={handleToggleTripStatus}
-                  disabled={isUpdatingStatus}
-                  className={`text-xs font-medium px-3 py-1.5 rounded-xl border flex items-center gap-1.5 shadow-2xs transition-all cursor-pointer ${
-                    isCompleted
-                      ? 'border-emerald-200 bg-emerald-50 text-emerald-800 hover:bg-emerald-100'
-                      : 'border-gray-200 bg-gray-50 text-gray-700 hover:bg-gray-100'
-                  }`}
-                  title={isCompleted ? 'Reopen trip to add more expenses' : 'Mark trip as completed'}
-                >
-                  <span>{isCompleted ? '↺' : '✓'}</span>
-                  <span>
-                    {isUpdatingStatus
-                      ? 'Updating…'
-                      : isCompleted
-                      ? 'Reopen'
-                      : 'Complete'}
-                  </span>
-                </button>
-
-                <button
-                  type="button"
-                  onClick={() => {
-                    setDeleteError('');
-                    setIsDeleting(true);
-                  }}
-                  className="text-xs font-medium px-2.5 py-1.5 rounded-xl border border-red-200 bg-red-50 hover:bg-red-100 text-red-700 flex items-center gap-1 shadow-2xs transition-all cursor-pointer"
-                  title="Delete trip and all records permanently"
-                >
-                  <span>🗑️</span>
-                  <span>Delete</span>
-                </button>
+                <div
+                  className="fixed inset-0 z-30"
+                  onClick={() => setIsMenuOpen(false)}
+                />
+                <div className="absolute right-0 top-12 z-40 bg-white rounded-2xl shadow-xl border border-gray-100 p-1.5 min-w-[175px] flex flex-col gap-0.5 animate-in fade-in zoom-in-95 duration-100">
+                  {isCreator ? (
+                    <>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setIsMenuOpen(false);
+                          setEditForm({
+                            name: trip.name,
+                            destinationQuery: trip.destinationQuery,
+                            startDate: toInputDate(trip.startDate),
+                            endDate: toInputDate(trip.endDate),
+                          });
+                          setErrorMsg('');
+                          setIsEditing(true);
+                        }}
+                        className="w-full text-left px-3 py-2 text-xs font-medium text-gray-700 hover:bg-gray-50 rounded-xl flex items-center gap-2 cursor-pointer"
+                      >
+                        <span>✏️</span>
+                        <span>Edit trip details</span>
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setIsMenuOpen(false);
+                          handleToggleTripStatus();
+                        }}
+                        disabled={isUpdatingStatus}
+                        className="w-full text-left px-3 py-2 text-xs font-medium text-gray-700 hover:bg-gray-50 rounded-xl flex items-center gap-2 cursor-pointer"
+                      >
+                        <span>{isCompleted ? '↺' : '✓'}</span>
+                        <span>{isCompleted ? 'Reopen trip' : 'Mark as complete'}</span>
+                      </button>
+                      <div className="h-px bg-gray-100 my-1" />
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setIsMenuOpen(false);
+                          setDeleteError('');
+                          setIsDeleting(true);
+                        }}
+                        className="w-full text-left px-3 py-2 text-xs font-medium text-red-600 hover:bg-red-50 rounded-xl flex items-center gap-2 cursor-pointer"
+                      >
+                        <span>🗑️</span>
+                        <span>Delete trip</span>
+                      </button>
+                    </>
+                  ) : (
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setIsMenuOpen(false);
+                        setLeaveError('');
+                        setIsLeaving(true);
+                      }}
+                      className="w-full text-left px-3 py-2 text-xs font-medium text-red-600 hover:bg-red-50 rounded-xl flex items-center gap-2 cursor-pointer"
+                    >
+                      <span>🚪</span>
+                      <span>Leave trip</span>
+                    </button>
+                  )}
+                </div>
               </>
-            ) : (
-              <button
-                type="button"
-                onClick={() => {
-                  setLeaveError('');
-                  setIsLeaving(true);
-                }}
-                className="text-xs font-medium px-3 py-1.5 rounded-xl border border-gray-200 bg-white hover:bg-red-50 text-gray-700 hover:text-red-700 hover:border-red-200 flex items-center gap-1.5 shadow-2xs transition-all cursor-pointer"
-                title="Leave this trip"
-              >
-                <span>🚪</span>
-                <span>Leave Trip</span>
-              </button>
             )}
           </div>
         </div>
 
-        {/* Member Avatars */}
-        <div className="flex items-center gap-2 pt-3" style={{ borderTop: '1px solid #f1f4f1' }}>
-          <span className="text-xs font-medium" style={{ color: 'rgba(26,30,28,0.5)' }}>
-            Travelers ({members.length}):
-          </span>
-          <div className="flex -space-x-1.5 items-center">
-            {members.map((m: Member, i: number) => (
-              <div
-                key={m._id || i}
-                className="w-8 h-8 rounded-full flex items-center justify-center text-sm border-2 border-white select-none"
-                style={{
-                  backgroundColor: '#ecefeb',
-                  boxShadow: '0 2px 6px -1px rgba(26,30,28,0.08)',
-                }}
-                title={m.username || 'Member'}
-              >
-                {getAvatarEmoji(m.avatarId)}
-              </div>
-            ))}
+        {/* Title & Info */}
+        <div className="mb-3.5">
+          <h1
+            className="text-xl sm:text-2xl font-bold mb-1"
+            style={{ fontFamily: 'var(--font-heading)', letterSpacing: '-0.02em', color: 'var(--color-charcoal)' }}
+          >
+            {trip.name}
+          </h1>
+          <div className="flex flex-col sm:flex-row sm:items-center sm:gap-1.5 gap-0.5 text-xs sm:text-sm text-gray-500">
+            <span className="flex items-center gap-1">
+              <span>📍</span>
+              <span className="font-medium text-gray-700">{trip.destinationQuery}</span>
+            </span>
+            <span className="hidden sm:inline mx-1 text-gray-300">•</span>
+            <span>🗓️ {formatDateRange(trip.startDate, trip.endDate)}</span>
           </div>
+        </div>
+
+        {/* Member Avatars + Invite Crew Button */}
+        <div className="flex items-center justify-between gap-2 pt-2.5 border-t border-[#f1f4f1]">
+          <div className="flex items-center gap-2 min-w-0">
+            <button
+              type="button"
+              onClick={() => setIsCrewSheetOpen(true)}
+              className="text-xs font-medium text-gray-500 hover:text-gray-800 transition-colors shrink-0 text-left cursor-pointer"
+              title="Click to view all crew members"
+            >
+              Crew ({members.length}):
+            </button>
+            <div className="flex -space-x-1.5 items-center overflow-hidden">
+              {members.length > 5 ? (
+                <>
+                  {members.slice(0, 4).map((m: Member, i: number) => (
+                    <div
+                      key={m._id || i}
+                      className="w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center text-sm border-2 border-white select-none shrink-0"
+                      style={{
+                        backgroundColor: '#ecefeb',
+                        boxShadow: '0 2px 6px -1px rgba(26,30,28,0.08)',
+                      }}
+                      title={m.username || 'Member'}
+                    >
+                      {getAvatarEmoji(m.avatarId)}
+                    </div>
+                  ))}
+                  <button
+                    type="button"
+                    onClick={() => setIsCrewSheetOpen(true)}
+                    className="w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center text-xs font-bold border-2 border-white select-none shrink-0 bg-[#e4ede6] hover:bg-[#d5e3d8] text-[#2c4033] transition-all cursor-pointer active:scale-95"
+                    style={{
+                      boxShadow: '0 2px 6px -1px rgba(26,30,28,0.08)',
+                    }}
+                    title={`View all ${members.length} crew members`}
+                    aria-label={`View all ${members.length} crew members`}
+                  >
+                    +{members.length - 4}
+                  </button>
+                </>
+              ) : (
+                members.map((m: Member, i: number) => (
+                  <div
+                    key={m._id || i}
+                    className="w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center text-sm border-2 border-white select-none shrink-0"
+                    style={{
+                      backgroundColor: '#ecefeb',
+                      boxShadow: '0 2px 6px -1px rgba(26,30,28,0.08)',
+                    }}
+                    title={m.username || 'Member'}
+                  >
+                    {getAvatarEmoji(m.avatarId)}
+                  </div>
+                ))
+              )}
+            </div>
+          </div>
+
+          <button
+            type="button"
+            onClick={() => setIsInviteModalOpen(true)}
+            className="text-xs font-semibold px-2.5 sm:px-3 py-1.5 rounded-xl bg-[#ccead5] hover:bg-[#b0cdba] text-[#183124] transition-all cursor-pointer flex items-center gap-1.5 shrink-0 shadow-3xs active:scale-95"
+            title="Invite friends to this trip"
+          >
+            <span>👥</span>
+            <span>Invite Crew</span>
+          </button>
         </div>
       </div>
 
-      {/* Edit Trip & Reschedule Modal */}
+      {/* Invite Crew Modal */}
+      {isInviteModalOpen && (
+        <div
+          className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-4 animate-in fade-in"
+          style={{ backgroundColor: 'rgba(15, 23, 19, 0.45)', backdropFilter: 'blur(4px)' }}
+          onClick={(e) => {
+            if (e.target === e.currentTarget) setIsInviteModalOpen(false);
+          }}
+        >
+          <div
+            className="w-full max-w-sm bg-white rounded-t-3xl sm:rounded-2xl p-5 sm:p-6 pb-[calc(1.25rem+env(safe-area-inset-bottom,0px))] sm:pb-6 shadow-2xl animate-in slide-in-from-bottom duration-200"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Top Drag Handle for Mobile */}
+            <div className="w-12 h-1.5 bg-gray-300/80 rounded-full mx-auto mb-3.5 sm:hidden shrink-0 cursor-grab" />
+
+            <div className="flex items-center justify-between mb-4 pb-3 border-b border-black/[0.04]">
+              <div className="flex items-center gap-2">
+                <span className="text-xl">👥</span>
+                <h3 className="font-semibold text-gray-900 text-base">Invite crew</h3>
+              </div>
+              <button
+                type="button"
+                onClick={() => setIsInviteModalOpen(false)}
+                className="w-11 h-11 min-w-[44px] min-h-[44px] rounded-full flex items-center justify-center text-gray-400 hover:text-gray-600 hover:bg-gray-100 text-base transition-colors cursor-pointer shrink-0"
+                aria-label="Close"
+              >
+                ✕
+              </button>
+            </div>
+
+            <p className="text-xs text-gray-500 mb-4">
+              Share the room code or link with friends to plan, log expenses, and split together.
+            </p>
+
+            <div className="space-y-3">
+              {/* Room Code */}
+              <div className="p-3 rounded-2xl bg-[#f7faf6] border border-black/[0.04] flex items-center justify-between">
+                <div>
+                  <span className="text-[10px] font-medium text-gray-500 block">
+                    Room code
+                  </span>
+                  <span className="text-lg font-mono font-bold text-[#181c1a]">
+                    {trip.roomCode}
+                  </span>
+                </div>
+                <button
+                  type="button"
+                  onClick={handleCopyCode}
+                  className="text-xs font-semibold px-3 py-1.5 rounded-xl bg-white border border-gray-200 hover:bg-gray-50 text-gray-700 transition-all cursor-pointer shadow-3xs select-none touch-manipulation active:scale-95"
+                >
+                  {copiedCode ? '✓ Copied' : '📋 Copy'}
+                </button>
+              </div>
+
+              {/* Copy Direct Link */}
+              <button
+                type="button"
+                onClick={handleCopyInviteLink}
+                className="w-full py-2.5 px-3 rounded-xl border border-gray-200 bg-white hover:bg-gray-50 text-xs font-semibold text-gray-800 flex items-center justify-center gap-2 transition-all cursor-pointer shadow-3xs select-none touch-manipulation active:scale-95"
+              >
+                <span>{copiedLink ? '✓' : '🔗'}</span>
+                <span>{copiedLink ? 'Link Copied to Clipboard!' : 'Copy 1-Click Invite Link'}</span>
+              </button>
+
+              {/* WhatsApp Share */}
+              <button
+                type="button"
+                onClick={handleShareWhatsApp}
+                className="w-full py-2.5 px-3 rounded-xl bg-[#25D366] hover:bg-[#20bd5a] text-white text-xs font-semibold flex items-center justify-center gap-2 transition-all cursor-pointer shadow-3xs select-none touch-manipulation active:scale-95"
+              >
+                <span>💬</span>
+                <span>Share via WhatsApp</span>
+              </button>
+
+              {/* Native Mobile Share */}
+              <button
+                type="button"
+                onClick={handleNativeShare}
+                className="w-full py-2.5 px-3 rounded-xl bg-[#f1f4f1] hover:bg-[#e4e8e4] text-gray-700 text-xs font-semibold flex items-center justify-center gap-2 transition-all cursor-pointer"
+              >
+                <span>📱</span>
+                <span>More Share Options</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Crew List Sheet */}
+      {isCrewSheetOpen && (
+        <div
+          className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-4 animate-in fade-in"
+          style={{ backgroundColor: 'rgba(15, 23, 19, 0.45)', backdropFilter: 'blur(4px)' }}
+          onClick={(e) => {
+            if (e.target === e.currentTarget) setIsCrewSheetOpen(false);
+          }}
+        >
+          <div
+            className="w-full max-w-sm sm:max-w-md bg-white rounded-t-3xl sm:rounded-2xl p-5 sm:p-6 pb-[calc(1.25rem+env(safe-area-inset-bottom,0px))] sm:pb-6 shadow-2xl animate-in slide-in-from-bottom duration-200 max-h-[85vh] flex flex-col"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Top Drag Handle for Mobile */}
+            <div className="w-12 h-1.5 bg-gray-300/80 rounded-full mx-auto mb-3.5 sm:hidden shrink-0 cursor-grab" />
+
+            <div className="flex items-center justify-between mb-4 pb-3 border-b border-black/[0.04]">
+              <div className="flex items-center gap-2">
+                <span className="text-xl">👥</span>
+                <div>
+                  <h3 className="font-semibold text-gray-900 text-base sm:text-lg leading-tight">
+                    Trip Crew
+                  </h3>
+                  <p className="text-xs text-gray-500">
+                    {members.length} {members.length === 1 ? 'traveler' : 'travelers'} in this trip
+                  </p>
+                </div>
+              </div>
+              <button
+                type="button"
+                onClick={() => setIsCrewSheetOpen(false)}
+                className="w-11 h-11 min-w-[44px] min-h-[44px] rounded-full flex items-center justify-center text-gray-400 hover:text-gray-600 hover:bg-gray-100 text-base transition-colors cursor-pointer shrink-0"
+                aria-label="Close"
+              >
+                ✕
+              </button>
+            </div>
+
+            {/* Members List */}
+            <div className="overflow-y-auto space-y-2 pr-1 -mr-1 flex-1 min-h-0 py-1">
+              {members.map((m: Member, idx: number) => {
+                const isHost = trip.creatorId ? m._id === trip.creatorId : idx === 0;
+                return (
+                  <div
+                    key={m._id || idx}
+                    className="flex items-center justify-between p-2.5 rounded-2xl bg-[#f8faf8] border border-black/[0.04] hover:bg-[#f1f4f1] transition-colors"
+                  >
+                    <div className="flex items-center gap-3 min-w-0">
+                      <div
+                        className="w-10 h-10 rounded-full flex items-center justify-center text-xl shrink-0 select-none border border-white"
+                        style={{
+                          backgroundColor: '#ecefeb',
+                          boxShadow: '0 2px 6px -1px rgba(26,30,28,0.08)',
+                        }}
+                      >
+                        {getAvatarEmoji(m.avatarId)}
+                      </div>
+                      <div className="min-w-0">
+                        <div className="font-semibold text-sm text-gray-900 truncate">
+                          {m.username || 'Traveler'}
+                        </div>
+                        <div className="text-[11px] text-gray-500 truncate">
+                          {isHost ? 'Trip Organizer' : 'Trip Member'}
+                        </div>
+                      </div>
+                    </div>
+
+                    {isHost ? (
+                      <span className="shrink-0 text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full bg-[#ccead5] text-[#183124]">
+                        Host
+                      </span>
+                    ) : (
+                      <span className="shrink-0 text-[10px] font-medium text-gray-400 px-2 py-0.5">
+                        Member
+                      </span>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+
+            {/* Invite More Friends Footer Button */}
+            <div className="pt-4 mt-2 border-t border-black/[0.04] shrink-0">
+              <button
+                type="button"
+                onClick={() => {
+                  setIsCrewSheetOpen(false);
+                  setIsInviteModalOpen(true);
+                }}
+                className="w-full py-2.5 px-4 rounded-xl bg-[#4a6454] hover:bg-[#3d5345] text-white text-xs sm:text-sm font-semibold flex items-center justify-center gap-2 transition-all cursor-pointer shadow-3xs active:scale-[0.99]"
+              >
+                <span>➕</span>
+                <span>Invite More Friends</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Edit Trip & Reschedule Slide-Up Bottom Sheet */}
       {isEditing && (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center p-4"
+          className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-4 animate-in fade-in"
           style={{ backgroundColor: 'rgba(15, 23, 19, 0.45)', backdropFilter: 'blur(4px)' }}
           onClick={(e) => {
             if (e.target === e.currentTarget) setIsEditing(false);
           }}
         >
           <div
-            className="w-full max-w-md bg-white rounded-3xl p-5 sm:p-6 shadow-2xl border border-gray-100 transition-all animate-in fade-in zoom-in-95 duration-150"
+            className="w-full max-w-md bg-white rounded-t-3xl sm:rounded-2xl p-5 sm:p-6 pb-[calc(1.25rem+env(safe-area-inset-bottom,0px))] sm:pb-6 shadow-2xl max-h-[90vh] overflow-y-auto animate-in slide-in-from-bottom duration-200"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="flex items-center justify-between mb-4 pb-3 border-b border-gray-100">
+            {/* Top Drag Handle for Mobile */}
+            <div className="w-12 h-1.5 bg-gray-300/80 rounded-full mx-auto mb-3.5 sm:hidden shrink-0 cursor-grab" />
+
+            <div className="flex items-center justify-between mb-4 pb-3 border-b border-black/[0.04]">
               <div className="flex items-center gap-2">
                 <span className="text-xl">✏️</span>
                 <h3 className="font-semibold text-gray-900 text-base sm:text-lg">
-                  Edit Trip Details
+                  Edit trip details
                 </h3>
               </div>
               <button
                 type="button"
                 onClick={() => setIsEditing(false)}
-                className="w-8 h-8 rounded-full flex items-center justify-center text-gray-400 hover:text-gray-600 hover:bg-gray-100 text-sm transition-colors cursor-pointer"
+                className="w-11 h-11 min-w-[44px] min-h-[44px] rounded-full flex items-center justify-center text-gray-400 hover:text-gray-600 hover:bg-gray-100 text-base transition-colors cursor-pointer shrink-0"
+                aria-label="Close"
               >
                 ✕
               </button>
@@ -503,8 +698,8 @@ export default function TripHeaderCard({ trip: initialTrip, members, isCreator }
 
             <form onSubmit={handleSaveTripDetails} className="space-y-4">
               <div>
-                <label className="text-[0.6875rem] font-semibold text-gray-500 uppercase tracking-wider block mb-1">
-                  Trip Title
+                <label className="text-xs font-semibold text-gray-700 block mb-1">
+                  Trip title
                 </label>
                 <input
                   type="text"
@@ -517,7 +712,7 @@ export default function TripHeaderCard({ trip: initialTrip, members, isCreator }
               </div>
 
               <div>
-                <label className="text-[0.6875rem] font-semibold text-gray-500 uppercase tracking-wider block mb-1">
+                <label className="text-xs font-semibold text-gray-700 block mb-1">
                   Destination
                 </label>
                 <input
@@ -532,8 +727,8 @@ export default function TripHeaderCard({ trip: initialTrip, members, isCreator }
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
-                  <label className="text-[0.6875rem] font-semibold text-gray-500 uppercase tracking-wider block mb-1">
-                    Start Date
+                  <label className="text-xs font-medium text-gray-500 block mb-1">
+                    Start date
                   </label>
                   <input
                     type="date"
@@ -544,8 +739,8 @@ export default function TripHeaderCard({ trip: initialTrip, members, isCreator }
                 </div>
 
                 <div>
-                  <label className="text-[0.6875rem] font-semibold text-gray-500 uppercase tracking-wider block mb-1">
-                    End Date
+                  <label className="text-xs font-medium text-gray-500 block mb-1">
+                    End date
                   </label>
                   <input
                     type="date"
@@ -557,7 +752,7 @@ export default function TripHeaderCard({ trip: initialTrip, members, isCreator }
                 </div>
               </div>
 
-              <div className="flex items-center justify-end gap-2.5 pt-3 border-t border-gray-100">
+              <div className="flex items-center justify-end gap-2.5 pt-3 border-t border-black/[0.04]">
                 <button
                   type="button"
                   onClick={() => setIsEditing(false)}
@@ -571,7 +766,7 @@ export default function TripHeaderCard({ trip: initialTrip, members, isCreator }
                   disabled={saveLoading}
                   className="px-5 py-2 text-xs sm:text-sm font-semibold text-white bg-[#4a6454] hover:bg-[#385041] rounded-xl shadow-xs transition-all cursor-pointer disabled:opacity-60"
                 >
-                  {saveLoading ? 'Saving…' : 'Save Changes'}
+                  {saveLoading ? 'Saving…' : 'Save changes'}
                 </button>
               </div>
             </form>
@@ -587,7 +782,7 @@ export default function TripHeaderCard({ trip: initialTrip, members, isCreator }
           onClick={() => !deleteLoading && setIsDeleting(false)}
         >
           <div
-            className="w-full max-w-md bg-white rounded-3xl p-6 shadow-xl border border-red-100 space-y-4"
+            className="w-full max-w-md bg-white rounded-2xl sm:rounded-3xl p-6 shadow-2xl space-y-4"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="flex items-center gap-2.5 text-red-700">
@@ -635,7 +830,7 @@ export default function TripHeaderCard({ trip: initialTrip, members, isCreator }
           onClick={() => !leaveLoading && setIsLeaving(false)}
         >
           <div
-            className="w-full max-w-md bg-white rounded-3xl p-6 shadow-xl border border-gray-200 space-y-4"
+            className="w-full max-w-md bg-white rounded-2xl sm:rounded-3xl p-6 shadow-2xl space-y-4"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="flex items-center gap-2.5 text-gray-800">

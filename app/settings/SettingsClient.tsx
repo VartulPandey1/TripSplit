@@ -131,7 +131,7 @@ export default function SettingsClient({ initialUser }: SettingsClientProps) {
         <Logo layout="horizontal" href="/dashboard" />
         <Link
           href="/dashboard"
-          className="text-xs font-medium px-3.5 py-1.5 rounded-full transition-all flex items-center gap-1.5 cursor-pointer"
+          className="min-h-[44px] min-w-[44px] text-xs font-medium px-4 py-2 rounded-full transition-all inline-flex items-center justify-center gap-1.5 cursor-pointer"
           style={{
             backgroundColor: '#ffffff',
             border: '1px solid var(--color-border)',
@@ -160,7 +160,7 @@ export default function SettingsClient({ initialUser }: SettingsClientProps) {
 
         {/* 1. Profile & Avatar Card */}
         <section
-          className="rounded-3xl p-5 sm:p-7 shadow-xs"
+          className="rounded-3xl p-4 sm:p-6 shadow-xs"
           style={{
             backgroundColor: '#ffffff',
             border: '1px solid var(--color-border)',
@@ -190,7 +190,7 @@ export default function SettingsClient({ initialUser }: SettingsClientProps) {
                 </span>
               </div>
 
-              <div className="grid grid-cols-3 sm:grid-cols-6 gap-2.5">
+              <div className="grid grid-cols-4 sm:grid-cols-6 gap-2.5 justify-items-center">
                 {AVATARS.map((a) => {
                   const isSelected = avatarId === a.id;
                   return (
@@ -198,14 +198,15 @@ export default function SettingsClient({ initialUser }: SettingsClientProps) {
                       key={a.id}
                       type="button"
                       onClick={() => setAvatarId(a.id)}
-                      className={`p-3 rounded-2xl border flex flex-col items-center justify-center gap-1 transition-all cursor-pointer ${
+                      title={a.label}
+                      aria-label={a.label}
+                      className={`w-12 h-12 rounded-full border flex items-center justify-center transition-all cursor-pointer ${
                         isSelected
-                          ? 'border-[#4a6454] bg-[#ccead5]/40 text-[#183124] ring-2 ring-[#4a6454] shadow-xs'
+                          ? 'border-[#4a6454] bg-[#ccead5]/40 text-[#183124] ring-2 ring-[#4a6454] ring-offset-2 shadow-xs'
                           : 'border-gray-200 bg-[#f7faf6] hover:bg-gray-100 text-gray-700'
                       }`}
                     >
-                      <span className="text-2xl sm:text-3xl select-none">{a.emoji}</span>
-                      <span className="text-[11px] font-semibold">{a.label}</span>
+                      <span className="text-2xl select-none leading-none">{a.emoji}</span>
                     </button>
                   );
                 })}
@@ -257,7 +258,7 @@ export default function SettingsClient({ initialUser }: SettingsClientProps) {
 
         {/* 2. Security & Password Card */}
         <section
-          className="rounded-3xl p-5 sm:p-7 shadow-xs"
+          className="rounded-3xl p-4 sm:p-6 shadow-xs"
           style={{
             backgroundColor: '#ffffff',
             border: '1px solid var(--color-border)',
@@ -345,7 +346,7 @@ export default function SettingsClient({ initialUser }: SettingsClientProps) {
 
         {/* 3. Account Information Card */}
         <section
-          className="rounded-3xl p-5 sm:p-7 shadow-xs"
+          className="rounded-3xl p-4 sm:p-6 shadow-xs"
           style={{
             backgroundColor: '#ffffff',
             border: '1px solid var(--color-border)',

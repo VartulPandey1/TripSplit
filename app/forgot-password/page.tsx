@@ -91,7 +91,7 @@ export default function ForgotPasswordPage() {
 
           <Link
             href="/login"
-            className="text-xs text-center hover:underline mt-2"
+            className="min-h-[44px] text-xs text-center hover:underline mt-2 inline-flex items-center justify-center"
             style={{ color: 'rgba(26,30,28,0.6)' }}
           >
             ← Back to Sign In

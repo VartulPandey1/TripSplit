@@ -63,7 +63,7 @@ export default function OfflineSyncManager() {
   }
 
   return (
-    <div className="fixed bottom-16 sm:bottom-6 right-4 sm:right-6 z-40 max-w-sm pointer-events-auto animate-in slide-in-from-bottom duration-300">
+    <div className="fixed bottom-[calc(4.5rem+env(safe-area-inset-bottom,0px))] sm:bottom-6 right-4 sm:right-6 z-40 max-w-sm pointer-events-auto animate-in slide-in-from-bottom duration-300">
       {!isOnline && (
         <div
           className="flex items-center gap-2.5 px-3.5 py-2.5 rounded-2xl text-xs font-semibold shadow-lg backdrop-blur-md"
@@ -115,7 +115,7 @@ export default function OfflineSyncManager() {
           <button
             type="button"
             onClick={() => retryOfflineActions()}
-            className="px-2 py-1 rounded-lg bg-white border border-[#f87171] text-[#b91c1c] text-[11px] font-bold hover:bg-red-50 cursor-pointer shrink-0 transition-colors"
+            className="min-h-[40px] px-3 py-1.5 rounded-lg bg-white border border-[#f87171] text-[#b91c1c] text-xs font-bold hover:bg-red-50 cursor-pointer shrink-0 transition-colors inline-flex items-center justify-center"
           >
             Retry
           </button>

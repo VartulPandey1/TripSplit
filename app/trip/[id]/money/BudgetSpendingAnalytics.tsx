@@ -214,7 +214,7 @@ export default function BudgetSpendingAnalytics({
               key={tab.id}
               type="button"
               onClick={() => setActiveTab(tab.id)}
-              className={`py-1.5 px-2 text-[11px] sm:text-xs font-semibold rounded-lg transition-all cursor-pointer flex items-center justify-center gap-1 ${
+              className={`min-h-[40px] py-1.5 px-2 text-[11px] sm:text-xs font-semibold rounded-lg transition-all cursor-pointer flex items-center justify-center gap-1 ${
                 isActive
                   ? 'bg-white text-[#1a1e1c] shadow-xs'
                   : 'text-gray-500 hover:text-gray-900 bg-transparent'
@@ -231,13 +231,7 @@ export default function BudgetSpendingAnalytics({
           TAB 1: DAILY SPENDING TRACKER (Day-by-Day Burn Rate)
          ───────────────────────────────────────────────────────────── */}
       {activeTab === 'daily' && (
-        <div
-          className="rounded-2xl p-3.5 sm:p-5 bg-white"
-          style={{
-            border: '1px solid var(--color-border)',
-            boxShadow: '0 4px 20px -2px rgba(26,30,28,0.04)',
-          }}
-        >
+        <div className="rounded-2xl p-3.5 sm:p-5 bg-white border border-black/[0.05]">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4">
             <div>
               <h3
@@ -369,8 +363,8 @@ export default function BudgetSpendingAnalytics({
 
               {/* Day-by-Day Cards */}
               <div className="space-y-2 pt-3 border-t border-gray-100">
-                <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1">
-                  Daily Breakdown & Receipts
+                <p className="text-xs font-medium text-gray-500 mb-1">
+                  Daily breakdown & receipts
                 </p>
                 {dailyStats.days.map((day, idx) => {
                   const dayId = day.key || `${day.date}-${idx}`;
@@ -447,13 +441,7 @@ export default function BudgetSpendingAnalytics({
           TAB 2: CATEGORY BARS (Budget vs Actual Spend)
          ───────────────────────────────────────────────────────────── */}
       {activeTab === 'categories' && (
-        <div
-          className="rounded-2xl p-3.5 sm:p-5 bg-white"
-          style={{
-            border: '1px solid var(--color-border)',
-            boxShadow: '0 4px 20px -2px rgba(26,30,28,0.04)',
-          }}
-        >
+        <div className="rounded-2xl p-3.5 sm:p-5 bg-white border border-black/[0.05]">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4">
             <div>
               <h3
@@ -562,13 +550,7 @@ export default function BudgetSpendingAnalytics({
           TAB 3: BREAKDOWN & HEALTH (Donut Gauge & Category Share)
          ───────────────────────────────────────────────────────────── */}
       {activeTab === 'distribution' && (
-        <div
-          className="rounded-2xl p-3.5 sm:p-5 bg-white"
-          style={{
-            border: '1px solid var(--color-border)',
-            boxShadow: '0 4px 20px -2px rgba(26,30,28,0.04)',
-          }}
-        >
+        <div className="rounded-2xl p-3.5 sm:p-5 bg-white border border-black/[0.05]">
           <div className="flex items-center justify-between mb-4">
             <div>
               <h3
@@ -582,10 +564,10 @@ export default function BudgetSpendingAnalytics({
               </p>
             </div>
             <span
-              className="text-[0.6875rem] font-semibold px-2.5 py-0.5 rounded-full uppercase tracking-wider"
+              className="text-[0.6875rem] font-medium px-2.5 py-0.5 rounded-full capitalize"
               style={{ backgroundColor: healthBg, color: healthColor }}
             >
-              ● {healthLabel}
+              ● {healthLabel.toLowerCase()}
             </span>
           </div>
 
@@ -618,17 +600,17 @@ export default function BudgetSpendingAnalytics({
                 <span className="text-2xl font-bold font-mono text-[#1a1e1c]">
                   {percentSpent}%
                 </span>
-                <span className="text-[0.625rem] uppercase tracking-wider text-gray-400 font-medium">
-                  {isOverBudget ? 'Over Target' : 'Consumed'}
+                <span className="text-[0.625rem] text-gray-400 font-medium">
+                  {isOverBudget ? 'Over target' : 'Consumed'}
                 </span>
               </div>
             </div>
 
             {/* Financial Metrics */}
             <div className="w-full grid grid-cols-1 sm:grid-cols-3 gap-2.5">
-              <div className="p-3 rounded-2xl bg-gray-50 border border-gray-100">
-                <p className="text-[0.6875rem] font-medium text-gray-500 uppercase tracking-wider">
-                  Target Budget
+              <div className="p-3 rounded-2xl bg-gray-50/80">
+                <p className="text-[0.6875rem] font-medium text-gray-500">
+                  Target budget
                 </p>
                 <p className="text-base font-bold font-mono text-[#4a6454] mt-0.5">
                   {formatMoney(targetBudget, currency)}
@@ -638,9 +620,9 @@ export default function BudgetSpendingAnalytics({
                 </p>
               </div>
 
-              <div className="p-3 rounded-2xl bg-gray-50 border border-gray-100">
-                <p className="text-[0.6875rem] font-medium text-gray-500 uppercase tracking-wider">
-                  Actual Spend
+              <div className="p-3 rounded-2xl bg-gray-50/80">
+                <p className="text-[0.6875rem] font-medium text-gray-500">
+                  Actual spend
                 </p>
                 <p className="text-base font-bold font-mono text-[#1a1e1c] mt-0.5">
                   {formatMoney(effectiveActualSpend, currency)}
@@ -650,9 +632,9 @@ export default function BudgetSpendingAnalytics({
                 </p>
               </div>
 
-              <div className="p-3 rounded-2xl bg-gray-50 border border-gray-100">
-                <p className="text-[0.6875rem] font-medium text-gray-500 uppercase tracking-wider">
-                  {isOverBudget ? 'Over Budget' : 'Buffer Left'}
+              <div className="p-3 rounded-2xl bg-gray-50/80">
+                <p className="text-[0.6875rem] font-medium text-gray-500">
+                  {isOverBudget ? 'Over budget' : 'Buffer left'}
                 </p>
                 <p
                   className="text-base font-bold font-mono mt-0.5"
@@ -698,13 +680,7 @@ export default function BudgetSpendingAnalytics({
           TAB 4: TRAVELER CONTRIBUTIONS & SPLIT
          ───────────────────────────────────────────────────────────── */}
       {activeTab === 'travelers' && (
-        <div
-          className="rounded-2xl p-3.5 sm:p-5 bg-white"
-          style={{
-            border: '1px solid var(--color-border)',
-            boxShadow: '0 4px 20px -2px rgba(26,30,28,0.04)',
-          }}
-        >
+        <div className="rounded-2xl p-3.5 sm:p-5 bg-white border border-black/[0.05]">
           <div className="flex items-center justify-between mb-4">
             <div>
               <h3

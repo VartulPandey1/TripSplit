@@ -7,6 +7,7 @@ import Task from '@/lib/db/models/Task';
 import Trip, { autoUpdateExpiredTrips } from '@/lib/db/models/Trip';
 import { getTripStatus } from '@/lib/utils/tripStatus';
 import TasksClient from './TasksClient';
+import TasksSkeleton from './TasksSkeleton';
 
 async function TasksContent({ params }: { params: Promise<{ id: string }> }) {
   await connection();
@@ -69,7 +70,7 @@ async function TasksContent({ params }: { params: Promise<{ id: string }> }) {
 
 export default function TasksPage({ params }: { params: Promise<{ id: string }> }) {
   return (
-    <Suspense fallback={<div className="p-6 max-w-2xl mx-auto text-center py-20">Loading tasks…</div>}>
+    <Suspense fallback={<TasksSkeleton />}>
       <TasksContent params={params} />
     </Suspense>
   );

@@ -166,14 +166,7 @@ export default function UserExpenseBudgetSection({
       : 100;
 
   return (
-    <div
-      className="rounded-3xl p-5 sm:p-6 mb-6"
-      style={{
-        backgroundColor: '#ffffff',
-        border: '1px solid var(--color-border)',
-        boxShadow: '0 4px 20px -2px rgba(26,30,28,0.04)',
-      }}
-    >
+    <div className="rounded-3xl p-5 sm:p-6 mb-6 bg-white border border-black/[0.05]">
       {/* Section Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4 pb-3 border-b border-[#f1f4f1]">
         <div>
@@ -197,7 +190,7 @@ export default function UserExpenseBudgetSection({
               setBudgetInput(String(personalBudget));
               setIsEditingBudget(true);
             }}
-            className="text-xs font-semibold px-3 py-1.5 rounded-xl border border-gray-200 text-[#4a6454] hover:bg-[#f7faf6] transition-all cursor-pointer self-start sm:self-auto flex items-center gap-1.5"
+            className="min-h-[44px] text-xs font-semibold px-3.5 py-2 rounded-xl border border-gray-200 text-[#4a6454] hover:bg-[#f7faf6] transition-all cursor-pointer self-start sm:self-auto inline-flex items-center gap-1.5"
           >
             <span>✏️</span>
             <span>Set Budget</span>
@@ -207,10 +200,10 @@ export default function UserExpenseBudgetSection({
 
       {/* Edit Budget Form */}
       {isEditingBudget && (
-        <form onSubmit={handleSaveBudget} className="mb-4 p-3.5 rounded-2xl bg-[#f7faf6] border border-gray-200 flex flex-col sm:flex-row items-start sm:items-center gap-3">
+        <form onSubmit={handleSaveBudget} className="mb-4 p-3.5 rounded-2xl bg-[#f7faf6] flex flex-col sm:flex-row items-start sm:items-center gap-3">
           <div className="flex-1 w-full">
-            <label className="text-[0.6875rem] font-bold text-gray-600 block mb-1">
-              YOUR PERSONAL BUDGET FOR THIS TRIP
+            <label className="text-[0.6875rem] font-medium text-gray-600 block mb-1">
+              Personal trip budget
             </label>
             <input
               type="number"
@@ -220,20 +213,20 @@ export default function UserExpenseBudgetSection({
               onChange={(e) => setBudgetInput(e.target.value)}
               placeholder="e.g. 5000"
               required
-              className="w-full px-3.5 py-2 rounded-xl bg-white border border-gray-300 text-sm font-mono outline-none focus:border-[#4a6454]"
+              className="w-full px-3.5 py-2 rounded-xl bg-white border border-gray-200 text-sm font-mono outline-none focus:border-[#4a6454]"
             />
           </div>
           <div className="flex items-center gap-2 mt-1 sm:mt-5 self-end sm:self-auto">
             <button
               type="submit"
-              className="px-4 py-2 rounded-xl text-xs font-semibold text-white bg-[#4a6454] hover:bg-[#324c3d] transition-all cursor-pointer"
+              className="min-h-[44px] px-4 py-2 rounded-xl text-xs font-semibold text-white bg-[#4a6454] hover:bg-[#324c3d] transition-all cursor-pointer inline-flex items-center justify-center"
             >
               Save
             </button>
             <button
               type="button"
               onClick={() => setIsEditingBudget(false)}
-              className="px-3 py-2 rounded-xl text-xs font-medium text-gray-600 hover:bg-gray-200 transition-all cursor-pointer"
+              className="min-h-[44px] px-3 py-2 rounded-xl text-xs font-medium text-gray-600 hover:bg-gray-200 transition-all cursor-pointer inline-flex items-center justify-center"
             >
               Cancel
             </button>
@@ -245,8 +238,7 @@ export default function UserExpenseBudgetSection({
       <div
         className="rounded-2xl p-4 mb-4 flex items-center justify-between flex-wrap gap-3"
         style={{
-          backgroundColor: '#eaf5ed',
-          border: '1.5px solid #b0cdba',
+          backgroundColor: '#edf6ef',
         }}
       >
         <div className="flex items-center gap-2.5">
@@ -254,8 +246,8 @@ export default function UserExpenseBudgetSection({
             🎯
           </div>
           <div>
-            <span className="text-[0.6875rem] font-bold uppercase tracking-wider text-[#183124]">
-              YOUR ALLOCATED BUDGET
+            <span className="text-xs font-semibold text-[#183124] block">
+              Trip budget
             </span>
             <p className="text-xs text-[#324c3d]">
               Target spending allowance for your trip
@@ -270,7 +262,7 @@ export default function UserExpenseBudgetSection({
             +{formatMoney(personalBudget, currency)}
           </span>
           <span className="block text-[0.6875rem] font-semibold text-[#4a6454]">
-            (Starting Budget)
+            (Starting budget)
           </span>
         </div>
       </div>
@@ -278,8 +270,8 @@ export default function UserExpenseBudgetSection({
       {/* 2. THE TRANSACTIONS YOU HAVE TO PAY IN RED */}
       <div className="mb-4">
         <div className="flex items-center justify-between mb-2.5">
-          <span className="text-xs font-bold text-gray-700 uppercase tracking-wide">
-            Your Expenses & Obligations ({userTransactions.length})
+          <span className="text-xs font-medium text-gray-700">
+            Your expenses & obligations ({userTransactions.length})
           </span>
           {onViewLedger && expenses.length > userTransactions.length && (
             <button
@@ -312,7 +304,7 @@ export default function UserExpenseBudgetSection({
             )}
           </div>
         ) : (
-          <div className="flex flex-col divide-y divide-gray-100 rounded-2xl border border-gray-100 overflow-hidden bg-[#fafbfa]">
+          <div className="flex flex-col divide-y divide-gray-100 rounded-2xl overflow-hidden bg-[#fafbfa]">
             {userTransactions.map((tx) => {
               const date = new Date(tx.timestamp).toLocaleDateString('en-US', {
                 month: 'short',
@@ -402,33 +394,32 @@ export default function UserExpenseBudgetSection({
       <div
         className="rounded-2xl p-4 sm:p-5 mt-4"
         style={{
-          backgroundColor: isOverBudget ? '#fff5f4' : '#f7faf6',
-          border: `1.5px solid ${isOverBudget ? '#ffb4ab' : '#b0cdba'}`,
+          backgroundColor: isOverBudget ? '#fff5f4' : '#f4f7f4',
         }}
       >
         <div className="flex flex-col gap-2.5">
           {/* Subtotal calculation rows */}
           <div className="flex items-center justify-between text-xs text-gray-600">
-            <span>Starting Budget:</span>
+            <span>Starting budget:</span>
             <span className="font-mono font-semibold text-[#183124]">
               +{formatMoney(personalBudget, currency)}
             </span>
           </div>
           <div className="flex items-center justify-between text-xs text-gray-600">
-            <span>Total You Have to Pay (Expenses):</span>
+            <span>Total to pay (expenses):</span>
             <span className="font-mono font-semibold text-[#ba1a1a]">
               -{formatMoney(totalUserExpenseShare, currency)}
             </span>
           </div>
 
           {/* Divider line */}
-          <div className="h-px bg-gray-200 my-1" />
+          <div className="h-px bg-gray-100 my-1" />
 
           {/* NET AT BOTTOM */}
           <div className="flex items-center justify-between gap-3 flex-wrap">
             <div>
-              <span className="text-xs sm:text-sm font-bold uppercase tracking-wider text-gray-700 block">
-                Net Remaining Budget
+              <span className="text-xs sm:text-sm font-semibold text-gray-700 block">
+                Net remaining budget
               </span>
               <span
                 className="text-xs font-medium"

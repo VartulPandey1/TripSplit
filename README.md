@@ -11,7 +11,7 @@
   </p>
 
   <p align="center">
-    <a href="#key-features"><img src="https://img.shields.io/badge/version-1.1.2-4a6454.svg?style=flat-square" alt="Version 1.1.2" /></a>
+    <a href="#key-features"><img src="https://img.shields.io/badge/version-1.1.6-4a6454.svg?style=flat-square" alt="Version 1.1.6" /></a>
     <a href="https://nextjs.org/"><img src="https://img.shields.io/badge/Next.js-16.4.3-black?style=flat-square&logo=next.js" alt="Next.js 16" /></a>
     <a href="https://react.dev/"><img src="https://img.shields.io/badge/React-19.3.0-61dafb?style=flat-square&logo=react" alt="React 19" /></a>
     <a href="https://tailwindcss.com/"><img src="https://img.shields.io/badge/Tailwind-v4-38bdf8?style=flat-square&logo=tailwindcss" alt="Tailwind CSS v4" /></a>
@@ -70,10 +70,11 @@ Planning a trip with friends often devolves into chaotic spreadsheets, lost rece
   <img src="assets/features-preview.svg" alt="TripSplit Capabilities Overview" width="100%" />
 </div>
 
-### 1. Collaborative Trip Itinerary & Packing
-- **6-Character Room Codes**: Invite friends to join your trip room in seconds (e.g. `ALP-8821`).
-- **Interactive Timeline**: Plan activities day-by-day with start times, location tags, and traveler assignments.
-- **Shared Packing List**: Ensure nobody forgets essentials with real-time shared checklist toggles.
+### 1. Collaborative Trip Itinerary, Notes & Packing
+- **6-Character Room Codes & 1-Tap Join**: Instant WhatsApp invites, direct links, and a smart 1-tap clipboard paste button with 1-second animated auto-submit.
+- **Interactive Timeline**: Plan activities day-by-day with start times, mobile responsive time badges, and intra-day drag/reorder controls.
+- **Dedicated Full-Height Notes View**: Apple Notes-style notepad (`h-[55vh]` on mobile) with a sticky real-time auto-save bar (`✓ Auto-saved to trip`) for flight PNRs, gate codes, and Wi-Fi credentials.
+- **Shared Packing List & Quick Claim**: Real-time gear and errand lists featuring 1-tap `+ Volunteer` claiming, compact quantity badges (`2x`), and collapsible completed sections.
 
 ### 2. Price Guessing & Consensus Budgeting
 - **Gamified Estimations**: Before booking villas or adventure tours, everyone submits their price guess.
@@ -93,13 +94,14 @@ Both cards share an identical high-clarity layout featuring:
 - **Visual scale tracks with `$0`, `50%`, and `Target Ceiling` ticks**
 - **Real-time color-coded spend & remaining indicators (green for under budget, amber at 80%, crimson when exceeded)**
 
-### 4. Expense Splitting & Participant Control
+### 4. Expense Splitting & Apple Wallet-Style Ledger
+- **Apple Wallet-Style Financial Rows**: Ultra-clean 2-line financial rows displaying payer, included count, and exact net effect (`to pay` / `to get`).
 - **Dynamic Participant Toggle**: Splitting dinner where one person didn't drink alcohol? Easily toggle specific travelers on or off with instant recalculation.
-- **Full Expense Editing**: Edit amounts, payers, descriptions, and participant groups at any time.
-- **Multiple Currencies**: Seamlessly format across `USD`, `EUR`, `GBP`, `INR`, `CAD`, `AUD`, and `JPY`.
+- **Full Expense Editing & Privacy**: Edit amounts, payers, descriptions, and participant groups at any time, with database-level isolation of solo private spends.
+- **Multiple Currencies**: Seamlessly format across `INR`, `USD`, `EUR`, `GBP`, `CAD`, `AUD`, and `JPY`.
 
-### 5. Smart Debt Simplification Algorithm
-Instead of traveler A paying traveler B, traveler B paying traveler C, and traveler C paying traveler A, TripSplit computes the **net balance** for every traveler and resolves the minimum cash transfer graph:
+### 5. Smart Dual Debt Settlement Engine
+Choose between **Simplified** (minimum transitive transactions) and **Direct Pairwise** (bilateral debts) to settle balances:
 
 ```mermaid
 flowchart LR

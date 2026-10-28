@@ -3,6 +3,7 @@ import { auth } from '@/lib/auth';
 import { connectDB } from '@/lib/db/mongoose';
 import Expense from '@/lib/db/models/Expense';
 import Trip from '@/lib/db/models/Trip';
+import '@/lib/db/models/User';
 
 export async function PATCH(req: Request, { params }: { params: Promise<{ id: string }> }) {
   const session = await auth();

@@ -7,6 +7,76 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [1.1.6] - 2026-10-28
+
+### 📱 Bottom Nav Active Indicator, Touch-Manipulation & Skeleton Shimmers
+- **OLED Bottom Nav Active Indicator & Soft Ambient Glow**:
+  - Anchored a 3px rounded indicator pill (`#4a6454` with soft glow shadow) above the active bottom nav tab icon.
+  - Added a soft ambient green glow halo (`rgba(74, 100, 84, 0.08)` and `14px` blur) behind the active icon, providing clear visual confirmation on OLED mobile displays.
+- **Prevent Accidental Double-Tap Zoom**:
+  - Added `touch-manipulation` and `select-none` to all interactive pills and quantity steppers (`+`, `-`, `Volunteer/Claim`, `Copy Code`, `Copy Link`, tab toggles, and FAB buttons).
+  - Applied global `touch-action: manipulation;` across buttons and action roles in `app/globals.css`, eliminating unwanted mobile Safari double-tap zooming during rapid clicking.
+- **Skeleton Shimmer Loading**:
+  - Replaced the static `"Loading trip details…"` text with subtle pulsing gray card skeletons (`OverviewSkeleton`) mirroring the actual card shapes (Header Card, Next Stop, Tasks & Gear, and Analytics).
+  - Added corresponding card-shaped shimmer skeletons for Checklists (`TasksSkeleton`), Finances (`MoneySkeleton`), and Itinerary (`PlanSkeleton`), delivering an instantaneous perceived load experience.
+
+---
+
+## [1.1.5] - 2026-10-27
+
+### 📋 1-Tap "Paste code from clipboard" & 1-Second Auto-Submit
+- **1-Tap Paste Button on Join Trip Portal**:
+  - Added dedicated one-tap button: `"📋 Paste code from clipboard"` on `/trips/join`.
+  - Intelligently parses raw text, WhatsApp share messages, invite links (`?code=...`), and direct 6-character room codes.
+  - Automatically populates the room code input and triggers auto-submit after a 1-second visual countdown with animated progress bar and confirmation badge.
+  - Allows manual cancellation if edited or immediate submission without waiting.
+- **Enhanced Direct Input Paste**:
+  - Added smart clipboard extraction to input `onPaste` handler, preventing URLs or full WhatsApp messages from being truncated to 6 characters.
+
+---
+
+## [1.1.4] - 2026-10-27
+
+### 🎒 1-Tap Quick Claim & Compact Quantity Badges
+- **1-Tap Quick Claim on Mobile & Desktop**:
+  - Unassigned gear items and pre-trip tasks now feature a subtle, high-affordance `+ Volunteer` pill directly on the row.
+  - Any travel crew member can instantly claim responsibility for an item with a single tap directly from the checklist feed without having to tap into the edit bottom sheet and change assignees.
+  - Once claimed, the item smoothly transitions to "Claimed by You", unlocking the checkbox so the volunteer can check it off as packed/completed.
+- **Compact Quantity Badges**:
+  - Relocated gear quantity indicators (e.g. `2x`, `3x`) from the end of the title text into a sleek, dedicated pill badge positioned right next to the checkbox.
+  - Prevents long item titles from wrapping awkwardly onto new lines due to appended quantity strings.
+  - Added consistent compact quantity pill rendering to the Overview tab's open and claimed task feeds.
+
+---
+
+## [1.1.3] - 2026-10-27
+
+### 📝 Dedicated Full-Height Apple Notes-Style Canvas & Itinerary Time Badges
+- **Dedicated Full-Height Notes View**:
+  - Expanded the Trip Notes canvas to a comfortable `h-[55vh]` viewport height on mobile (`h-[60vh]` on desktop), providing a distraction-free notepad for Wi-Fi codes, flight PNRs, booking links, and gate passwords.
+  - Implemented a sticky sync status bar anchored to the bottom displaying real-time synchronization (`✓ Auto-saved to trip`, `Auto-saving in Xs…`, `Offline pending sync`) alongside manual immediate save and word count metrics.
+- **Mobile Responsive Stop Time Badges**:
+  - On mobile screens, scheduled stop activity times (e.g. `⏰ 10:30 AM`) now render as a subtle pill below the stop title rather than competing horizontally against the title text, preventing awkward text truncation on narrow viewports.
+
+### 💸 Money Screen UX Redesign & Apple Wallet-Style Financial Rows
+- **Brand New Trip Zero-State Simplicity**:
+  - When no expenses have been recorded yet (`expenses.length === 0`), the Expenses screen now renders a clean, centered `"No expenses logged yet"` zero-state card with a single `+ Log First Expense` button.
+  - Automatically hides sub-tab pills (`Personal`, `Group Ledger`, `Private Spends`), search bars, and KPI cards until data exists to filter.
+- **Unified 1-Line Financial Ticker**:
+  - Replaced tall multi-card metric boxes with a sleek, single-line header ticker: `Total: <Amount> • You owe: -<Amount>` (or `You get: +<Amount>` / `✓ All squared up`).
+- **Single Primary Add Button (Duplicate Removal)**:
+  - Consolidated expense entry into strictly **ONE** primary Add button in the top bar.
+  - Removed duplicate "+ Add Expense" / "+ Add Private" buttons from the inner card headers and eliminated the overlapping bottom floating action button (FAB).
+- **Apple Wallet-Style 2-Line Financial Rows**:
+  - Personal share transactions now follow a 2-line financial format:
+    - **Line 1**: `Description` (bold left) ................ `-<Amount>` / `+<Amount>` (bold red/green right)
+    - **Line 2**: `Paid by <Payer> • 1 of <Count>` (subtle left) ... `to pay` / `to get` (subtle red/green right)
+  - Removed heavy emoji icon boxes (`w-9 h-9` squares) and multi-line avatar badges from rows for a cleaner ledger appearance.
+- **Strict Tab Boundaries**:
+  - Confined all budget targets, category limits, and guessing games strictly to the Budget tab, keeping the Expenses tab purely focused on transactions and Settle Up.
+
+---
+
 ## [1.1.2] - 2026-10-27
 
 ### 🎨 Clean Tab-Driven Financial Cards & Dynamic Subview Switching

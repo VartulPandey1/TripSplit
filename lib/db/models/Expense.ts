@@ -27,7 +27,7 @@ const ExpenseSchema = new Schema<IExpense>({
   description: { type: String, required: true },
   category: { type: String, default: 'Misc' },
   isPersonal: { type: Boolean, default: false },
-  splitType: { type: String, enum: ['equal', 'exact', 'percentage', 'personal'], default: 'equal' },
+  splitType: { type: String, default: 'equal' },
   includedMembers: [{ type: Schema.Types.ObjectId, ref: 'User' }],
   splitDetails: [{ userId: { type: Schema.Types.ObjectId, ref: 'User' }, amountOwed: Number }],
   receiptImage: { type: String },
@@ -36,6 +36,10 @@ const ExpenseSchema = new Schema<IExpense>({
 });
 
 ExpenseSchema.index({ tripId: 1, timestamp: -1 });
+
+if (process.env.NODE_ENV !== 'production' && mongoose.models.Expense) {
+  delete (mongoose.models as any).Expense;
+}
 
 const Expense: Model<IExpense> = mongoose.models.Expense || mongoose.model<IExpense>('Expense', ExpenseSchema);
 export default Expense;

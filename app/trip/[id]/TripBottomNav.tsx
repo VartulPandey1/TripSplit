@@ -97,35 +97,50 @@ export default function TripBottomNav() {
       style={{
         backgroundColor: 'rgba(255,255,255,0.96)',
         backdropFilter: 'blur(16px)',
-        borderTop: '1px solid var(--color-border)',
+        borderTop: '1px solid rgba(0,0,0,0.04)',
         boxShadow: '0 -4px 20px -2px rgba(26,30,28,0.03)',
         paddingBottom: 'env(safe-area-inset-bottom, 0px)',
       }}
     >
-      <div className="w-full max-w-4xl mx-auto flex">
+      <div className="w-full max-w-4xl mx-auto flex relative">
         {TABS.map((tab) => {
           const isActive = segment === tab.href;
           return (
             <Link
               key={tab.href}
               href={`/trip/${params.id}/${tab.href}`}
-              className="flex-1 flex flex-col items-center justify-center py-2.5 text-xs transition-colors"
+              className="relative flex-1 flex flex-col items-center justify-center pt-2 pb-1.5 min-h-[50px] text-xs transition-colors select-none touch-manipulation"
               style={{
                 color: isActive ? '#4a6454' : 'rgba(26,30,28,0.45)',
                 fontWeight: isActive ? 600 : 400,
                 fontFamily: 'var(--font-body)',
               }}
             >
-              <span className="mb-1 transition-transform duration-150" style={{ transform: isActive ? 'scale(1.05)' : 'scale(1)' }}>
-                {tab.renderIcon(isActive)}
-              </span>
-              <span style={{ fontSize: '0.6875rem', letterSpacing: '0.01em' }}>{tab.label}</span>
+              {/* 3px Active Indicator Pill on top edge of tab for OLED confirmation */}
               {isActive && (
                 <span
-                  className="w-1 h-1 rounded-full mt-1"
-                  style={{ backgroundColor: '#4a6454' }}
+                  className="absolute top-0 left-1/2 -translate-x-1/2 h-[3px] w-7 sm:w-8 rounded-full transition-all"
+                  style={{
+                    backgroundColor: '#4a6454',
+                    boxShadow: '0 0 10px rgba(74, 100, 84, 0.55), 0 1px 3px rgba(74, 100, 84, 0.35)',
+                  }}
+                  aria-hidden="true"
                 />
               )}
+
+              {/* Icon Container with soft green glow above/behind the active icon */}
+              <span
+                className="relative mb-1 flex items-center justify-center w-8 h-7 rounded-xl transition-all duration-200"
+                style={{
+                  transform: isActive ? 'scale(1.06)' : 'scale(1)',
+                  backgroundColor: isActive ? 'rgba(74, 100, 84, 0.08)' : 'transparent',
+                  boxShadow: isActive ? '0 0 14px rgba(74, 100, 84, 0.22)' : 'none',
+                }}
+              >
+                {tab.renderIcon(isActive)}
+              </span>
+
+              <span style={{ fontSize: '0.6875rem', letterSpacing: '0.01em' }}>{tab.label}</span>
             </Link>
           );
         })}
