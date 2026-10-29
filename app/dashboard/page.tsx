@@ -5,6 +5,7 @@ import { auth, signOut } from '@/lib/auth';
 import Link from 'next/link';
 import Logo from '@/app/components/Logo';
 import SignOutButton from '@/app/components/SignOutButton';
+import ThemeToggle from '@/app/components/ThemeToggle';
 import { getAvatarEmoji } from '@/lib/constants/avatars';
 import { connectDB } from '@/lib/db/mongoose';
 import Trip from '@/lib/db/models/Trip';
@@ -42,13 +43,16 @@ async function DashboardContent() {
       <header
         className="sticky top-0 z-10 flex items-center justify-between px-4 sm:px-6 py-3.5 sm:py-4"
         style={{
-          backgroundColor: 'rgba(247,249,247,0.88)',
+          backgroundColor: 'var(--color-header-bg)',
           backdropFilter: 'blur(12px)',
-          borderBottom: '1px solid rgba(0,0,0,0.04)',
+          borderBottom: '1px solid var(--color-border)',
         }}
       >
         <Logo layout="horizontal" href="/dashboard" />
         <div className="flex items-center gap-2 sm:gap-3">
+          {/* Theme Quick Toggle */}
+          <ThemeToggle />
+
           {/* Avatar circle (Settings trigger on mobile & desktop) */}
           <Link
             href="/settings"

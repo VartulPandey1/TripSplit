@@ -7,6 +7,29 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [1.2.0] - 2026-10-29
+
+### 🌙 Midnight Obsidian Dark Mode & High-Contrast Visual Architecture
+- **Midnight Obsidian Theme System**:
+  - Implemented an elegant, low-glare dark mode palette (`#0f1411` deep canvas, `#18201b` card surfaces, and `#1f2823` subtle card containers) styled specifically for night-time travel planning and battery efficiency on OLED screens.
+  - Zero-FOUC (Flash of Unstyled Content) initialization: inlined immediate head script in `app/layout.tsx` reads `localStorage` and system media query before paint.
+  - Persistent `ThemeProvider` supporting 3 modes: **Light (Silk & Sage)**, **Dark (Midnight Obsidian)**, and **System (Auto OS)**.
+- **Header & Settings Quick Toggles**:
+  - Added one-tap quick toggle pill (`ThemeToggle`) across the Dashboard header, Trip workspace header, and Account Settings.
+  - Added dedicated 3-tier segmented theme picker card under Account Settings (`/settings`).
+- **High-Contrast Financial WCAG AA Compliance**:
+  - Adapted financial balance indicators in Money Hub and Settle Up:
+    - Owed money (positive): Adapted to vibrant emerald sage (`#8be0a5`).
+    - You owe (negative): Adapted to soft coral red (`#ff897d`).
+    - Settled up (neutral): Adapted to soft silver gray (`#9aa49d`).
+  - Adapted Settle Up bilateral debt cards to prevent dark text on dark surfaces for multi-party debts.
+- **Surface, Alert & Component Adaptations**:
+  - Adapted avatar ring borders (`.border-white` $\to$ `var(--color-card)`) preventing harsh white halos around crew members.
+  - Adapted status badges (Upcoming, Ongoing, Completed) and SVG donut chart tracks in spending analytics to night-friendly contrast ratios.
+  - Configured focused ring offsets (`ring-offset-2`) to smoothly match card backgrounds without white halo artifacts.
+
+---
+
 ## [1.1.6] - 2026-10-28
 
 ### 📱 Bottom Nav Active Indicator, Touch-Manipulation & Skeleton Shimmers

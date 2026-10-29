@@ -5,6 +5,8 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { AVATARS } from '@/lib/constants/avatars';
 import Logo from '@/app/components/Logo';
+import { useTheme } from '@/app/components/ThemeProvider';
+import ThemeToggle from '@/app/components/ThemeToggle';
 
 interface SettingsClientProps {
   initialUser: {
@@ -18,6 +20,7 @@ interface SettingsClientProps {
 
 export default function SettingsClient({ initialUser }: SettingsClientProps) {
   const router = useRouter();
+  const { theme, setTheme } = useTheme();
 
   // Profile Form State
   const [username, setUsername] = useState(initialUser.username);
@@ -123,25 +126,28 @@ export default function SettingsClient({ initialUser }: SettingsClientProps) {
       <header
         className="sticky top-0 z-20 flex items-center justify-between px-4 sm:px-6 py-3.5 sm:py-4"
         style={{
-          backgroundColor: 'rgba(247,250,246,0.92)',
+          backgroundColor: 'var(--color-header-bg)',
           backdropFilter: 'blur(12px)',
           borderBottom: '1px solid var(--color-border)',
         }}
       >
         <Logo layout="horizontal" href="/dashboard" />
-        <Link
-          href="/dashboard"
-          className="min-h-[44px] min-w-[44px] text-xs font-medium px-4 py-2 rounded-full transition-all inline-flex items-center justify-center gap-1.5 cursor-pointer"
-          style={{
-            backgroundColor: '#ffffff',
-            border: '1px solid var(--color-border)',
-            color: 'rgba(26,30,28,0.7)',
-            boxShadow: '0 2px 8px -1px rgba(26,30,28,0.04)',
-          }}
-        >
-          <span>←</span>
-          <span>Dashboard</span>
-        </Link>
+        <div className="flex items-center gap-2">
+          <ThemeToggle />
+          <Link
+            href="/dashboard"
+            className="min-h-[40px] text-xs font-medium px-4 py-2 rounded-full transition-all inline-flex items-center justify-center gap-1.5 cursor-pointer"
+            style={{
+              backgroundColor: 'var(--color-card)',
+              border: '1px solid var(--color-border)',
+              color: 'var(--color-charcoal)',
+              boxShadow: '0 2px 8px -1px rgba(26,30,28,0.04)',
+            }}
+          >
+            <span>←</span>
+            <span>Dashboard</span>
+          </Link>
+        </div>
       </header>
 
       {/* Main Container */}
@@ -162,11 +168,11 @@ export default function SettingsClient({ initialUser }: SettingsClientProps) {
         <section
           className="rounded-3xl p-4 sm:p-6 shadow-xs"
           style={{
-            backgroundColor: '#ffffff',
+            backgroundColor: 'var(--color-card)',
             border: '1px solid var(--color-border)',
           }}
         >
-          <div className="flex items-center gap-2 mb-4 pb-3 border-b border-[#f1f4f1]">
+          <div className="flex items-center gap-2 mb-4 pb-3 border-b border-[var(--color-border)]">
             <span className="text-lg">👤</span>
             <h2
               className="text-base font-bold text-[#181c1a]"
@@ -256,15 +262,76 @@ export default function SettingsClient({ initialUser }: SettingsClientProps) {
           </form>
         </section>
 
-        {/* 2. Security & Password Card */}
+        {/* 2. Appearance & Theme Card */}
         <section
           className="rounded-3xl p-4 sm:p-6 shadow-xs"
           style={{
-            backgroundColor: '#ffffff',
+            backgroundColor: 'var(--color-card)',
             border: '1px solid var(--color-border)',
           }}
         >
-          <div className="flex items-center gap-2 mb-4 pb-3 border-b border-[#f1f4f1]">
+          <div className="flex items-center gap-2 mb-4 pb-3 border-b border-[var(--color-border)]">
+            <span className="text-lg">🎨</span>
+            <h2
+              className="text-base font-bold text-[#181c1a]"
+              style={{ fontFamily: 'var(--font-heading)' }}
+            >
+              Appearance & Theme
+            </h2>
+          </div>
+
+          <div>
+            <label className="text-xs font-semibold text-gray-600 uppercase tracking-wider block mb-1">
+              Color Theme
+            </label>
+            <p className="text-xs text-gray-500 mb-3.5">
+              Choose your look or let TripSplit match your system preferences.
+            </p>
+
+            <div className="grid grid-cols-3 gap-2.5 sm:gap-3">
+              {[
+                { id: 'light' as const, label: 'Light', icon: '☀️', desc: 'Silk & Sage' },
+                { id: 'dark' as const, label: 'Dark', icon: '🌙', desc: 'Midnight Obsidian' },
+                { id: 'system' as const, label: 'System', icon: '🖥️', desc: 'Auto (OS)' },
+              ].map((opt) => {
+                const isSelected = theme === opt.id;
+                return (
+                  <button
+                    key={opt.id}
+                    type="button"
+                    onClick={() => setTheme(opt.id)}
+                    className={`p-3 sm:p-4 rounded-2xl border text-left transition-all cursor-pointer flex flex-col justify-between ${
+                      isSelected
+                        ? 'border-[#4a6454] bg-[#ccead5]/30 text-[#183124] ring-2 ring-[#4a6454] ring-offset-2 shadow-xs'
+                        : 'border-gray-200 bg-[#f7faf6] hover:bg-gray-100 text-gray-700'
+                    }`}
+                  >
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="text-xl sm:text-2xl">{opt.icon}</span>
+                      {isSelected && (
+                        <span className="w-2 h-2 rounded-full bg-[#4a6454]" />
+                      )}
+                    </div>
+                    <div>
+                      <p className="text-xs sm:text-sm font-bold">{opt.label}</p>
+                      <p className="text-[10px] sm:text-[11px] opacity-75 mt-0.5">{opt.desc}</p>
+                    </div>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+
+        {/* 3. Security & Password Card */}
+        <section
+          className="rounded-3xl p-4 sm:p-6 shadow-xs"
+          style={{
+            backgroundColor: 'var(--color-card)',
+            border: '1px solid var(--color-border)',
+          }}
+        >
+          <div className="flex items-center gap-2 mb-4 pb-3 border-b border-[var(--color-border)]">
             <span className="text-lg">🔒</span>
             <h2
               className="text-base font-bold text-[#181c1a]"
@@ -344,15 +411,15 @@ export default function SettingsClient({ initialUser }: SettingsClientProps) {
           </form>
         </section>
 
-        {/* 3. Account Information Card */}
+        {/* 4. Account Information Card */}
         <section
           className="rounded-3xl p-4 sm:p-6 shadow-xs"
           style={{
-            backgroundColor: '#ffffff',
+            backgroundColor: 'var(--color-card)',
             border: '1px solid var(--color-border)',
           }}
         >
-          <div className="flex items-center gap-2 mb-4 pb-3 border-b border-[#f1f4f1]">
+          <div className="flex items-center gap-2 mb-4 pb-3 border-b border-[var(--color-border)]">
             <span className="text-lg">ℹ️</span>
             <h2
               className="text-base font-bold text-[#181c1a]"
@@ -362,7 +429,7 @@ export default function SettingsClient({ initialUser }: SettingsClientProps) {
             </h2>
           </div>
 
-          <div className="divide-y divide-[#f1f4f1] text-xs">
+          <div className="divide-y divide-[var(--color-border)] text-xs">
             <div className="py-2.5 flex items-center justify-between">
               <span className="text-gray-500 font-medium">Email Address</span>
               <span className="font-semibold text-[#181c1a] font-mono">{initialUser.email}</span>

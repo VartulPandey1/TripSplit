@@ -11,9 +11,9 @@ export default function AuthCard({ children }: { children: React.ReactNode }) {
       <div
         className="w-full max-w-[440px] rounded-3xl px-5 py-7 sm:px-8 sm:py-10"
         style={{
-          backgroundColor: '#ffffff',
+          backgroundColor: 'var(--color-card)',
           border: '1px solid var(--color-border)',
-          boxShadow: '0 12px 32px -4px rgba(26,30,28,0.06)',
+          boxShadow: '0 12px 32px -4px rgba(0,0,0,0.06)',
         }}
       >
         {children}

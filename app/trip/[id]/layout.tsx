@@ -6,6 +6,7 @@ import { connectDB } from '@/lib/db/mongoose';
 import Trip from '@/lib/db/models/Trip';
 import Link from 'next/link';
 import Logo from '@/app/components/Logo';
+import ThemeToggle from '@/app/components/ThemeToggle';
 import TripBottomNav from './TripBottomNav';
 import OverviewSkeleton from './overview/OverviewSkeleton';
 
@@ -52,21 +53,24 @@ export default function TripLayout({
       <header
         className="sticky top-0 z-20 flex items-center justify-between px-3.5 sm:px-6 py-2.5 sm:py-3"
         style={{
-          backgroundColor: 'rgba(247,249,247,0.88)',
+          backgroundColor: 'var(--color-header-bg)',
           backdropFilter: 'blur(12px)',
-          borderBottom: '1px solid rgba(0,0,0,0.04)',
+          borderBottom: '1px solid var(--color-border)',
         }}
       >
         <Logo layout="horizontal" href="/dashboard" />
-        <Link
-          href="/dashboard"
-          className="text-xs font-semibold px-3 py-1.5 rounded-full transition-all shrink-0 hover:bg-gray-100/90 inline-flex items-center gap-1.5 cursor-pointer border border-black/[0.06] bg-white text-gray-700 shadow-2xs active:scale-95"
-          title="View All Trips"
-          aria-label="View All Trips"
-        >
-          <span className="text-sm">🗂️</span>
-          <span>All Trips</span>
-        </Link>
+        <div className="flex items-center gap-2">
+          <ThemeToggle />
+          <Link
+            href="/dashboard"
+            className="text-xs font-semibold px-3 py-1.5 rounded-full transition-all shrink-0 hover:bg-gray-100/90 inline-flex items-center gap-1.5 cursor-pointer border border-black/[0.06] bg-white text-gray-700 shadow-2xs active:scale-95"
+            title="View All Trips"
+            aria-label="View All Trips"
+          >
+            <span className="text-sm">🗂️</span>
+            <span>All Trips</span>
+          </Link>
+        </div>
       </header>
 
       {/* Main content view with layout-level IDOR Trip Membership Guard */}

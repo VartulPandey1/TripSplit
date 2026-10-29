@@ -43,7 +43,7 @@ export default function FloatingInput({ label, id, type, ...props }: FloatingInp
           isPasswordField ? 'pr-12' : 'pr-4'
         } pt-5 pb-2 text-base sm:text-[0.9375rem] outline-none transition-all`}
         style={{
-          backgroundColor: '#ffffff',
+          backgroundColor: 'var(--color-card)',
           border: `1px solid ${focused ? '#7e9a88' : 'var(--color-border)'}`,
           boxShadow: focused
             ? '0 0 0 3px rgba(154,183,211,0.35)'
@@ -61,7 +61,7 @@ export default function FloatingInput({ label, id, type, ...props }: FloatingInp
           fontSize: lifted ? '0.6875rem' : '0.9375rem',
           fontWeight: lifted ? 500 : 400,
           letterSpacing: lifted ? '0.04em' : '-0.005em',
-          color: lifted ? '#7e9a88' : 'rgba(26,30,28,0.45)',
+          color: lifted ? '#7e9a88' : 'var(--color-muted)',
           fontFamily: 'var(--font-body)',
         }}
       >

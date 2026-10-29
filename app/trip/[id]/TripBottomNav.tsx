@@ -95,10 +95,10 @@ export default function TripBottomNav() {
     <nav
       className="fixed bottom-0 left-0 right-0 z-20 flex"
       style={{
-        backgroundColor: 'rgba(255,255,255,0.96)',
+        backgroundColor: 'var(--color-nav-bg)',
         backdropFilter: 'blur(16px)',
-        borderTop: '1px solid rgba(0,0,0,0.04)',
-        boxShadow: '0 -4px 20px -2px rgba(26,30,28,0.03)',
+        borderTop: '1px solid var(--color-border)',
+        boxShadow: '0 -4px 20px -2px rgba(0,0,0,0.06)',
         paddingBottom: 'env(safe-area-inset-bottom, 0px)',
       }}
     >
@@ -111,7 +111,7 @@ export default function TripBottomNav() {
               href={`/trip/${params.id}/${tab.href}`}
               className="relative flex-1 flex flex-col items-center justify-center pt-2 pb-1.5 min-h-[50px] text-xs transition-colors select-none touch-manipulation"
               style={{
-                color: isActive ? '#4a6454' : 'rgba(26,30,28,0.45)',
+                color: isActive ? 'var(--color-active-nav)' : 'var(--color-inactive-nav)',
                 fontWeight: isActive ? 600 : 400,
                 fontFamily: 'var(--font-body)',
               }}
@@ -121,7 +121,7 @@ export default function TripBottomNav() {
                 <span
                   className="absolute top-0 left-1/2 -translate-x-1/2 h-[3px] w-7 sm:w-8 rounded-full transition-all"
                   style={{
-                    backgroundColor: '#4a6454',
+                    backgroundColor: 'var(--color-active-nav)',
                     boxShadow: '0 0 10px rgba(74, 100, 84, 0.55), 0 1px 3px rgba(74, 100, 84, 0.35)',
                   }}
                   aria-hidden="true"
@@ -133,7 +133,7 @@ export default function TripBottomNav() {
                 className="relative mb-1 flex items-center justify-center w-8 h-7 rounded-xl transition-all duration-200"
                 style={{
                   transform: isActive ? 'scale(1.06)' : 'scale(1)',
-                  backgroundColor: isActive ? 'rgba(74, 100, 84, 0.08)' : 'transparent',
+                  backgroundColor: isActive ? 'rgba(74, 100, 84, 0.16)' : 'transparent',
                   boxShadow: isActive ? '0 0 14px rgba(74, 100, 84, 0.22)' : 'none',
                 }}
               >

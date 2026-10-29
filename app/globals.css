@@ -1,6 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Inter:wght@400;500&display=swap');
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 @theme {
   /* Ethereal Sanctuary palette */
   --color-sage-50:  #f7faf6;
@@ -29,6 +31,39 @@
   /* Typography */
   --font-heading: 'Manrope', sans-serif;
   --font-body:    'Inter', sans-serif;
+}
+
+:root {
+  --color-canvas: #f7f9f7;
+  --color-silk: #f7f9f7;
+  --color-card: #ffffff;
+  --color-card-subtle: #f7faf6;
+  --color-charcoal: #1a1e1c;
+  --color-muted: rgba(26, 30, 28, 0.6);
+  --color-border: rgba(0, 0, 0, 0.06);
+  --color-header-bg: rgba(247, 249, 247, 0.88);
+  --color-nav-bg: rgba(255, 255, 255, 0.96);
+  --color-active-nav: #4a6454;
+  --color-inactive-nav: rgba(26, 30, 28, 0.45);
+  --color-input-bg: #f7faf6;
+  --color-shadow-card: 0 4px 20px -2px rgba(26, 30, 28, 0.04);
+}
+
+html.dark {
+  color-scheme: dark;
+  --color-canvas: #0f1411;
+  --color-silk: #0f1411;
+  --color-card: #18201b;
+  --color-card-subtle: #1f2823;
+  --color-charcoal: #eef2ef;
+  --color-muted: rgba(238, 242, 239, 0.65);
+  --color-border: rgba(255, 255, 255, 0.08);
+  --color-header-bg: rgba(15, 20, 17, 0.88);
+  --color-nav-bg: rgba(24, 32, 27, 0.96);
+  --color-active-nav: #8be0a5;
+  --color-inactive-nav: rgba(238, 242, 239, 0.5);
+  --color-input-bg: #1f2823;
+  --color-shadow-card: 0 4px 20px -2px rgba(0, 0, 0, 0.35);
 }
 
 * {
@@ -157,4 +192,192 @@ h1, h2, h3, h4 {
   content: '';
 }
 
+/* =========================================================================
+   DARK MODE ADAPTATIONS
+   ========================================================================= */
+html.dark body {
+  background-color: var(--color-canvas) !important;
+  color: var(--color-charcoal) !important;
+}
 
+/* Surfaces and Cards */
+html.dark .bg-white {
+  background-color: var(--color-card) !important;
+}
+
+html.dark .bg-\[\#ffffff\] {
+  background-color: var(--color-card) !important;
+}
+
+html.dark .bg-\[\#f7faf6\],
+html.dark .bg-\[\#fbfcfb\],
+html.dark .bg-\[\#fcfdfc\],
+html.dark .bg-gray-50 {
+  background-color: var(--color-card-subtle) !important;
+}
+
+html.dark .bg-\[\#ecefeb\],
+html.dark .bg-\[\#f1f4f1\],
+html.dark .bg-\[\#eef1ee\],
+html.dark .bg-gray-100 {
+  background-color: #242f28 !important;
+}
+
+html.dark .bg-\[\#eef4f0\] {
+  background-color: #1e2c23 !important;
+}
+
+/* Borders and Dividers */
+html.dark .border-gray-100,
+html.dark .border-gray-200,
+html.dark .border-\[\#e4e5e0\],
+html.dark .border-\[\#f0f3f0\],
+html.dark .border-black\/\[0\.04\],
+html.dark .border-black\/\[0\.05\],
+html.dark .border-black\/\[0\.06\],
+html.dark .border-black\/\[0\.08\] {
+  border-color: var(--color-border) !important;
+}
+
+html.dark .divide-gray-50 > :not([hidden]) ~ :not([hidden]),
+html.dark .divide-gray-100 > :not([hidden]) ~ :not([hidden]),
+html.dark .divide-black\/\[0\.04\] > :not([hidden]) ~ :not([hidden]) {
+  border-color: rgba(255, 255, 255, 0.07) !important;
+}
+
+/* Headings and High-Contrast Text */
+html.dark .text-\[\#1a1e1c\],
+html.dark .text-\[\#181c1a\],
+html.dark .text-gray-900,
+html.dark .text-gray-800 {
+  color: #edf2ee !important;
+}
+
+html.dark .text-gray-700,
+html.dark .text-gray-600 {
+  color: #c7d1ca !important;
+}
+
+html.dark .text-gray-500 {
+  color: #9aa49d !important;
+}
+
+html.dark .text-gray-400 {
+  color: #7b857f !important;
+}
+
+/* Brand Sage Accents & Badges */
+html.dark .text-\[\#4a6454\] {
+  color: #8be0a5 !important;
+}
+
+html.dark .text-\[\#7e9a88\] {
+  color: #a4c2b0 !important;
+}
+
+html.dark .text-\[\#183124\] {
+  color: #c0f2d0 !important;
+}
+
+html.dark .bg-\[\#ccead5\] {
+  background-color: #22422d !important;
+  color: #c0f2d0 !important;
+}
+
+html.dark .bg-\[\#ccead5\]\/40 {
+  background-color: rgba(34, 66, 45, 0.5) !important;
+}
+
+/* Form Inputs & Textareas */
+html.dark input:not([type="checkbox"]):not([type="radio"]),
+html.dark textarea,
+html.dark select {
+  background-color: var(--color-input-bg) !important;
+  color: #edf2ee !important;
+  border-color: rgba(255, 255, 255, 0.12) !important;
+}
+
+html.dark input::placeholder,
+html.dark textarea::placeholder {
+  color: #636e67 !important;
+}
+
+/* Interactive Hovers */
+html.dark .hover\:bg-gray-50:hover,
+html.dark .hover\:bg-gray-100:hover,
+html.dark .hover\:bg-\[\#f7faf6\]:hover,
+html.dark .hover\:bg-\[\#ecefeb\]:hover {
+  background-color: #27342c !important;
+}
+
+/* Modals & Backdrop Blur */
+html.dark .shadow-2xl,
+html.dark .shadow-xl {
+  box-shadow: 0 20px 45px -10px rgba(0, 0, 0, 0.6) !important;
+}
+
+/* Skeleton Shimmer in Dark Mode */
+html.dark .skeleton-shimmer {
+  background-color: #1f2823 !important;
+}
+
+html.dark .skeleton-shimmer::after {
+  background-image: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0,
+    rgba(255, 255, 255, 0.08) 50%,
+    rgba(255, 255, 255, 0) 100%
+  ) !important;
+}
+
+/* Avatar rings and border adaptations */
+html.dark .border-white,
+html.dark .border-\[\#ffffff\],
+html.dark .border-\[\#f1f4f1\] {
+  border-color: var(--color-card) !important;
+}
+
+/* Financial Ledger Balance colors (high-contrast WCAG AA in Dark Mode) */
+html.dark [style*="#226338"],
+html.dark [style*="#324c3d"] {
+  color: #8be0a5 !important;
+}
+
+html.dark [style*="#ba1a1a"] {
+  color: #ff897d !important;
+}
+
+html.dark [style*="#5f6368"] {
+  color: #9aa49d !important;
+}
+
+html.dark [style*="#1a1e1c"] {
+  color: #edf2ee !important;
+}
+
+/* Status & Alert Badges */
+html.dark [style*="#ffdad6"] {
+  background-color: #3b1715 !important;
+  color: #ffb4ab !important;
+}
+
+html.dark [style*="#e0f2fe"] {
+  background-color: #153347 !important;
+  color: #7dd3fc !important;
+}
+
+/* Semi-transparent text variables */
+html.dark [style*="rgba(26,30,28,"],
+html.dark [style*="rgba(26, 30, 28,"] {
+  color: var(--color-muted) !important;
+}
+
+/* Ring offsets on dark cards */
+html.dark [class*="ring-offset-2"] {
+  --tw-ring-offset-color: var(--color-card) !important;
+}
+
+/* SVG chart tracks */
+html.dark svg circle[stroke="#ecefeb"] {
+  stroke: #242f28 !important;
+}
