@@ -505,19 +505,19 @@ export default function TripHeaderCard({ trip: initialTrip, members, isCreator }
 
             <div className="space-y-3">
               {/* Room Code */}
-              <div className="p-3 rounded-2xl bg-[#f7faf6] border border-black/[0.04] flex items-center justify-between">
+              <div className="p-3 rounded-2xl bg-[#f7faf6] dark:bg-[#18181c] border border-black/[0.04] dark:border-white/10 flex items-center justify-between">
                 <div>
-                  <span className="text-[10px] font-medium text-gray-500 block">
+                  <span className="text-[10px] font-medium text-gray-500 dark:text-zinc-400 block">
                     Room code
                   </span>
-                  <span className="text-lg font-mono font-bold text-[#181c1a]">
+                  <span className="text-lg font-mono font-bold text-[#181c1a] dark:text-white">
                     {trip.roomCode}
                   </span>
                 </div>
                 <button
                   type="button"
                   onClick={handleCopyCode}
-                  className="text-xs font-semibold px-3 py-1.5 rounded-xl bg-white border border-gray-200 hover:bg-gray-50 text-gray-700 transition-all cursor-pointer shadow-3xs select-none touch-manipulation active:scale-95"
+                  className="text-xs font-semibold px-3 py-1.5 rounded-xl bg-white dark:bg-[#26262e] border border-gray-200 dark:border-white/10 hover:bg-gray-50 dark:hover:bg-[#30303a] text-gray-700 dark:text-white transition-all cursor-pointer shadow-3xs select-none touch-manipulation active:scale-95"
                 >
                   {copiedCode ? '✓ Copied' : '📋 Copy'}
                 </button>
@@ -527,7 +527,7 @@ export default function TripHeaderCard({ trip: initialTrip, members, isCreator }
               <button
                 type="button"
                 onClick={handleCopyInviteLink}
-                className="w-full py-2.5 px-3 rounded-xl border border-gray-200 bg-white hover:bg-gray-50 text-xs font-semibold text-gray-800 flex items-center justify-center gap-2 transition-all cursor-pointer shadow-3xs select-none touch-manipulation active:scale-95"
+                className="w-full py-2.5 px-3 rounded-xl border border-gray-200 dark:border-white/10 bg-white dark:bg-[#26262e] hover:bg-gray-50 dark:hover:bg-[#30303a] text-xs font-semibold text-gray-800 dark:text-white flex items-center justify-center gap-2 transition-all cursor-pointer shadow-3xs select-none touch-manipulation active:scale-95"
               >
                 <span>{copiedLink ? '✓' : '🔗'}</span>
                 <span>{copiedLink ? 'Link Copied to Clipboard!' : 'Copy 1-Click Invite Link'}</span>

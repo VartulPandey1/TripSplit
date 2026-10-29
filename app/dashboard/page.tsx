@@ -60,7 +60,7 @@ export default async function DashboardPage() {
           {/* Avatar circle (Settings trigger on mobile & desktop) */}
           <Link
             href="/settings"
-            className="w-10 h-10 sm:w-11 sm:h-11 min-w-[40px] min-h-[40px] rounded-full flex items-center justify-center text-lg sm:text-xl select-none shrink-0 transition-all hover:scale-105 active:scale-95 cursor-pointer bg-white border border-black/[0.05]"
+            className="w-10 h-10 sm:w-11 sm:h-11 min-w-[40px] min-h-[40px] rounded-full flex items-center justify-center text-lg sm:text-xl select-none shrink-0 transition-all hover:scale-105 active:scale-95 cursor-pointer bg-white dark:bg-[#1c1c20] border border-black/[0.05] dark:border-white/10"
             title={`${user.name || 'User'} • Account Settings`}
             aria-label="Account Settings"
           >
@@ -70,7 +70,7 @@ export default async function DashboardPage() {
           {/* Settings text pill: hidden on mobile, visible on desktop */}
           <Link
             href="/settings"
-            className="hidden sm:flex text-xs font-medium px-3 py-1.5 rounded-full transition-all cursor-pointer items-center gap-1.5 bg-white border border-black/[0.05] text-gray-700 hover:bg-gray-50 active:scale-95"
+            className="hidden sm:flex text-xs font-medium px-3 py-1.5 rounded-full transition-all cursor-pointer items-center gap-1.5 bg-white dark:bg-[#1c1c20] border border-black/[0.05] dark:border-white/10 text-gray-700 dark:text-zinc-200 hover:bg-gray-50 dark:hover:bg-[#25252b] active:scale-95"
             title="Account Settings"
           >
             <span>⚙️</span>
@@ -103,7 +103,7 @@ export default async function DashboardPage() {
             <span>Hey, {user.name}</span>
             <span>{avatar}</span>
           </h1>
-          <p style={{ fontSize: '0.9375rem', color: 'rgba(26,30,28,0.55)', fontFamily: 'var(--font-body)' }}>
+          <p style={{ fontSize: '0.9375rem', color: 'rgba(26,30,28,0.55)' }} className="dark:!text-zinc-400">
             Your trips are waiting
           </p>
         </div>
@@ -113,13 +113,13 @@ export default async function DashboardPage() {
           <div className="flex gap-3 mb-8 sm:mb-10">
             <Link
               href="/trips/new"
-              className="flex-1 text-center font-medium text-white rounded-2xl py-3.5 transition-colors shadow-xs flex items-center justify-center gap-1 text-sm bg-[#4a6454] hover:bg-[#3d5345]"
+              className="flex-1 text-center font-medium text-white dark:text-black rounded-2xl py-3.5 transition-colors shadow-xs flex items-center justify-center gap-1 text-sm bg-[#4a6454] hover:bg-[#3d5345] dark:bg-white dark:hover:bg-zinc-200"
             >
               + Create Trip
             </Link>
             <Link
               href="/trips/join"
-              className="flex-1 text-center font-medium rounded-2xl py-3.5 transition-colors border border-black/[0.06] bg-white hover:bg-gray-50 shadow-xs flex items-center justify-center gap-1 text-sm text-gray-800"
+              className="flex-1 text-center font-medium rounded-2xl py-3.5 transition-colors border border-black/[0.06] dark:border-white/10 bg-white dark:bg-[#1c1c20] hover:bg-gray-50 dark:hover:bg-[#25252b] shadow-xs flex items-center justify-center gap-1 text-sm text-gray-800 dark:text-white"
             >
               Join with Code
             </Link>

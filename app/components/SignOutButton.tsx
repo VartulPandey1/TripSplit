@@ -27,7 +27,7 @@ export default function SignOutButton({ onSignOut }: SignOutButtonProps) {
       type="button"
       onClick={handleClick}
       disabled={signingOut}
-      className="min-h-[44px] min-w-[44px] text-xs font-medium px-3 py-2 rounded-full transition-all cursor-pointer disabled:opacity-50 inline-flex items-center justify-center gap-1.5 hover:bg-gray-50 active:scale-95 bg-white border border-black/[0.05] text-gray-700"
+      className="min-h-[44px] min-w-[44px] text-xs font-medium px-3 py-2 rounded-full transition-all cursor-pointer disabled:opacity-50 inline-flex items-center justify-center gap-1.5 hover:bg-gray-50 dark:hover:bg-[#25252b] active:scale-95 bg-white dark:bg-[#1c1c20] border border-black/[0.05] dark:border-white/10 text-gray-700 dark:text-zinc-200"
       title="Sign out"
       aria-label="Sign out"
     >

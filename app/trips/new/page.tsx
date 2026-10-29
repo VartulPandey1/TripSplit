@@ -725,20 +725,20 @@ function NewTripForm() {
           </button>
 
           {/* Room Code Card */}
-          <div className="w-full bg-[#f4f6f4] rounded-2xl p-4 mb-4 border border-gray-100 flex flex-col gap-2.5 text-left">
-            <div className="flex items-center justify-between text-xs text-gray-500 font-medium px-1">
+          <div className="w-full bg-[#f4f6f4] dark:bg-[#18181c] rounded-2xl p-4 mb-4 border border-gray-100 dark:border-white/10 flex flex-col gap-2.5 text-left">
+            <div className="flex items-center justify-between text-xs text-gray-500 dark:text-zinc-400 font-medium px-1">
               <span className="tracking-wider uppercase text-[10px]">Room Code</span>
-              <span className="text-[11px] text-gray-400">Share with friends to join</span>
+              <span className="text-[11px] text-gray-400 dark:text-zinc-500">Share with friends to join</span>
             </div>
 
-            <div className="flex items-center justify-between bg-white rounded-xl px-4 py-2.5 border border-gray-200">
-              <span className="font-mono text-xl font-bold tracking-widest text-[#1a1e1c]">
+            <div className="flex items-center justify-between bg-white dark:bg-[#222228] rounded-xl px-4 py-2.5 border border-gray-200 dark:border-white/10">
+              <span className="font-mono text-xl font-bold tracking-widest text-[#1a1e1c] dark:text-white">
                 {createdTrip.roomCode}
               </span>
               <button
                 type="button"
                 onClick={handleCopyCode}
-                className="text-xs font-semibold px-3 py-1.5 rounded-lg bg-gray-100 hover:bg-gray-200 text-gray-700 transition-colors select-none touch-manipulation active:scale-95"
+                className="text-xs font-semibold px-3 py-1.5 rounded-lg bg-gray-100 dark:bg-[#2c2c34] hover:bg-gray-200 dark:hover:bg-[#35353e] text-gray-700 dark:text-white transition-colors select-none touch-manipulation active:scale-95 cursor-pointer"
               >
                 {copiedCode ? '✓ Copied' : 'Copy Code'}
               </button>
@@ -748,7 +748,7 @@ function NewTripForm() {
             <button
               type="button"
               onClick={handleCopyInviteLink}
-              className="w-full flex items-center justify-center gap-1.5 py-1.5 text-xs font-medium text-gray-600 hover:text-gray-900 transition-colors select-none touch-manipulation active:scale-95"
+              className="w-full flex items-center justify-center gap-1.5 py-1.5 text-xs font-medium text-gray-600 dark:text-zinc-400 hover:text-gray-900 dark:hover:text-white transition-colors select-none touch-manipulation active:scale-95 cursor-pointer"
             >
               <span>🔗</span>
               <span>{copiedLink ? 'Invite Link Copied to Clipboard!' : 'Copy Direct Invite Link'}</span>

@@ -53,7 +53,7 @@ export default async function TripLayout({
           <ThemeToggle />
           <Link
             href="/dashboard"
-            className="text-xs font-semibold px-3 py-1.5 rounded-full transition-all shrink-0 hover:bg-gray-100/90 inline-flex items-center gap-1.5 cursor-pointer border border-black/[0.06] bg-white text-gray-700 shadow-2xs active:scale-95"
+            className="text-xs font-semibold px-3 py-1.5 rounded-full transition-all shrink-0 hover:bg-gray-100/90 dark:hover:bg-[#25252b] inline-flex items-center gap-1.5 cursor-pointer border border-black/[0.06] dark:border-white/10 bg-white dark:bg-[#1c1c20] text-gray-700 dark:text-zinc-200 shadow-2xs active:scale-95"
             title="View All Trips"
             aria-label="View All Trips"
           >

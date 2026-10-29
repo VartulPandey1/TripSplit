@@ -51,19 +51,19 @@
 
 html.dark {
   color-scheme: dark;
-  --color-canvas: #0f1411;
-  --color-silk: #0f1411;
-  --color-card: #18201b;
-  --color-card-subtle: #1f2823;
-  --color-charcoal: #eef2ef;
-  --color-muted: rgba(238, 242, 239, 0.65);
+  --color-canvas: #09090b;
+  --color-silk: #09090b;
+  --color-card: #141416;
+  --color-card-subtle: #1c1c20;
+  --color-charcoal: #ffffff;
+  --color-muted: #a1a1aa;
   --color-border: rgba(255, 255, 255, 0.08);
-  --color-header-bg: rgba(15, 20, 17, 0.88);
-  --color-nav-bg: rgba(24, 32, 27, 0.96);
-  --color-active-nav: #8be0a5;
-  --color-inactive-nav: rgba(238, 242, 239, 0.5);
-  --color-input-bg: #1f2823;
-  --color-shadow-card: 0 4px 20px -2px rgba(0, 0, 0, 0.35);
+  --color-header-bg: rgba(9, 9, 11, 0.88);
+  --color-nav-bg: rgba(18, 18, 20, 0.96);
+  --color-active-nav: #ffffff;
+  --color-inactive-nav: #71717a;
+  --color-input-bg: #18181b;
+  --color-shadow-card: 0 4px 24px -2px rgba(0, 0, 0, 0.6);
 }
 
 * {
@@ -193,50 +193,182 @@ h1, h2, h3, h4 {
 }
 
 /* =========================================================================
-   DARK MODE ADAPTATIONS
+   DARK MODE ADAPTATIONS (Obsidian Monochrome Black & Grey)
    ========================================================================= */
+html.dark,
 html.dark body {
   background-color: var(--color-canvas) !important;
   color: var(--color-charcoal) !important;
 }
 
-/* Surfaces and Cards */
-html.dark .bg-white {
+/* Surfaces and Cards (Removes all white backgrounds) */
+html.dark .bg-white,
+html.dark .bg-\[\#ffffff\],
+html.dark .bg-\[\#fff\],
+html.dark [style*="background-color: #ffffff"],
+html.dark [style*="background-color:#ffffff"],
+html.dark [style*="background-color: rgb(255, 255, 255)"],
+html.dark [style*="backgroundColor: #ffffff"],
+html.dark [style*="backgroundColor:#ffffff"],
+html.dark [style*="background-color: #fff"] {
   background-color: var(--color-card) !important;
 }
 
-html.dark .bg-\[\#ffffff\] {
-  background-color: var(--color-card) !important;
-}
-
+/* Subtle wells, tab switch containers, room code boxes */
+html.dark .bg-\[\#edf3ef\],
+html.dark .bg-\[\#ecefeb\],
+html.dark .bg-\[\#f4f6f4\],
+html.dark .bg-\[\#f1f4f1\],
+html.dark .bg-\[\#eef1ee\],
 html.dark .bg-\[\#f7faf6\],
 html.dark .bg-\[\#fbfcfb\],
 html.dark .bg-\[\#fcfdfc\],
-html.dark .bg-gray-50 {
+html.dark .bg-\[\#f0f5f2\],
+html.dark .bg-gray-50,
+html.dark [style*="background-color: #f1f4f1"],
+html.dark [style*="backgroundColor: #f1f4f1"],
+html.dark [style*="background-color: #f7faf6"],
+html.dark [style*="backgroundColor: #f7faf6"] {
   background-color: var(--color-card-subtle) !important;
 }
 
-html.dark .bg-\[\#ecefeb\],
-html.dark .bg-\[\#f1f4f1\],
-html.dark .bg-\[\#eef1ee\],
-html.dark .bg-gray-100 {
-  background-color: #242f28 !important;
+/* Active tab switch buttons & elevated pills inside containers */
+html.dark .bg-\[\#edf3ef\] .bg-white,
+html.dark .bg-\[\#ecefeb\] .bg-white,
+html.dark .inline-flex .bg-white,
+html.dark [class*="p-1"] > button.bg-white,
+html.dark [class*="p-1"] > button[class*="shadow"] {
+  background-color: #2c2c34 !important;
+  color: #ffffff !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4) !important;
 }
 
-html.dark .bg-\[\#eef4f0\] {
-  background-color: #1e2c23 !important;
+/* Tab count badges and active indicators */
+html.dark .bg-\[\#eef3f0\],
+html.dark .bg-\[\#e3efe7\],
+html.dark .bg-\[\#e3efea\],
+html.dark .bg-\[\#eef4f0\],
+html.dark .bg-\[\#eef5f0\],
+html.dark [style*="backgroundColor: #eef4f0"],
+html.dark [style*="background-color: #eef4f0"] {
+  background-color: #383842 !important;
+  color: #ffffff !important;
+}
+
+/* Inactive count badges */
+html.dark .bg-\[\#dfe3df\],
+html.dark .bg-\[\#dfe3de\],
+html.dark .bg-gray-200\/70 {
+  background-color: #26262c !important;
+  color: #a1a1aa !important;
+}
+
+/* Inner white boxes inside code & invite sections (ensures text is visible) */
+html.dark .bg-\[\#f4f6f4\] .bg-white,
+html.dark [class*="bg-\[\#f7faf6\]"] .bg-white {
+  background-color: #222228 !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+/* Grey buttons and interactive surfaces */
+html.dark .bg-gray-100 {
+  background-color: #222228 !important;
+  color: #e4e4e7 !important;
+}
+
+html.dark .bg-gray-200 {
+  background-color: #2a2a32 !important;
+  color: #ffffff !important;
+}
+
+/* Primary actions: change green #4a6454 to sleek monochrome white/silver in dark mode */
+html.dark .bg-\[\#4a6454\],
+html.dark [style*="background-color: #4a6454"],
+html.dark [style*="backgroundColor: #4a6454"],
+html.dark [style*="backgroundColor:#4a6454"],
+html.dark .bg-\[\#324c3d\],
+html.dark .bg-\[\#183124\] {
+  background-color: #ffffff !important;
+  color: #09090b !important;
+}
+
+html.dark .hover\:bg-\[\#3d5345\]:hover,
+html.dark .hover\:bg-\[\#385041\]:hover {
+  background-color: #e4e4e7 !important;
+  color: #09090b !important;
+}
+
+/* Accent Badges (no dark green) */
+html.dark .bg-\[\#ccead5\] {
+  background-color: #2c2c34 !important;
+  color: #ffffff !important;
+}
+
+html.dark .bg-\[\#ccead5\]\/30,
+html.dark .bg-\[\#ccead5\]\/40 {
+  background-color: #26262e !important;
+  color: #ffffff !important;
+}
+
+/* Headings and High-Contrast Text */
+html.dark .text-\[\#1a1e1c\],
+html.dark .text-\[\#181c1a\],
+html.dark .text-gray-900,
+html.dark .text-gray-800 {
+  color: #ffffff !important;
+}
+
+html.dark .text-gray-700,
+html.dark .text-gray-600 {
+  color: #d4d4d8 !important;
+}
+
+html.dark .text-gray-500 {
+  color: #a1a1aa !important;
+}
+
+html.dark .text-gray-400 {
+  color: #71717a !important;
+}
+
+/* Brand Text (replace green with sleek white/silver) */
+html.dark .text-\[\#4a6454\],
+html.dark [style*="color: #4a6454"] {
+  color: #ffffff !important;
+}
+
+html.dark .text-\[\#7e9a88\],
+html.dark [style*="color: #7e9a88"] {
+  color: #a1a1aa !important;
+}
+
+html.dark .text-\[\#183124\],
+html.dark .text-\[\#1a4427\],
+html.dark .text-\[\#2d4235\] {
+  color: #ffffff !important;
 }
 
 /* Borders and Dividers */
 html.dark .border-gray-100,
 html.dark .border-gray-200,
+html.dark .border-gray-300,
 html.dark .border-\[\#e4e5e0\],
 html.dark .border-\[\#f0f3f0\],
+html.dark .border-\[\#d6e3da\],
+html.dark .border-\[\#d6ddd6\],
+html.dark .border-\[\#f1f4f1\],
 html.dark .border-black\/\[0\.04\],
 html.dark .border-black\/\[0\.05\],
 html.dark .border-black\/\[0\.06\],
-html.dark .border-black\/\[0\.08\] {
-  border-color: var(--color-border) !important;
+html.dark .border-black\/\[0\.08\],
+html.dark [style*="border-color: #f1f4f1"],
+html.dark [style*="borderColor: #f1f4f1"] {
+  border-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+html.dark .border-white,
+html.dark .border-\[\#ffffff\] {
+  border-color: rgba(255, 255, 255, 0.12) !important;
 }
 
 html.dark .divide-gray-50 > :not([hidden]) ~ :not([hidden]),
@@ -245,114 +377,49 @@ html.dark .divide-black\/\[0\.04\] > :not([hidden]) ~ :not([hidden]) {
   border-color: rgba(255, 255, 255, 0.07) !important;
 }
 
-/* Headings and High-Contrast Text */
-html.dark .text-\[\#1a1e1c\],
-html.dark .text-\[\#181c1a\],
-html.dark .text-gray-900,
-html.dark .text-gray-800 {
-  color: #edf2ee !important;
-}
-
-html.dark .text-gray-700,
-html.dark .text-gray-600 {
-  color: #c7d1ca !important;
-}
-
-html.dark .text-gray-500 {
-  color: #9aa49d !important;
-}
-
-html.dark .text-gray-400 {
-  color: #7b857f !important;
-}
-
-/* Brand Sage Accents & Badges */
-html.dark .text-\[\#4a6454\] {
-  color: #8be0a5 !important;
-}
-
-html.dark .text-\[\#7e9a88\] {
-  color: #a4c2b0 !important;
-}
-
-html.dark .text-\[\#183124\] {
-  color: #c0f2d0 !important;
-}
-
-html.dark .bg-\[\#ccead5\] {
-  background-color: #22422d !important;
-  color: #c0f2d0 !important;
-}
-
-html.dark .bg-\[\#ccead5\]\/40 {
-  background-color: rgba(34, 66, 45, 0.5) !important;
-}
-
-/* Form Inputs & Textareas */
+/* Form Inputs, Selects & Textareas */
 html.dark input:not([type="checkbox"]):not([type="radio"]),
 html.dark textarea,
 html.dark select {
   background-color: var(--color-input-bg) !important;
-  color: #edf2ee !important;
+  color: #ffffff !important;
   border-color: rgba(255, 255, 255, 0.12) !important;
 }
 
 html.dark input::placeholder,
 html.dark textarea::placeholder {
-  color: #636e67 !important;
+  color: #71717a !important;
 }
 
 /* Interactive Hovers */
 html.dark .hover\:bg-gray-50:hover,
 html.dark .hover\:bg-gray-100:hover,
+html.dark .hover\:bg-gray-200:hover,
 html.dark .hover\:bg-\[\#f7faf6\]:hover,
-html.dark .hover\:bg-\[\#ecefeb\]:hover {
-  background-color: #27342c !important;
+html.dark .hover\:bg-\[\#ecefeb\]:hover,
+html.dark .hover\:bg-\[\#e4eae4\]:hover {
+  background-color: #2a2a32 !important;
+  color: #ffffff !important;
 }
 
 /* Modals & Backdrop Blur */
 html.dark .shadow-2xl,
 html.dark .shadow-xl {
-  box-shadow: 0 20px 45px -10px rgba(0, 0, 0, 0.6) !important;
+  box-shadow: 0 20px 45px -10px rgba(0, 0, 0, 0.8) !important;
 }
 
 /* Skeleton Shimmer in Dark Mode */
 html.dark .skeleton-shimmer {
-  background-color: #1f2823 !important;
+  background-color: #18181b !important;
 }
 
 html.dark .skeleton-shimmer::after {
   background-image: linear-gradient(
     90deg,
     rgba(255, 255, 255, 0) 0,
-    rgba(255, 255, 255, 0.08) 50%,
+    rgba(255, 255, 255, 0.06) 50%,
     rgba(255, 255, 255, 0) 100%
   ) !important;
-}
-
-/* Avatar rings and border adaptations */
-html.dark .border-white,
-html.dark .border-\[\#ffffff\],
-html.dark .border-\[\#f1f4f1\] {
-  border-color: var(--color-card) !important;
-}
-
-/* Financial Ledger Balance colors (high-contrast WCAG AA in Dark Mode) */
-html.dark [style*="#226338"],
-html.dark [style*="#324c3d"] {
-  color: #8be0a5 !important;
-}
-
-html.dark [style*="#ba1a1a"] {
-  color: #ff897d !important;
-}
-
-html.dark [style*="#5f6368"] {
-  color: #9aa49d !important;
-}
-
-html.dark [style*="#1a1e1c"] {
-  color: #edf2ee !important;
 }
 
 /* Status & Alert Badges */
@@ -366,6 +433,24 @@ html.dark [style*="#e0f2fe"] {
   color: #7dd3fc !important;
 }
 
+/* Financial Ledger Balance colors */
+html.dark [style*="#226338"],
+html.dark [style*="#324c3d"] {
+  color: #4ade80 !important;
+}
+
+html.dark [style*="#ba1a1a"] {
+  color: #ff897d !important;
+}
+
+html.dark [style*="#5f6368"] {
+  color: #a1a1aa !important;
+}
+
+html.dark [style*="#1a1e1c"] {
+  color: #ffffff !important;
+}
+
 /* Semi-transparent text variables */
 html.dark [style*="rgba(26,30,28,"],
 html.dark [style*="rgba(26, 30, 28,"] {
@@ -377,7 +462,20 @@ html.dark [class*="ring-offset-2"] {
   --tw-ring-offset-color: var(--color-card) !important;
 }
 
-/* SVG chart tracks */
-html.dark svg circle[stroke="#ecefeb"] {
-  stroke: #242f28 !important;
+/* Brand Logo (Monochrome Black/White/Grey) */
+html.dark svg path[fill="#4a6454"] {
+  fill: #ffffff !important;
+}
+html.dark svg circle[fill="#7e9a88"] {
+  fill: #ffffff !important;
+  fill-opacity: 0.12 !important;
+}
+html.dark svg line[stroke="#7e9a88"] {
+  stroke: #a1a1aa !important;
+}
+
+/* Bottom Nav Glowing Indicator */
+html.dark nav [style*="rgba(74, 100, 84,"] {
+  background-color: rgba(255, 255, 255, 0.12) !important;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.25) !important;
 }
