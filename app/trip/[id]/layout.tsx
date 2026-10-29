@@ -1,4 +1,3 @@
-import { Suspense } from 'react';
 import { redirect } from 'next/navigation';
 import { connection } from 'next/server';
 import { auth } from '@/lib/auth';
@@ -8,14 +7,15 @@ import Link from 'next/link';
 import Logo from '@/app/components/Logo';
 import ThemeToggle from '@/app/components/ThemeToggle';
 import TripBottomNav from './TripBottomNav';
-import OverviewSkeleton from './overview/OverviewSkeleton';
 
-async function TripAuthGuard({
-  params,
+export const instant = false;
+
+export default async function TripLayout({
   children,
+  params,
 }: {
-  params: Promise<{ id: string }>;
   children: React.ReactNode;
+  params: Promise<{ id: string }>;
 }) {
   await connection();
   const { id } = await params;
@@ -34,16 +34,6 @@ async function TripAuthGuard({
     redirect('/dashboard');
   }
 
-  return <>{children}</>;
-}
-
-export default function TripLayout({
-  children,
-  params,
-}: {
-  children: React.ReactNode;
-  params: Promise<{ id: string }>;
-}) {
   return (
     <div
       className="min-h-screen flex flex-col"
@@ -73,17 +63,13 @@ export default function TripLayout({
         </div>
       </header>
 
-      {/* Main content view with layout-level IDOR Trip Membership Guard */}
+      {/* Main content view */}
       <main className="flex-1 pb-[calc(7rem+env(safe-area-inset-bottom,0px))] sm:pb-24">
-        <Suspense fallback={<OverviewSkeleton />}>
-          <TripAuthGuard params={params}>{children}</TripAuthGuard>
-        </Suspense>
+        {children}
       </main>
 
-      {/* Bottom Navigation wrapped in Suspense */}
-      <Suspense fallback={null}>
-        <TripBottomNav />
-      </Suspense>
+      {/* Bottom Navigation */}
+      <TripBottomNav />
     </div>
   );
 }

@@ -1,4 +1,3 @@
-import { Suspense } from 'react';
 import { redirect } from 'next/navigation';
 import { connection } from 'next/server';
 import { auth, signOut } from '@/lib/auth';
@@ -14,8 +13,14 @@ import DashboardTripsSection from './DashboardTripsSection';
 
 export const instant = false;
 
-async function DashboardContent({ user }: { user: { id: string; name?: string | null; email?: string | null; image?: string | null } }) {
+export default async function DashboardPage() {
   await connection();
+  const session = await auth();
+  if (!session?.user?.id) {
+    redirect('/login');
+  }
+
+  const user = session.user;
   const avatar = getAvatarEmoji(user.image);
 
   await connectDB();
@@ -37,7 +42,7 @@ async function DashboardContent({ user }: { user: { id: string; name?: string | 
   }));
 
   return (
-    <>
+    <div className="min-h-screen" style={{ backgroundColor: 'var(--color-silk)' }}>
       {/* Top nav */}
       <header
         className="sticky top-0 z-10 flex items-center justify-between px-4 sm:px-6 py-3.5 sm:py-4"
@@ -126,31 +131,6 @@ async function DashboardContent({ user }: { user: { id: string; name?: string | 
           <DashboardTripsSection trips={trips} />
         </section>
       </main>
-    </>
-  );
-}
-
-function DashboardSkeleton() {
-  return (
-    <div className="max-w-2xl mx-auto px-6 py-20 text-center" style={{ color: 'rgba(26,30,28,0.45)' }}>
-      <div className="w-10 h-10 border-2 border-[#7e9a88] border-t-transparent rounded-full animate-spin mx-auto mb-4" />
-      <p className="text-sm">Loading your adventures…</p>
-    </div>
-  );
-}
-
-export default async function DashboardPage() {
-  await connection();
-  const session = await auth();
-  if (!session?.user?.id) {
-    redirect('/login');
-  }
-
-  return (
-    <div className="min-h-screen" style={{ backgroundColor: 'var(--color-silk)' }}>
-      <Suspense fallback={<DashboardSkeleton />}>
-        <DashboardContent user={session.user} />
-      </Suspense>
     </div>
   );
 }

@@ -140,9 +140,5 @@ export default async function PlanPage({ params }: { params: Promise<{ id: strin
     redirect('/login');
   }
 
-  return (
-    <Suspense fallback={<PlanSkeleton />}>
-      <PlanContent params={params} />
-    </Suspense>
-  );
+  return <PlanContent params={params} />;
 }

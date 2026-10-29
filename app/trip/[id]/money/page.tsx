@@ -163,9 +163,5 @@ export default async function MoneyPage({
     redirect('/login');
   }
 
-  return (
-    <Suspense fallback={<MoneySkeleton />}>
-      <MoneyContent params={params} searchParams={searchParams} />
-    </Suspense>
-  );
+  return <MoneyContent params={params} searchParams={searchParams} />;
 }

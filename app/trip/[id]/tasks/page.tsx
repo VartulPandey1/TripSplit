@@ -77,9 +77,5 @@ export default async function TasksPage({ params }: { params: Promise<{ id: stri
     redirect('/login');
   }
 
-  return (
-    <Suspense fallback={<TasksSkeleton />}>
-      <TasksContent params={params} />
-    </Suspense>
-  );
+  return <TasksContent params={params} />;
 }

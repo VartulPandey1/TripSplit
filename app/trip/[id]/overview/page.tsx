@@ -415,9 +415,5 @@ export default async function OverviewPage({ params }: { params: Promise<{ id: s
     redirect('/login');
   }
 
-  return (
-    <Suspense fallback={<OverviewSkeleton />}>
-      <OverviewContent params={params} />
-    </Suspense>
-  );
+  return <OverviewContent params={params} />;
 }

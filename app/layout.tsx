@@ -23,14 +23,16 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <head>
+      <body
+        className="antialiased min-h-screen"
+        style={{ backgroundColor: 'var(--color-silk)', color: 'var(--color-charcoal)' }}
+        suppressHydrationWarning
+      >
         <script
           dangerouslySetInnerHTML={{
-            __html: `(function(){try{var t=localStorage.getItem('tripsplit_theme');var d=t==='dark'||(!t&&window.matchMedia('(prefers-color-scheme: dark)').matches);if(d){document.documentElement.classList.add('dark');}else{document.documentElement.classList.remove('dark');}}catch(e){}})();`,
+            __html: `(function(){try{var t=localStorage.getItem('tripsplit_theme');var d=t==='dark'||(!t&&window.matchMedia('(prefers-color-scheme: dark)').matches);if(d){document.documentElement.classList.add('dark');}else{document.documentElement.classList.remove('dark');}}catch(e){}try{if(location.hostname==='localhost'||location.hostname==='127.0.0.1'){if('serviceWorker' in navigator){navigator.serviceWorker.getRegistrations().then(function(r){for(var i=0;i<r.length;i++){r[i].unregister();}});}if('caches' in window){caches.keys().then(function(n){for(var i=0;i<n.length;i++){caches.delete(n[i]);}});}}}catch(e){}})();`,
           }}
         />
-      </head>
-      <body className="antialiased min-h-screen" style={{ backgroundColor: 'var(--color-silk)', color: 'var(--color-charcoal)' }}>
         <ThemeProvider>
           {children}
           <OfflineSyncManager />

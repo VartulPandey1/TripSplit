@@ -30,15 +30,5 @@ export default async function SettingsPage() {
   const session = await auth();
   if (!session?.user?.id) redirect('/login');
 
-  return (
-    <Suspense
-      fallback={
-        <div className="min-h-screen flex items-center justify-center text-xs text-gray-500">
-          Loading settings…
-        </div>
-      }
-    >
-      <SettingsContent userId={session.user.id} />
-    </Suspense>
-  );
+  return <SettingsContent userId={session.user.id} />;
 }
