@@ -15,6 +15,8 @@ import OverviewTasksCard from './OverviewTasksCard';
 import OverviewAnalyticsCard from './OverviewAnalyticsCard';
 import OverviewSkeleton from './OverviewSkeleton';
 
+export const instant = false;
+
 async function OverviewContent({ params }: { params: Promise<{ id: string }> }) {
   await connection();
   const { id } = await params;
@@ -406,7 +408,12 @@ async function OverviewContent({ params }: { params: Promise<{ id: string }> }) 
   );
 }
 
-export default function OverviewPage({ params }: { params: Promise<{ id: string }> }) {
+export default async function OverviewPage({ params }: { params: Promise<{ id: string }> }) {
+  const session = await auth();
+  if (!session?.user) {
+    redirect('/login');
+  }
+
   return (
     <Suspense fallback={<OverviewSkeleton />}>
       <OverviewContent params={params} />

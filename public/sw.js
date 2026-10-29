@@ -43,6 +43,11 @@ self.addEventListener('activate', (event) => {
 
 // 3. Fetch event: Network-first for navigations; Cache-first for static assets
 self.addEventListener('fetch', (event) => {
+  // Never intercept or cache requests when running on localhost / development
+  if (self.location.hostname === 'localhost' || self.location.hostname === '127.0.0.1') {
+    return;
+  }
+
   const { request } = event;
   const url = new URL(request.url);
 

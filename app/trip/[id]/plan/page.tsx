@@ -10,6 +10,8 @@ import Budget from '@/lib/db/models/Budget';
 import PlanClient from './PlanClient';
 import PlanSkeleton from './PlanSkeleton';
 
+export const instant = false;
+
 async function PlanContent({ params }: { params: Promise<{ id: string }> }) {
   await connection();
   const { id } = await params;
@@ -131,7 +133,12 @@ async function PlanContent({ params }: { params: Promise<{ id: string }> }) {
   );
 }
 
-export default function PlanPage({ params }: { params: Promise<{ id: string }> }) {
+export default async function PlanPage({ params }: { params: Promise<{ id: string }> }) {
+  const session = await auth();
+  if (!session?.user?.id) {
+    redirect('/login');
+  }
+
   return (
     <Suspense fallback={<PlanSkeleton />}>
       <PlanContent params={params} />

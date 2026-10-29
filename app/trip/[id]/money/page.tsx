@@ -10,6 +10,8 @@ import '@/lib/db/models/User';
 import MoneyClient from './MoneyClient';
 import MoneySkeleton from './MoneySkeleton';
 
+export const instant = false;
+
 async function MoneyContent({
   params,
   searchParams,
@@ -148,13 +150,18 @@ async function MoneyContent({
   );
 }
 
-export default function MoneyPage({
+export default async function MoneyPage({
   params,
   searchParams,
 }: {
   params: Promise<{ id: string }>;
   searchParams?: Promise<{ view?: string; tab?: string; mode?: string }>;
 }) {
+  const session = await auth();
+  if (!session?.user?.id) {
+    redirect('/login');
+  }
+
   return (
     <Suspense fallback={<MoneySkeleton />}>
       <MoneyContent params={params} searchParams={searchParams} />

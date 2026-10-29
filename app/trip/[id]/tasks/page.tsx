@@ -9,6 +9,8 @@ import { getTripStatus } from '@/lib/utils/tripStatus';
 import TasksClient from './TasksClient';
 import TasksSkeleton from './TasksSkeleton';
 
+export const instant = false;
+
 async function TasksContent({ params }: { params: Promise<{ id: string }> }) {
   await connection();
   const { id } = await params;
@@ -68,7 +70,12 @@ async function TasksContent({ params }: { params: Promise<{ id: string }> }) {
   );
 }
 
-export default function TasksPage({ params }: { params: Promise<{ id: string }> }) {
+export default async function TasksPage({ params }: { params: Promise<{ id: string }> }) {
+  const session = await auth();
+  if (!session?.user?.id) {
+    redirect('/login');
+  }
+
   return (
     <Suspense fallback={<TasksSkeleton />}>
       <TasksContent params={params} />

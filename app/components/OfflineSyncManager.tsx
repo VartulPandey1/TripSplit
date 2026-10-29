@@ -22,11 +22,25 @@ export default function OfflineSyncManager() {
 
     setIsOnline(navigator.onLine);
 
-    // Register Service Worker for offline caching and PWA app shell
-    if ('serviceWorker' in navigator) {
+    // Register Service Worker ONLY in production to prevent caching dev bundles & localhost reload loops
+    if (process.env.NODE_ENV === 'production' && 'serviceWorker' in navigator) {
       navigator.serviceWorker
         .register('/sw.js')
         .catch((err) => console.warn('[TripSplit] Service Worker registration failed:', err));
+    } else if (typeof window !== 'undefined' && 'serviceWorker' in navigator) {
+      // In development / localhost, unregister any stale service workers and purge caches
+      navigator.serviceWorker.getRegistrations().then((registrations) => {
+        for (const reg of registrations) {
+          reg.unregister();
+        }
+      });
+      if ('caches' in window) {
+        caches.keys().then((names) => {
+          for (const name of names) {
+            caches.delete(name);
+          }
+        });
+      }
     }
 
     const handleOnline = () => {

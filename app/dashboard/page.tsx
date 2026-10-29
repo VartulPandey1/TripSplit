@@ -12,16 +12,15 @@ import Trip from '@/lib/db/models/Trip';
 import { SerializedDashboardTrip } from './TripCard';
 import DashboardTripsSection from './DashboardTripsSection';
 
-async function DashboardContent() {
-  await connection();
-  const session = await auth();
-  if (!session?.user?.id) redirect('/login');
+export const instant = false;
 
-  const avatar = getAvatarEmoji(session.user.image);
+async function DashboardContent({ user }: { user: { id: string; name?: string | null; email?: string | null; image?: string | null } }) {
+  await connection();
+  const avatar = getAvatarEmoji(user.image);
 
   await connectDB();
   const rawTrips = await Trip.find({
-    $or: [{ members: session.user.id }, { creatorId: session.user.id }],
+    $or: [{ members: user.id }, { creatorId: user.id }],
   })
     .sort({ startDate: 1 })
     .lean();
@@ -57,7 +56,7 @@ async function DashboardContent() {
           <Link
             href="/settings"
             className="w-10 h-10 sm:w-11 sm:h-11 min-w-[40px] min-h-[40px] rounded-full flex items-center justify-center text-lg sm:text-xl select-none shrink-0 transition-all hover:scale-105 active:scale-95 cursor-pointer bg-white border border-black/[0.05]"
-            title={`${session.user.name || 'User'} • Account Settings`}
+            title={`${user.name || 'User'} • Account Settings`}
             aria-label="Account Settings"
           >
             {avatar}
@@ -96,7 +95,7 @@ async function DashboardContent() {
               color: 'var(--color-charcoal)',
             }}
           >
-            <span>Hey, {session.user.name}</span>
+            <span>Hey, {user.name}</span>
             <span>{avatar}</span>
           </h1>
           <p style={{ fontSize: '0.9375rem', color: 'rgba(26,30,28,0.55)', fontFamily: 'var(--font-body)' }}>
@@ -140,11 +139,16 @@ function DashboardSkeleton() {
   );
 }
 
-export default function DashboardPage() {
+export default async function DashboardPage() {
+  const session = await auth();
+  if (!session?.user?.id) {
+    redirect('/login');
+  }
+
   return (
     <div className="min-h-screen" style={{ backgroundColor: 'var(--color-silk)' }}>
       <Suspense fallback={<DashboardSkeleton />}>
-        <DashboardContent />
+        <DashboardContent user={session.user} />
       </Suspense>
     </div>
   );

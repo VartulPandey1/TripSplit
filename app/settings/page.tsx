@@ -6,13 +6,12 @@ import { connectDB } from '@/lib/db/mongoose';
 import User from '@/lib/db/models/User';
 import SettingsClient from './SettingsClient';
 
-async function SettingsContent() {
-  await connection();
-  const session = await auth();
-  if (!session?.user?.id) redirect('/login');
+export const instant = false;
 
+async function SettingsContent({ userId }: { userId: string }) {
+  await connection();
   await connectDB();
-  const user = await User.findById(session.user.id).lean();
+  const user = await User.findById(userId).lean();
   if (!user) redirect('/login');
 
   const initialUser = {
@@ -26,7 +25,10 @@ async function SettingsContent() {
   return <SettingsClient initialUser={initialUser} />;
 }
 
-export default function SettingsPage() {
+export default async function SettingsPage() {
+  const session = await auth();
+  if (!session?.user?.id) redirect('/login');
+
   return (
     <Suspense
       fallback={
@@ -35,7 +37,7 @@ export default function SettingsPage() {
         </div>
       }
     >
-      <SettingsContent />
+      <SettingsContent userId={session.user.id} />
     </Suspense>
   );
 }
