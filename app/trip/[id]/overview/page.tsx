@@ -409,6 +409,7 @@ async function OverviewContent({ params }: { params: Promise<{ id: string }> }) 
 }
 
 export default async function OverviewPage({ params }: { params: Promise<{ id: string }> }) {
+  await connection();
   const session = await auth();
   if (!session?.user) {
     redirect('/login');

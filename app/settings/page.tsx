@@ -26,6 +26,7 @@ async function SettingsContent({ userId }: { userId: string }) {
 }
 
 export default async function SettingsPage() {
+  await connection();
   const session = await auth();
   if (!session?.user?.id) redirect('/login');
 

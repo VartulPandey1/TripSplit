@@ -134,6 +134,7 @@ async function PlanContent({ params }: { params: Promise<{ id: string }> }) {
 }
 
 export default async function PlanPage({ params }: { params: Promise<{ id: string }> }) {
+  await connection();
   const session = await auth();
   if (!session?.user?.id) {
     redirect('/login');

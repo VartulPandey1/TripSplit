@@ -157,6 +157,7 @@ export default async function MoneyPage({
   params: Promise<{ id: string }>;
   searchParams?: Promise<{ view?: string; tab?: string; mode?: string }>;
 }) {
+  await connection();
   const session = await auth();
   if (!session?.user?.id) {
     redirect('/login');

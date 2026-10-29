@@ -140,6 +140,7 @@ function DashboardSkeleton() {
 }
 
 export default async function DashboardPage() {
+  await connection();
   const session = await auth();
   if (!session?.user?.id) {
     redirect('/login');
