@@ -7,6 +7,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [1.2.1] - 2026-10-30
+
+### 🏷️ Subtle Universal UI Version Tag & Obsidian Monochrome Refinements
+- **Subtle Universal UI Version Tag**:
+  - Integrated an ultra-clean, minimal `v1.2.1` monospace badge directly beside the `TripSplit` brand logo in `Logo.tsx` (`text-[9px] font-mono text-gray-400/80 dark:text-zinc-500`), accessible across all desktop and mobile header views without distracting or taking up screen real estate.
+  - Centralized version constant in `lib/constants/version.ts` kept in sync with `package.json`.
+  - Added dedicated App Version row in the Account Information section of Account Settings (`/settings`).
+  - Added subtle version signature in the Dashboard footer.
+- **Obsidian Monochrome Dark Mode Polish**:
+  - Refined theme switcher and bottom navigation active glow.
+  - Polished dark mode palette to pure obsidian blacks and grays, eliminating remaining white background artifacts.
+
+---
+
 ## [1.2.0] - 2026-10-29
 
 ### 🌙 Midnight Obsidian Dark Mode & High-Contrast Visual Architecture

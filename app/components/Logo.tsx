@@ -1,10 +1,12 @@
 import Link from 'next/link';
+import { APP_VERSION } from '@/lib/constants/version';
 
 interface LogoProps {
   className?: string;
   layout?: 'vertical' | 'horizontal';
   size?: number;
   href?: string;
+  showVersion?: boolean;
 }
 
 /**
@@ -16,6 +18,7 @@ export default function Logo({
   layout = 'vertical',
   size,
   href,
+  showVersion = true,
 }: LogoProps) {
   const iconSize = size ?? (layout === 'horizontal' ? 34 : 48);
   const isHorizontal = layout === 'horizontal';
@@ -56,14 +59,24 @@ export default function Logo({
       </svg>
 
       {/* Wordmark */}
-      <span
-        style={{ fontFamily: 'var(--font-heading)', letterSpacing: '-0.03em' }}
-        className={`${
-          isHorizontal ? 'text-lg' : 'text-xl'
-        } font-semibold text-[#4a6454] select-none`}
-      >
-        Trip<span className="text-[#7e9a88]">Split</span>
-      </span>
+      <div className="inline-flex items-baseline gap-1.5 leading-none">
+        <span
+          style={{ fontFamily: 'var(--font-heading)', letterSpacing: '-0.03em' }}
+          className={`${
+            isHorizontal ? 'text-lg' : 'text-xl'
+          } font-semibold text-[#4a6454] dark:text-white select-none`}
+        >
+          Trip<span className="text-[#7e9a88] dark:text-zinc-400">Split</span>
+        </span>
+        {showVersion && (
+          <span
+            className="text-[9px] font-mono font-medium tracking-tight text-gray-400/80 dark:text-zinc-500 select-none"
+            title={`TripSplit v${APP_VERSION}`}
+          >
+            v{APP_VERSION}
+          </span>
+        )}
+      </div>
     </div>
   );
 

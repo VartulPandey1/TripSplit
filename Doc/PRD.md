@@ -1,7 +1,7 @@
 # Product Requirements Document (PRD)
 
 **Project:** TripSplit — Collaborative Group Travel Organizer & Budgeting PWA  
-**Version:** 1.1.2  
+**Version:** 1.2.1  
 **Platform:** Mobile-First Progressive Web App (PWA)  
 **Tech Stack:** Next.js 16 (App Router + Turbopack), React 19, Tailwind CSS v4, MongoDB Atlas, NextAuth.js v5, Dexie.js (Offline IndexedDB Sync)  
 **Target Cost:** $0/month (Free-Tier Stack)

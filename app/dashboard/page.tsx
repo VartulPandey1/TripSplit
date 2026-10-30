@@ -10,6 +10,7 @@ import { connectDB } from '@/lib/db/mongoose';
 import Trip from '@/lib/db/models/Trip';
 import { SerializedDashboardTrip } from './TripCard';
 import DashboardTripsSection from './DashboardTripsSection';
+import { APP_VERSION } from '@/lib/constants/version';
 
 export const instant = false;
 
@@ -130,6 +131,13 @@ export default async function DashboardPage() {
         <section>
           <DashboardTripsSection trips={trips} />
         </section>
+
+        {/* Subtle footer */}
+        <footer className="pt-8 pb-4 text-center">
+          <p className="text-[10px] text-gray-400/50 dark:text-zinc-600 font-mono select-none">
+            TripSplit v{APP_VERSION}
+          </p>
+        </footer>
       </main>
     </div>
   );

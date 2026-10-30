@@ -7,6 +7,7 @@ import { AVATARS } from '@/lib/constants/avatars';
 import Logo from '@/app/components/Logo';
 import { useTheme } from '@/app/components/ThemeProvider';
 import ThemeToggle from '@/app/components/ThemeToggle';
+import { APP_VERSION } from '@/lib/constants/version';
 
 interface SettingsClientProps {
   initialUser: {
@@ -450,6 +451,12 @@ export default function SettingsClient({ initialUser }: SettingsClientProps) {
                 </span>
               </div>
             )}
+            <div className="py-2.5 flex items-center justify-between">
+              <span className="text-gray-500 font-medium">Version</span>
+              <span className="font-mono text-gray-500 dark:text-zinc-400 text-[11px] font-medium">
+                v{APP_VERSION}
+              </span>
+            </div>
           </div>
         </section>
       </main>
