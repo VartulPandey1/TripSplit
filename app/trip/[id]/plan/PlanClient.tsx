@@ -184,6 +184,18 @@ export default function PlanClient({
   const [detailDeleting, setDetailDeleting] = useState(false);
   const [detailError, setDetailError] = useState('');
 
+  // Close sheets on Escape key
+  useEffect(() => {
+    function handleKeyDown(e: KeyboardEvent) {
+      if (e.key === 'Escape') {
+        if (selectedMilestone) closeStopDetails();
+        else if (isAddStopSheetOpen) setIsAddStopSheetOpen(false);
+      }
+    }
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [selectedMilestone, isAddStopSheetOpen]);
+
   function openStopDetails(m: Milestone) {
     setSelectedMilestone(m);
     setDetailTitle(m.title);

@@ -148,6 +148,22 @@ export default function BudgetGuessingHub({
   const [formAmount, setFormAmount] = useState('');
   const [formNotes, setFormNotes] = useState('');
 
+  // Close modals on Escape key
+  useEffect(() => {
+    function handleKeyDown(e: KeyboardEvent) {
+      if (e.key === 'Escape') {
+        if (isFormOpen) {
+          setIsFormOpen(false);
+          setEditingItem(null);
+        } else if (isDrawerOpen) {
+          setIsDrawerOpen(false);
+        }
+      }
+    }
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isFormOpen, isDrawerOpen]);
+
   const items = budget?.items || [];
   const totalBudget = budget?.totalEstimated || 0;
   const hasBudgetTarget = items.length > 0 || totalBudget > 0;

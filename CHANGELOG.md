@@ -7,6 +7,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [1.2.2] - 2026-11-01
+
+### ⌨️ Universal Keyboard Accessibility: Escape Key Modal Dismissal
+- **Desktop Keyboard Modal Dismissal**:
+  - Bound the `Escape` key (`Esc`) globally across all interactive dialogs and slide-up sheets:
+    - **Finances**: Add/Edit Expense modal, Receipt lightbox, and Expense detail cards (`MoneyClient.tsx`).
+    - **Trip Settings**: Edit Trip modal, Invite sheet, Member roster, and Delete/Leave dialogs (`TripHeaderCard.tsx`).
+    - **Itinerary & Stops**: Add Stop sheet and Stop details editor (`PlanClient.tsx`).
+    - **Consensus Budgeting**: Add/Edit Category Target dialog and Category drawer (`BudgetGuessingHub.tsx`).
+    - **Analytics**: Full interactive Spending Analytics bottom sheet (`OverviewAnalyticsCard.tsx`).
+  - Added clean listener teardown on component unmount to prevent memory leaks.
+
+---
+
 ## [1.2.1] - 2026-10-30
 
 ### 🏷️ Subtle Universal UI Version Tag & Obsidian Monochrome Refinements

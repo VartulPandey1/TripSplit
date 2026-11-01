@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import BudgetSpendingAnalytics from '../money/BudgetSpendingAnalytics';
 import { SerializedBudget } from '../money/BudgetGuessingHub';
 
@@ -40,6 +40,17 @@ export default function OverviewAnalyticsCard({
   totalActualSpend,
 }: OverviewAnalyticsCardProps) {
   const [isOpen, setIsOpen] = useState(false);
+
+  // Close analytics sheet on Escape
+  useEffect(() => {
+    function handleKeyDown(e: KeyboardEvent) {
+      if (e.key === 'Escape' && isOpen) {
+        setIsOpen(false);
+      }
+    }
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isOpen]);
 
   return (
     <>

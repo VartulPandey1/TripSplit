@@ -110,6 +110,19 @@ export default function MoneyClient({
   const [activeReceiptModalUrl, setActiveReceiptModalUrl] = useState<string | null>(null);
   const [showPastSettlements, setShowPastSettlements] = useState(false);
 
+  // Close modals on Escape key
+  useEffect(() => {
+    function handleKeyDown(e: KeyboardEvent) {
+      if (e.key === 'Escape') {
+        if (activeReceiptModalUrl) setActiveReceiptModalUrl(null);
+        else if (selectedExpenseDetail) setSelectedExpenseDetail(null);
+        else if (showAddModal) setShowAddModal(false);
+      }
+    }
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [activeReceiptModalUrl, selectedExpenseDetail, showAddModal]);
+
   // Settlement loading states
   const [settlingInProgress, setSettlingInProgress] = useState(false);
   const [settleSuccessMsg, setSettleSuccessMsg] = useState('');

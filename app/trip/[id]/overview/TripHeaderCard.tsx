@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { getAvatarEmoji } from '@/lib/constants/avatars';
 import { getTripStatus, getTripStatusBadge, TripDisplayStatus } from '@/lib/utils/tripStatus';
@@ -67,6 +67,22 @@ export default function TripHeaderCard({ trip: initialTrip, members, isCreator }
   const [isLeaving, setIsLeaving] = useState(false);
   const [leaveLoading, setLeaveLoading] = useState(false);
   const [leaveError, setLeaveError] = useState('');
+
+  // Close open dialogs & sheets on Escape key
+  useEffect(() => {
+    function handleKeyDown(e: KeyboardEvent) {
+      if (e.key === 'Escape') {
+        if (isEditing) setIsEditing(false);
+        else if (isInviteModalOpen) setIsInviteModalOpen(false);
+        else if (isCrewSheetOpen) setIsCrewSheetOpen(false);
+        else if (isDeleting) setIsDeleting(false);
+        else if (isLeaving) setIsLeaving(false);
+        else if (isMenuOpen) setIsMenuOpen(false);
+      }
+    }
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isEditing, isInviteModalOpen, isCrewSheetOpen, isDeleting, isLeaving, isMenuOpen]);
 
   // Edit form state
   const [editForm, setEditForm] = useState({
