@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [1.2.3] - 2026-11-02
+
+### 📋 Settle-Up Summary Sharing & SEO Metadata
+- **1-Tap Settle-Up Summary Sharing**:
+  - Added a **"📋 Share Summary"** action in the Settle Up screen (`MoneyClient.tsx`) for instant breakdown of all bilateral balances.
+  - Automatically invokes native mobile share sheet (`navigator.share`) or copies formatted summary text to clipboard with animated visual feedback badge (`✓ Copied Summary`).
+- **Next.js 16 Metadata Routes (SEO)**:
+  - Added `app/robots.ts` providing automated web crawler directives and dynamic sitemap indexing.
+  - Added `app/sitemap.ts` implementing XML sitemap generation for core landing and trip onboarding paths.
+
+---
+
 ## [1.2.2] - 2026-11-01
 
 ### ⌨️ Universal Keyboard Accessibility: Escape Key Modal Dismissal

@@ -126,6 +126,7 @@ export default function MoneyClient({
   // Settlement loading states
   const [settlingInProgress, setSettlingInProgress] = useState(false);
   const [settleSuccessMsg, setSettleSuccessMsg] = useState('');
+  const [copiedSummary, setCopiedSummary] = useState(false);
 
   // Personal budget limit state
   const storageKey = `tripsplit_user_budget_${tripId}_${currentUserId}`;
@@ -419,6 +420,37 @@ export default function MoneyClient({
     const message = `Hey ${debtorName}! Just a friendly reminder from our trip on TripSplit ✈️\nPending balance to settle with ${creditorName}: ${formatted}.\nLet's settle up whenever convenient!`;
     const waUrl = `https://wa.me/?text=${encodeURIComponent(message)}`;
     window.open(waUrl, '_blank', 'noopener,noreferrer');
+  }
+
+  function handleShareSummary() {
+    let text = `✈️ Trip Settle-Up Summary\n`;
+    if (activeSettlements.length === 0) {
+      text += `All group balances are settled! Everyone is completely squared up. 🎉\n`;
+    } else {
+      text += `${isSimplified ? 'Simplified settlements' : 'Direct settlements'}:\n`;
+      activeSettlements.forEach((tx) => {
+        const fromUser = memberMap.get(tx.from)?.username || 'Member';
+        const toUser = memberMap.get(tx.to)?.username || 'Member';
+        text += `• ${fromUser} pays ${toUser}: ${formatMoney(tx.amount, currency)}\n`;
+      });
+      const totalOutstanding = activeSettlements.reduce((sum, t) => sum + t.amount, 0);
+      text += `Total outstanding: ${formatMoney(totalOutstanding, currency)}\n`;
+    }
+    text += `\nTracked on TripSplit`;
+
+    if (typeof navigator !== 'undefined' && navigator.share) {
+      navigator.share({ title: 'Trip Settle-Up Summary', text }).catch(() => {
+        if (navigator?.clipboard) {
+          navigator.clipboard.writeText(text);
+          setCopiedSummary(true);
+          setTimeout(() => setCopiedSummary(false), 2500);
+        }
+      });
+    } else if (typeof navigator !== 'undefined' && navigator.clipboard) {
+      navigator.clipboard.writeText(text);
+      setCopiedSummary(true);
+      setTimeout(() => setCopiedSummary(false), 2500);
+    }
   }
 
   // Settle all action
@@ -1031,16 +1063,28 @@ export default function MoneyClient({
               <span>Back to Money</span>
             </button>
 
-            {activeSettlements.length > 0 && (
+            <div className="flex items-center gap-2">
               <button
                 type="button"
-                onClick={handleSettleAll}
-                disabled={settlingInProgress}
-                className="min-h-[44px] text-xs font-semibold px-4 py-2 rounded-xl bg-[#4a6454] text-white hover:bg-[#385041] transition-all cursor-pointer shadow-xs disabled:opacity-50 flex items-center gap-1 active:scale-95"
+                onClick={handleShareSummary}
+                className="min-h-[44px] text-xs font-semibold px-3.5 py-2 rounded-xl bg-white hover:bg-gray-50 text-gray-700 border border-black/[0.08] transition-all cursor-pointer shadow-2xs flex items-center gap-1.5 active:scale-95"
+                title="Share settle-up summary to WhatsApp or clipboard"
               >
-                {settlingInProgress ? 'Settling…' : 'Settle All'}
+                <span>{copiedSummary ? '✓' : '📋'}</span>
+                <span>{copiedSummary ? 'Copied Summary' : 'Share Summary'}</span>
               </button>
-            )}
+
+              {activeSettlements.length > 0 && (
+                <button
+                  type="button"
+                  onClick={handleSettleAll}
+                  disabled={settlingInProgress}
+                  className="min-h-[44px] text-xs font-semibold px-4 py-2 rounded-xl bg-[#4a6454] text-white hover:bg-[#385041] transition-all cursor-pointer shadow-xs disabled:opacity-50 flex items-center gap-1 active:scale-95"
+                >
+                  {settlingInProgress ? 'Settling…' : 'Settle All'}
+                </button>
+              )}
+            </div>
           </div>
 
           <div>
